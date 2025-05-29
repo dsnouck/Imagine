@@ -14,7 +14,7 @@ public class ImageTests
 	[Fact]
 	public void Red()
 	{
-		var image = Enumerable.Repeat(Enumerable.Repeat(new RgbColor(1, 0, 0), 640).ToList(), 480).ToList();
+		var image = Enumerable.Repeat(Enumerable.Repeat(new RgbColor(1D, 0D, 0D), 640).ToList(), 480).ToList();
 		fileComponent.Save("red", image);
 	}
 }
