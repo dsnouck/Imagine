@@ -5,7 +5,7 @@ public class FileComponent(IColorComponent colorComponent) : IFileComponent
 	private const string Extension = "png";
 	private const string Output = "output";
 
-	public void Save(string name, List<List<RgbColor>> image)
+	public void Save(List<List<RgbColor>> image, string name)
 	{
 		Directory.CreateDirectory(Output);
 

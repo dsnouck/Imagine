@@ -2,5 +2,5 @@ namespace Imagine.Components;
 
 public interface IFileComponent
 {
-	void Save(string name, List<List<RgbColor>> image);
+	void Save(List<List<RgbColor>> image, string name);
 }
