@@ -40,7 +40,7 @@ public class ImageTests
 		var settings = new ImageSettings(
 			Rows: Rows,
 			Columns: Columns,
-			Subsamples: 4,
+			Subsamples: 2,
 			XMin: 0D,
 			XMax: 1D,
 			YMin: 0D,
