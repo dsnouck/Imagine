@@ -2,11 +2,11 @@ namespace Imagine.Components;
 
 public class LineComponent : ILineComponent
 {
-	public Func<double, double> LineThrough(Vector2 firstPoint, Vector2 secondPoint)
+	public Func<double, double> Line(Vector2 from, Vector2 to)
 	{
-		var slope = (secondPoint.Y - firstPoint.Y) / (secondPoint.X - firstPoint.X);
-		var yIntercept = ((firstPoint.Y * secondPoint.X) - (firstPoint.X * secondPoint.Y)) / (secondPoint.X - firstPoint.X);
+		var slope = (to.Y - from.Y) / (to.X - from.X);
+		var intercept = ((from.Y * to.X) - (from.X * to.Y)) / (to.X - from.X);
 
-		return x => (slope * x) + yIntercept;
+		return x => (slope * x) + intercept;
 	}
 }

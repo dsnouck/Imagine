@@ -2,5 +2,5 @@ namespace Imagine.Components;
 
 public interface ILineComponent
 {
-	Func<double, double> LineThrough(Vector2 firstPoint, Vector2 secondPoint);
+	Func<double, double> Line(Vector2 from, Vector2 to);
 }
