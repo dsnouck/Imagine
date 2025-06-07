@@ -4,15 +4,22 @@ public class SamplerComponent(IColorComponent colorComponent, ILineComponent lin
 {
 	private const double Half = 0.5D;
 
+	public List<List<RgbColor>> Sample(Func<Vector2, HsvColor> function, ImageSettings settings)
+	{
+		RgbColor RgbFunction(Vector2 point) => colorComponent.ToRgb(function(point));
+
+		return Sample(RgbFunction, settings);
+	}
+
 	public List<List<RgbColor>> Sample(Func<Vector2, RgbColor> function, ImageSettings settings)
 	{
-		var rowToY = lineComponent.LineThrough(
-			new Vector2(-Half, settings.YMax),
-			new Vector2((settings.Rows * settings.Subsamples) - Half, settings.YMin));
+		var rowToY = lineComponent.Line(
+			new Vector2(-Half, settings.MaximumY),
+			new Vector2((settings.Rows * settings.Subsamples) - Half, settings.MinimumY));
 
-		var columnToX = lineComponent.LineThrough(
-			new Vector2(-Half, settings.XMin),
-			new Vector2((settings.Columns * settings.Subsamples) - Half, settings.XMax));
+		var columnToX = lineComponent.Line(
+			new Vector2(-Half, settings.MinimumX),
+			new Vector2((settings.Columns * settings.Subsamples) - Half, settings.MaximumX));
 
 		return Enumerable.Range(0, settings.Rows)
 			.AsParallel()

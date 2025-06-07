@@ -9,6 +9,7 @@ public class ImageTests
 	private readonly IFileComponent fileComponent;
 	private readonly ILineComponent lineComponent;
 	private readonly ISamplerComponent samplerComponent;
+	private readonly IVector2Component vector2Component;
 
 	public ImageTests()
 	{
@@ -16,12 +17,27 @@ public class ImageTests
 		fileComponent = new FileComponent(colorComponent);
 		lineComponent = new LineComponent();
 		samplerComponent = new SamplerComponent(colorComponent, lineComponent);
+		vector2Component = new Vector2Component();
 	}
 
 	[Fact]
-	public void Red()
+	public void HsvRed()
 	{
-		const string name = "red";
+		const string name = "hsv-red";
+
+		var image = Enumerable.Repeat(
+			Enumerable.Repeat(
+				new HsvColor(1D, 1D, 1D),
+				Columns).ToList(),
+			Rows).ToList();
+
+		fileComponent.Save(image, name);
+	}
+
+	[Fact]
+	public void RgbRed()
+	{
+		const string name = "rgb-red";
 
 		var image = Enumerable.Repeat(
 			Enumerable.Repeat(
@@ -33,25 +49,56 @@ public class ImageTests
 	}
 
 	[Fact]
-	public void RgbGradient()
+	public void HsvGradient()
 	{
-		const string name = "rgb-gradient";
+		const string name = "hsv-gradient";
 
+		var center = new Vector2(0.5D, 0.5D);
 		var settings = new ImageSettings(
 			Rows: Rows,
 			Columns: Columns,
 			Subsamples: 2,
-			XMin: 0D,
-			XMax: 1D,
-			YMin: 0D,
-			YMax: 1D);
+			MinimumX: 0D,
+			MaximumX: 1D,
+			MinimumY: 0D,
+			MaximumY: 1D);
 
-		static RgbColor Function(Vector2 point)
+		HsvColor Function(Vector2 point)
 		{
-			var r = Math.Sqrt((point.X * point.X) + (point.Y * point.Y));
+			var r = vector2Component.Length(vector2Component.Subtract(point, center));
+
+			var hue = (2D * point.X) - 1D;
+			var saturation = r < 0.5D ? 1D - (2D * r) : 0D;
+			var value = point.Y;
+
+			return new HsvColor(hue, saturation, value);
+		}
+
+		var image = samplerComponent.Sample(Function, settings);
+		fileComponent.Save(image, name);
+	}
+
+	[Fact]
+	public void RgbGradient()
+	{
+		const string name = "rgb-gradient";
+
+		var center = new Vector2(0.5D, 0.5D);
+		var settings = new ImageSettings(
+			Rows: Rows,
+			Columns: Columns,
+			Subsamples: 2,
+			MinimumX: 0D,
+			MaximumX: 1D,
+			MinimumY: 0D,
+			MaximumY: 1D);
+
+		RgbColor Function(Vector2 point)
+		{
+			var r = vector2Component.Length(vector2Component.Subtract(point, center));
 
 			var red = point.X;
-			var green = 1D / (1D + (4D * r * r));
+			var green = r < 0.5D ? 1D - (2D * r) : 0D;
 			var blue = point.Y;
 
 			return new RgbColor(red, green, blue);
