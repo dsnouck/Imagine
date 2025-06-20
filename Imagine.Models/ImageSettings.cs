@@ -1,10 +1,10 @@
 namespace Imagine.Models;
 
 public readonly record struct ImageSettings(
-	int Rows,
-	int Columns,
+	int Width,
+	int Height,
 	int Subsamples,
-	double MinimumX,
-	double MaximumX,
-	double MinimumY,
-	double MaximumY);
+	double XMin,
+	double Xmax,
+	double YMin,
+	double Ymax);

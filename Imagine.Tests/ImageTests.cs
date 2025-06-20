@@ -2,9 +2,6 @@ namespace Imagine.Tests;
 
 public class ImageTests
 {
-	private const int Rows = 512;
-	private const int Columns = 512;
-
 	private readonly IColorComponent colorComponent;
 	private readonly IFileComponent fileComponent;
 	private readonly ILineComponent lineComponent;
@@ -21,50 +18,22 @@ public class ImageTests
 	}
 
 	[Fact]
-	public void HsvRed()
+	public void Hsv()
 	{
-		const string name = "hsv-red";
+		const string name = "hsv";
 
-		var image = Enumerable.Repeat(
-			Enumerable.Repeat(
-				new HsvColor(1D, 1D, 1D),
-				Columns).ToList(),
-			Rows).ToList();
-
-		fileComponent.Save(image, name);
-	}
-
-	[Fact]
-	public void RgbRed()
-	{
-		const string name = "rgb-red";
-
-		var image = Enumerable.Repeat(
-			Enumerable.Repeat(
-				new RgbColor(1D, 0D, 0D),
-				Columns).ToList(),
-			Rows).ToList();
-
-		fileComponent.Save(image, name);
-	}
-
-	[Fact]
-	public void HsvGradient()
-	{
-		const string name = "hsv-gradient";
-
-		var center = new Vector2(0.5D, 0.5D);
 		var settings = new ImageSettings(
-			Rows: Rows,
-			Columns: Columns,
+			Width: 512,
+			Height: 512,
 			Subsamples: 2,
-			MinimumX: 0D,
-			MaximumX: 1D,
-			MinimumY: 0D,
-			MaximumY: 1D);
+			XMin: 0D,
+			Xmax: 1D,
+			YMin: 0D,
+			Ymax: 1D);
 
 		HsvColor Function(Vector2 point)
 		{
+			var center = new Vector2(0.5D, 0.5D);
 			var r = vector2Component.Length(vector2Component.Subtract(point, center));
 
 			var hue = (2D * point.X) - 1D;
@@ -79,22 +48,40 @@ public class ImageTests
 	}
 
 	[Fact]
-	public void RgbGradient()
+	public void Red()
 	{
-		const string name = "rgb-gradient";
+		const string name = "red";
 
-		var center = new Vector2(0.5D, 0.5D);
+		const int width = 512;
+		const int height = 512;
+		var red = new RgbColor(1D, 0D, 0D);
+
+		var image = Enumerable.Repeat(
+			Enumerable.Repeat(
+				red,
+				width).ToList(),
+			height).ToList();
+
+		fileComponent.Save(image, name);
+	}
+
+	[Fact]
+	public void Rgb()
+	{
+		const string name = "rgb";
+
 		var settings = new ImageSettings(
-			Rows: Rows,
-			Columns: Columns,
+			Width: 512,
+			Height: 512,
 			Subsamples: 2,
-			MinimumX: 0D,
-			MaximumX: 1D,
-			MinimumY: 0D,
-			MaximumY: 1D);
+			XMin: 0D,
+			Xmax: 1D,
+			YMin: 0D,
+			Ymax: 1D);
 
 		RgbColor Function(Vector2 point)
 		{
+			var center = new Vector2(0.5D, 0.5D);
 			var r = vector2Component.Length(vector2Component.Subtract(point, center));
 
 			var red = point.X;

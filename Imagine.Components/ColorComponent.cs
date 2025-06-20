@@ -2,41 +2,41 @@ namespace Imagine.Components;
 
 public class ColorComponent : IColorComponent
 {
-	private const double Yellow = 1D;
-	private const double Green = 2D;
-	private const double Cyan = 3D;
-	private const double Blue = 4D;
-	private const double Magenta = 5D;
-	private const double Red = 6D;
-
 	public RgbColor Average(List<RgbColor> colors) =>
 		new(colors.Average(color => color.Red), colors.Average(color => color.Green), colors.Average(color => color.Blue));
 
 	public RgbColor ToRgb(HsvColor color)
 	{
+		const double yellow = 1D;
+		const double green = 2D;
+		const double cyan = 3D;
+		const double blue = 4D;
+		const double magenta = 5D;
+		const double red = 6D;
+
 		var hue = color.Hue % 1D;
 		if (hue < 0D)
 		{
 			hue++;
 		}
 
-		hue *= Red;
+		hue *= red;
 
 		var saturation = Math.Clamp(color.Saturation, 0D, 1D);
 		var value = Math.Clamp(color.Value, 0D, 1D);
 
-		var minimum = value * (1D - saturation);
-		var intermediate = value * (1D - (saturation * Math.Abs((hue % 2D) - 1D)));
-		var maximum = value;
+		var min = value * (1D - saturation);
+		var between = value * (1D - (saturation * Math.Abs((hue % 2D) - 1D)));
+		var max = value;
 
 		return hue switch
 		{
-			< Yellow => new RgbColor(maximum, intermediate, minimum),
-			< Green => new RgbColor(intermediate, maximum, minimum),
-			< Cyan => new RgbColor(minimum, maximum, intermediate),
-			< Blue => new RgbColor(minimum, intermediate, maximum),
-			< Magenta => new RgbColor(intermediate, minimum, maximum),
-			_ => new RgbColor(maximum, minimum, intermediate),
+			< yellow => new RgbColor(max, between, min),
+			< green => new RgbColor(between, max, min),
+			< cyan => new RgbColor(min, max, between),
+			< blue => new RgbColor(min, between, max),
+			< magenta => new RgbColor(between, min, max),
+			_ => new RgbColor(max, min, between),
 		};
 	}
 
