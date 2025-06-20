@@ -1,2 +1,2 @@
 # Imagine
-Renders images.
+Renders images and movies.

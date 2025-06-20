@@ -1,32 +1,57 @@
 namespace Imagine.Components;
 
+using System.Diagnostics;
+
 public class FileComponent(IColorComponent colorComponent) : IFileComponent
 {
-	private const string Extension = "png";
-	private const string Output = "output";
+	private const string OutputDirectory = "output";
+	private const string FramesDirectory = $"{OutputDirectory}/frames";
 
-	public void Save(List<List<HsvColor>> image, string name)
+	public void Save(List<List<RgbColor>> image, string name) => Save(image, OutputDirectory, name);
+
+	public void Save(List<List<List<RgbColor>>> movie, string name)
 	{
-		var rgbImage = image.Select(row => row.Select(colorComponent.ToRgb).ToList()).ToList();
-		Save(rgbImage, name);
+		Directory.CreateDirectory($"{FramesDirectory}");
+		Directory.CreateDirectory($"{OutputDirectory}");
+
+		var frames = movie.Count;
+		for (var frame = 0; frame < frames; frame++)
+		{
+			Save(movie[frame], FramesDirectory, $"{name}-{frame:D4}");
+		}
+
+		using var process = new Process
+		{
+			StartInfo = new ProcessStartInfo
+			{
+				FileName = "ffmpeg",
+				Arguments = $"-y -framerate 30 -i {FramesDirectory}/{name}-%04d.png -c:v libx264 -pix_fmt yuv420p {OutputDirectory}/{name}.mp4",
+				RedirectStandardOutput = true,
+				UseShellExecute = false,
+				CreateNoWindow = true,
+			},
+		};
+
+		process.Start();
+		process.WaitForExit();
 	}
 
-	public void Save(List<List<RgbColor>> image, string name)
+	private void Save(List<List<RgbColor>> image, string directory, string name)
 	{
-		Directory.CreateDirectory(Output);
+		Directory.CreateDirectory(directory);
 
-		var rows = image.Count;
-		var columns = image.First().Count;
-		using var outputImage = new Image<Rgba32>(columns, rows);
+		var height = image.Count;
+		var width = image.First().Count;
+		using var outputImage = new Image<Rgba32>(width, height);
 
-		for (var row = 0; row < rows; row++)
+		for (var row = 0; row < height; row++)
 		{
-			for (var column = 0; column < columns; column++)
+			for (var column = 0; column < width; column++)
 			{
 				outputImage[column, row] = colorComponent.ToRgba32(image[row][column]);
 			}
 		}
 
-		outputImage.Save($"{Output}/{name}.{Extension}");
+		outputImage.Save($"{directory}/{name}.png");
 	}
 }
