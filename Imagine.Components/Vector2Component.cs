@@ -1,7 +1,5 @@
 namespace Imagine.Components;
 
-using Imagine.Models;
-
 public class Vector2Component : IVector2Component
 {
 	public double DotProduct(Vector2 multiplicand, Vector2 multiplier) =>

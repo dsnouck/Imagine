@@ -1,7 +1,5 @@
 namespace Imagine.Components;
 
-using System.Diagnostics;
-
 public class FileComponent(IColorComponent colorComponent) : IFileComponent
 {
 	private const string OutputDirectory = "output";

@@ -11,6 +11,7 @@
 		<Using Include="SixLabors.ImageSharp" />
 		<Using Include="SixLabors.ImageSharp.PixelFormats" />
 		<Using Include="System.Collections.Generic" />
+		<Using Include="System.Diagnostics" />
 	</ItemGroup>
 
 	<ItemGroup>
