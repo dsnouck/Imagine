@@ -14,7 +14,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Imagine.Models\Imagine.Models.csproj" />
+		<ProjectReference Include="../Imagine.Models/Imagine.Models.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
