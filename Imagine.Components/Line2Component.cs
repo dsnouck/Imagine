@@ -1,6 +1,6 @@
 namespace Imagine.Components;
 
-public class LineComponent : ILineComponent
+public class Line2Component : ILine2Component
 {
 	public Func<double, double> Line(Vector2 from, Vector2 to)
 	{

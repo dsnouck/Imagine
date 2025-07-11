@@ -4,7 +4,7 @@ public class MovieTests
 {
 	private readonly IColorComponent colorComponent;
 	private readonly IFileComponent fileComponent;
-	private readonly ILineComponent lineComponent;
+	private readonly ILine2Component line2Component;
 	private readonly ISamplerComponent samplerComponent;
 	private readonly IVector2Component vector2Component;
 	private readonly IVector3Component vector3Component;
@@ -13,8 +13,8 @@ public class MovieTests
 	{
 		colorComponent = new ColorComponent();
 		fileComponent = new FileComponent(colorComponent);
-		lineComponent = new LineComponent();
-		samplerComponent = new SamplerComponent(colorComponent, lineComponent);
+		line2Component = new Line2Component();
+		samplerComponent = new SamplerComponent(colorComponent, line2Component);
 		vector2Component = new Vector2Component();
 		vector3Component = new Vector3Component();
 	}

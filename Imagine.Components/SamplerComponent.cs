@@ -1,6 +1,6 @@
 namespace Imagine.Components;
 
-public class SamplerComponent(IColorComponent colorComponent, ILineComponent lineComponent) : ISamplerComponent
+public class SamplerComponent(IColorComponent colorComponent, ILine2Component line2Component) : ISamplerComponent
 {
 	public List<List<RgbColor>> Sample(Func<Vector2, HsvColor> function, ImageSettings settings)
 	{
@@ -11,11 +11,11 @@ public class SamplerComponent(IColorComponent colorComponent, ILineComponent lin
 
 	public List<List<RgbColor>> Sample(Func<Vector2, RgbColor> function, ImageSettings settings)
 	{
-		var rowToY = lineComponent.Line(
+		var rowToY = line2Component.Line(
 			new Vector2(-0.5D, settings.Ymax),
 			new Vector2((settings.Height * settings.Subsamples) - 0.5D, settings.YMin));
 
-		var columnToX = lineComponent.Line(
+		var columnToX = line2Component.Line(
 			new Vector2(-0.5D, settings.XMin),
 			new Vector2((settings.Width * settings.Subsamples) - 0.5D, settings.Xmax));
 
@@ -44,7 +44,7 @@ public class SamplerComponent(IColorComponent colorComponent, ILineComponent lin
 
 	public List<List<List<RgbColor>>> Sample(Func<Vector3, RgbColor> function, MovieSettings settings)
 	{
-		var frameToZ = lineComponent.Line(
+		var frameToZ = line2Component.Line(
 			new Vector2(-0.5D, settings.ZMin),
 			new Vector2(settings.Frames - 0.5D, settings.ZMax));
 
