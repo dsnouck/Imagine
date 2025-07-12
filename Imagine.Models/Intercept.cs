@@ -1,3 +1,3 @@
 namespace Imagine.Models;
 
-public readonly record struct Intercept(Vector3 Position, Vector3 Normal);
+public readonly record struct Intercept(double Distance, Vector3 Normal, RgbColor Color);
