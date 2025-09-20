@@ -5,6 +5,6 @@ public readonly record struct ImageSettings(
 	int Height,
 	int Subsamples,
 	double XMin,
-	double Xmax,
+	double XMax,
 	double YMin,
-	double Ymax);
+	double YMax);

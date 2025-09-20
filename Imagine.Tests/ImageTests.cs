@@ -27,9 +27,9 @@ public class ImageTests
 			Height: 512,
 			Subsamples: 2,
 			XMin: 0D,
-			Xmax: 1D,
+			XMax: 1D,
 			YMin: 0D,
-			Ymax: 1D);
+			YMax: 1D);
 
 		HsvColor Function(Vector2 point)
 		{
@@ -75,9 +75,9 @@ public class ImageTests
 			Height: 512,
 			Subsamples: 2,
 			XMin: 0D,
-			Xmax: 1D,
+			XMax: 1D,
 			YMin: 0D,
-			Ymax: 1D);
+			YMax: 1D);
 
 		RgbColor Function(Vector2 point)
 		{

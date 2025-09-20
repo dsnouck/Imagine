@@ -12,12 +12,12 @@ public class SamplerComponent(IColorComponent colorComponent, ILine2Component li
 	public List<List<RgbColor>> Sample(Func<Vector2, RgbColor> function, ImageSettings settings)
 	{
 		var rowToY = line2Component.Line(
-			new Vector2(-0.5D, settings.Ymax),
+			new Vector2(-0.5D, settings.YMax),
 			new Vector2((settings.Height * settings.Subsamples) - 0.5D, settings.YMin));
 
 		var columnToX = line2Component.Line(
 			new Vector2(-0.5D, settings.XMin),
-			new Vector2((settings.Width * settings.Subsamples) - 0.5D, settings.Xmax));
+			new Vector2((settings.Width * settings.Subsamples) - 0.5D, settings.XMax));
 
 		return Enumerable.Range(0, settings.Height)
 			.AsParallel()
@@ -53,9 +53,9 @@ public class SamplerComponent(IColorComponent colorComponent, ILine2Component li
 			Height: settings.Height,
 			Subsamples: settings.Subsamples,
 			XMin: settings.XMin,
-			Xmax: settings.XMax,
+			XMax: settings.XMax,
 			YMin: settings.YMin,
-			Ymax: settings.YMax);
+			YMax: settings.YMax);
 
 		var movie = new List<List<List<RgbColor>>>();
 
