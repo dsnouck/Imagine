@@ -40,6 +40,9 @@ public class ColorComponent : IColorComponent
 		};
 	}
 
+	// TODO: Order methods logically.
+	public RgbColor Multiply(RgbColor color, double factor) => new(color.Red * factor, color.Green * factor, color.Blue * factor);
+
 	public Rgba32 ToRgba32(RgbColor color) => new(ToByte(color.Red), ToByte(color.Green), ToByte(color.Blue));
 
 	private static byte ToByte(double value)

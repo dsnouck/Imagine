@@ -2,5 +2,22 @@ namespace Imagine.Components;
 
 public interface IVector3Component
 {
+	Vector3 Add(Vector3 vector, Vector3 otherVector);
+
+	Vector3 CrossProduct(Vector3 vector, Vector3 otherVector);
+
+	Vector3 Divide(Vector3 vector, double divisor);
+
+	double DotProduct(Vector3 vector, Vector3 otherVector);
+
+	double Length(Vector3 vector);
+
+	Vector3 Multiply(Vector3 vector, double factor);
+
+	Vector3 Normalize(Vector3 vector);
+
+	// TODO: Rename arguments.
+	Vector3 Subtract(Vector3 minuend, Vector3 subtrahend);
+
 	Vector2 ToVector2(Vector3 vector);
 }
