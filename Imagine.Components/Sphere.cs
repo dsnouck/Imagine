@@ -30,7 +30,7 @@ public class Sphere(
 			Select(zero => new Intercept(
 				Distance: zero,
 				Normal: vector3Component.Multiply(vector3Component.Normalize(line3Component.GetPointAtDistance(ray, zero)), vector3Component.Length(ray.Direction)),
-				Color: new RgbColor(1D, 0D, 0D)))
+				Color: new RgbColor(1D, 1D, 1D)))
 			.ToList();
 	}
 }
