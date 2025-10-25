@@ -4,6 +4,8 @@ public interface IVector3Component
 {
 	Vector3 Add(Vector3 vector, Vector3 otherVector);
 
+	Vector3 CreateVector3FromSphericalCoordinates(double radius, double inclination, double azimuth);
+
 	Vector3 CrossProduct(Vector3 vector, Vector3 otherVector);
 
 	Vector3 Divide(Vector3 vector, double divisor);

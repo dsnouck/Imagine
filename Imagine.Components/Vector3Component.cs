@@ -5,6 +5,21 @@ public class Vector3Component : IVector3Component
 	public Vector3 Add(Vector3 vector, Vector3 otherVector) =>
 		new(vector.X + otherVector.X, vector.Y + otherVector.Y, vector.Z + otherVector.Z);
 
+	public Vector3 CreateVector3FromSphericalCoordinates(double radius, double inclination, double azimuth)
+	{
+		var sineOfInclination = Math.Sin(inclination);
+		var cosineOfInclination = Math.Cos(inclination);
+		var sineOfAzimuth = Math.Sin(azimuth);
+		var cosineOfAzimuth = Math.Cos(azimuth);
+
+		return new Vector3
+		{
+			X = radius * sineOfInclination * cosineOfAzimuth,
+			Y = radius * sineOfInclination * sineOfAzimuth,
+			Z = radius * cosineOfInclination,
+		};
+	}
+
 	public Vector3 CrossProduct(Vector3 vector, Vector3 otherVector) =>
 		new(
 			(vector.Y * otherVector.Z) - (vector.Z * otherVector.Y),
