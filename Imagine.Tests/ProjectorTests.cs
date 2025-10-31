@@ -123,6 +123,37 @@ public class ProjectorTests
 		fileComponent.Save(image, name);
 	}
 
+	[Fact]
+	public void Icosahedron()
+	{
+		const string name = "icosahedron";
+
+		var scene = CreateIcosahedronComponent();
+
+		// TODO: Find nice settings for all tests.
+		var projectorSettings = new ProjectorSettings(
+			Eye: new(4D, 4D, 4D),
+			Focus: new(0D, 0D, 0D),
+			FieldOfView: Math.PI / 4D,
+			// TODO: Use new() everywhere.
+			BackgroundColor: new RgbColor(0D, 0D, 0D));
+
+		// TODO: Find nice settings for all tests.
+		// TODO: Rename variables named settings to samplerSettings.
+		var settings = new ImageSettings(
+			Width: 512,
+			Height: 512,
+			Subsamples: 2,
+			XMin: -1D,
+			XMax: 1D,
+			YMin: -1,
+			YMax: 1D);
+
+		var projection = projectorComponent.Project(scene, projectorSettings);
+		var image = samplerComponent.Sample(projection, settings);
+		fileComponent.Save(image, name);
+	}
+
 	// TODO: Move to static class Scene.
 	private ISceneComponent CreateTetrahedronComponent()
 	{
@@ -151,6 +182,41 @@ public class ProjectorTests
 			new Plane(new Vector3(-1D, 0D, 0D), vector3Component),
 			new Plane(new Vector3(0D, -1D, 0D), vector3Component),
 			new Plane(new Vector3(0D, 0D, 1D), vector3Component),
+		};
+
+		return CreateIntersectionComponent(planes);
+	}
+
+	// TODO: Move to static class Scene.
+	private ISceneComponent CreateIcosahedronComponent()
+	{
+		var dihedralAngle = Math.Acos(-Math.Sqrt(5D) / 3D);
+		var secondInclination = Math.Acos(-1D / 3D);
+		var azimuthStep = Math.PI / 3D;
+		var azimuthOffset = Math.PI / 3D - Math.Acos(Math.Sqrt(5D / 8D));
+
+		var planes = new List<ISceneComponent>
+		{
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI, 0D), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, dihedralAngle, 0D * azimuthStep), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, dihedralAngle, 2D * azimuthStep), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, dihedralAngle, 4D * azimuthStep), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, secondInclination, 1D * azimuthStep - azimuthOffset), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, secondInclination, 1D * azimuthStep + azimuthOffset), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, secondInclination, 3D * azimuthStep - azimuthOffset), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, secondInclination, 3D * azimuthStep + azimuthOffset), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, secondInclination, 5D * azimuthStep - azimuthOffset), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, secondInclination, 5D * azimuthStep + azimuthOffset), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - secondInclination, 0D * azimuthStep - azimuthOffset), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - secondInclination, 0D * azimuthStep + azimuthOffset), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - secondInclination, 2D * azimuthStep - azimuthOffset), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - secondInclination, 2D * azimuthStep + azimuthOffset), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - secondInclination, 4D * azimuthStep - azimuthOffset), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - secondInclination, 4D * azimuthStep + azimuthOffset), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - dihedralAngle, 1D * azimuthStep), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - dihedralAngle, 3D * azimuthStep), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - dihedralAngle, 5D * azimuthStep), vector3Component),
+			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, 0D, 0D), vector3Component),
 		};
 
 		return CreateIntersectionComponent(planes);
