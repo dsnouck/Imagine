@@ -32,6 +32,7 @@ public class Plane(Vector3 normal, IVector3Component vector3Component) : ISceneC
 		// TODO: Can we use new() here?
 		return new List<Intercept>
 		{
+			// TODO: Use the correct override of new()
 			new()
 			{
 				Distance = distance,
