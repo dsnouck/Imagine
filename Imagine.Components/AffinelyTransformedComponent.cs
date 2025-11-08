@@ -1,0 +1,88 @@
+namespace Imagine.Components;
+
+public class AffinelyTransformedComponent(
+	IMatrix4Component matrix4Component,
+	ISceneComponent sceneComponent,
+	Matrix4 transformation,
+	Matrix4 backwardTransformation) : ISceneComponent
+{
+	public bool Contains(Vector3 point)
+	{
+		return sceneComponent.Contains(TransformedBackPoint(point));
+	}
+
+	public List<Intercept> Intercepts(Line3 ray)
+	{
+		var transformedLineOfSight = new Line3
+		{
+			Origin = TransformedBackPoint(ray.Origin),
+			Direction = TransformedBackDirection(ray.Direction),
+		};
+
+		return sceneComponent.Intercepts(transformedLineOfSight)
+			.Select(surfaceIntersection => new Intercept
+			{
+				Color = surfaceIntersection.Color,
+				Distance = surfaceIntersection.Distance,
+				Normal = TransformedDirection(surfaceIntersection.Normal),
+			})
+			.ToList();
+	}
+
+	private Vector3 TransformedDirection(Vector3 direction)
+	{
+		var direction4 = new Vector4
+		{
+			X = direction.X,
+			Y = direction.Y,
+			Z = direction.Z,
+			W = 0D,
+		};
+		var transformedDirection4 = matrix4Component.Multiply(transformation, direction4);
+
+		return new Vector3
+		{
+			X = transformedDirection4.X,
+			Y = transformedDirection4.Y,
+			Z = transformedDirection4.Z,
+		};
+	}
+
+	private Vector3 TransformedBackDirection(Vector3 direction)
+	{
+		var direction4 = new Vector4
+		{
+			X = direction.X,
+			Y = direction.Y,
+			Z = direction.Z,
+			W = 0D,
+		};
+		var transformedDirection4 = matrix4Component.Multiply(backwardTransformation, direction4);
+
+		return new Vector3
+		{
+			X = transformedDirection4.X,
+			Y = transformedDirection4.Y,
+			Z = transformedDirection4.Z,
+		};
+	}
+
+	private Vector3 TransformedBackPoint(Vector3 point)
+	{
+		var point4 = new Vector4
+		{
+			X = point.X,
+			Y = point.Y,
+			Z = point.Z,
+			W = 1D,
+		};
+		var transformedPoint4 = matrix4Component.Multiply(backwardTransformation, point4);
+
+		return new Vector3
+		{
+			X = transformedPoint4.X,
+			Y = transformedPoint4.Y,
+			Z = transformedPoint4.Z,
+		};
+	}
+}

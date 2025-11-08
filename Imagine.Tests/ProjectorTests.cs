@@ -14,6 +14,7 @@ public class ProjectorTests
 	private readonly IProjectorComponent projectorComponent;
 
 	private readonly IFuncVector2Vector3Component funcVector2Vector3Component;
+	private readonly IMatrix4Component matrix4Component = new Matrix4Component(new Vector3Component(), new Vector4Component());
 
 	public ProjectorTests()
 	{
@@ -98,6 +99,102 @@ public class ProjectorTests
 		const string name = "cube";
 
 		var scene = CreateCubeComponent();
+
+		// TODO: Find nice settings for all tests.
+		var projectorSettings = new ProjectorSettings(
+			Eye: new(2D, 3D, 4D),
+			Focus: new(0D, 0D, 0D),
+			FieldOfView: Math.PI / 4D,
+			// TODO: Use new() everywhere.
+			BackgroundColor: new RgbColor(0D, 0D, 0D));
+
+		// TODO: Find nice settings for all tests.
+		// TODO: Rename variables named settings to samplerSettings.
+		var settings = new ImageSettings(
+			Width: 512,
+			Height: 512,
+			Subsamples: 2,
+			XMin: -1D,
+			XMax: 1D,
+			YMin: -1,
+			YMax: 1D);
+
+		var projection = projectorComponent.Project(scene, projectorSettings);
+		var image = samplerComponent.Sample(projection, settings);
+		fileComponent.Save(image, name);
+	}
+
+	// TODO: Reorder methods alphabetically?
+	[Fact]
+	public void RotatedCube()
+	{
+		const string name = "rotated-cube";
+
+		var scene = CreateRotatedComponent(CreateCubeComponent(), new Vector3(0D, 0D, 1D), Math.PI / 4D);
+
+		// TODO: Find nice settings for all tests.
+		var projectorSettings = new ProjectorSettings(
+			Eye: new(2D, 3D, 4D),
+			Focus: new(0D, 0D, 0D),
+			FieldOfView: Math.PI / 4D,
+			// TODO: Use new() everywhere.
+			BackgroundColor: new RgbColor(0D, 0D, 0D));
+
+		// TODO: Find nice settings for all tests.
+		// TODO: Rename variables named settings to samplerSettings.
+		var settings = new ImageSettings(
+			Width: 512,
+			Height: 512,
+			Subsamples: 2,
+			XMin: -1D,
+			XMax: 1D,
+			YMin: -1,
+			YMax: 1D);
+
+		var projection = projectorComponent.Project(scene, projectorSettings);
+		var image = samplerComponent.Sample(projection, settings);
+		fileComponent.Save(image, name);
+	}
+
+	// TODO: Reorder methods alphabetically?
+	[Fact]
+	public void ScaledCube()
+	{
+		const string name = "scaled-cube";
+
+		var scene = CreateScaledComponent(CreateCubeComponent(), 0.5D);
+
+		// TODO: Find nice settings for all tests.
+		var projectorSettings = new ProjectorSettings(
+			Eye: new(2D, 3D, 4D),
+			Focus: new(0D, 0D, 0D),
+			FieldOfView: Math.PI / 4D,
+			// TODO: Use new() everywhere.
+			BackgroundColor: new RgbColor(0D, 0D, 0D));
+
+		// TODO: Find nice settings for all tests.
+		// TODO: Rename variables named settings to samplerSettings.
+		var settings = new ImageSettings(
+			Width: 512,
+			Height: 512,
+			Subsamples: 2,
+			XMin: -1D,
+			XMax: 1D,
+			YMin: -1,
+			YMax: 1D);
+
+		var projection = projectorComponent.Project(scene, projectorSettings);
+		var image = samplerComponent.Sample(projection, settings);
+		fileComponent.Save(image, name);
+	}
+
+	// TODO: Reorder methods alphabetically?
+	[Fact]
+	public void TranslatedCube()
+	{
+		const string name = "translated-cube";
+
+		var scene = CreateTranslatedComponent(CreateCubeComponent(), new Vector3(0D, 0.5D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		var projectorSettings = new ProjectorSettings(
@@ -370,4 +467,31 @@ public class ProjectorTests
 					scene,
 					otherScene,
 					line3Component));
+
+	private ISceneComponent CreateRotatedComponent(ISceneComponent scene, Vector3 axis, double angle)
+	{
+		return new AffinelyTransformedComponent(
+			matrix4Component,
+			scene,
+			matrix4Component.CreateRotationMatrix(axis, angle),
+			matrix4Component.CreateRotationMatrix(axis, -angle));
+	}
+
+	private ISceneComponent CreateScaledComponent(ISceneComponent scene, double factor)
+	{
+		return new AffinelyTransformedComponent(
+			matrix4Component,
+			scene,
+			matrix4Component.CreateScalingMatrix(factor),
+			matrix4Component.CreateScalingMatrix(1 / factor));
+	}
+
+	private ISceneComponent CreateTranslatedComponent(ISceneComponent scene, Vector3 translation)
+	{
+		return new AffinelyTransformedComponent(
+			matrix4Component,
+			scene,
+			matrix4Component.CreateTranslationMatrix(translation),
+			matrix4Component.CreateTranslationMatrix(vector3Component.Multiply(translation, -1D)));
+	}
 }
