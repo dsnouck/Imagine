@@ -2,6 +2,7 @@ namespace Imagine.Tests;
 
 public class ProjectorTests
 {
+	// TODO: Upgrade to .NET 10.
 	// TODO: Clean up fields.
 	private readonly IColorComponent colorComponent;
 	private readonly IFileComponent fileComponent;
@@ -40,6 +41,38 @@ public class ProjectorTests
 		// TODO: Find nice settings for all tests.
 		var projectorSettings = new ProjectorSettings(
 			Eye: new(2D, 3D, 4D),
+			Focus: new(0D, 0D, 0D),
+			FieldOfView: Math.PI / 4D,
+			// TODO: Use new() everywhere.
+			BackgroundColor: new RgbColor(0D, 0D, 0D));
+
+		// TODO: Find nice settings for all tests.
+		// TODO: Rename variables named settings to samplerSettings.
+		var settings = new ImageSettings(
+			Width: 512,
+			Height: 512,
+			Subsamples: 2,
+			XMin: -1D,
+			XMax: 1D,
+			YMin: -1,
+			YMax: 1D);
+
+		var projection = projectorComponent.Project(scene, projectorSettings);
+		var image = samplerComponent.Sample(projection, settings);
+		fileComponent.Save(image, name);
+	}
+
+	// TODO: Reorder methods alphabetically?
+	[Fact]
+	public void Cone()
+	{
+		const string name = "cone";
+
+		var scene = CreateConeComponent();
+
+		// TODO: Find nice settings for all tests.
+		var projectorSettings = new ProjectorSettings(
+			Eye: new(2D, 3D, 2D),
 			Focus: new(0D, 0D, 0D),
 			FieldOfView: Math.PI / 4D,
 			// TODO: Use new() everywhere.
@@ -372,6 +405,19 @@ public class ProjectorTests
 			new Plane(new Vector3(0D, 1D, 0D), vector3Component),
 			new Plane(new Vector3(-1D, 0D, 0D), vector3Component),
 			new Plane(new Vector3(0D, -1D, 0D), vector3Component),
+			new Plane(new Vector3(0D, 0D, 1D), vector3Component),
+		};
+
+		return CreateIntersectionComponent(planes);
+	}
+
+	// TODO: Move to static class Scene.
+	private ISceneComponent CreateConeComponent()
+	{
+		var planes = new List<ISceneComponent>
+		{
+			new Cone(funcDoubleDoubleComponent, line3Component, vector3Component),
+			new Plane(new Vector3(0D, 0D, -1D), vector3Component),
 			new Plane(new Vector3(0D, 0D, 1D), vector3Component),
 		};
 
