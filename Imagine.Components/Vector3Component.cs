@@ -2,9 +2,7 @@ namespace Imagine.Components;
 
 public class Vector3Component : IVector3Component
 {
-	public Vector3 Add(Vector3 vector, Vector3 otherVector) =>
-		new(vector.X + otherVector.X, vector.Y + otherVector.Y, vector.Z + otherVector.Z);
-
+	// TODO: Define Vector3Spherical.
 	public Vector3 CreateVector3FromSphericalCoordinates(double radius, double inclination, double azimuth)
 	{
 		var sineOfInclination = Math.Sin(inclination);

@@ -45,7 +45,7 @@ public class ProjectorComponent(
 	{
 		var viewingDirection = vector3Component.Normalize(
 			vector3Component.Subtract(settings.Focus, settings.Eye));
-		var centerScreen = vector3Component.Add(settings.Eye, viewingDirection);
+		var centerScreen = settings.Eye + viewingDirection;
 		var vertical = new Vector3 { X = 0D, Y = 0D, Z = 1D };
 		var xVector = vector3Component.Normalize(
 			vector3Component.CrossProduct(
