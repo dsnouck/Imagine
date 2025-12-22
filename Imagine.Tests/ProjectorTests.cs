@@ -192,6 +192,165 @@ public class ProjectorTests
 
 	// TODO: Reorder methods alphabetically?
 	[Fact]
+	public void Plane()
+	{
+		const string name = "plane";
+
+		var scene = CreatePlaneComponent();
+
+		// TODO: Find nice settings for all tests.
+		var projectorSettings = new ProjectorSettings(
+			Eye: new(2D, 3D, 4D),
+			Focus: new(0D, 0D, 0D),
+			FieldOfView: Math.PI / 4D,
+			// TODO: Use new() everywhere.
+			BackgroundColor: new RgbColor(0D, 0D, 0D));
+
+		// TODO: Find nice settings for all tests.
+		// TODO: Rename variables named settings to samplerSettings.
+		var settings = new ImageSettings(
+			Width: 512,
+			Height: 512,
+			Subsamples: 2,
+			XMin: -1D,
+			XMax: 1D,
+			YMin: -1,
+			YMax: 1D);
+
+		var projection = projectorComponent.Project(scene, projectorSettings);
+		var image = samplerComponent.Sample(projection, settings);
+		fileComponent.Save(image, name);
+	}
+
+	// TODO: Reorder methods alphabetically?
+	[Fact]
+	public void CubeExceptSphere()
+	{
+		const string name = "cube-except-sphere";
+
+		var scene = CreateCubeExceptSphereComponent();
+
+		// TODO: Find nice settings for all tests.
+		var projectorSettings = new ProjectorSettings(
+			Eye: new(2D, 3D, 4D),
+			Focus: new(0D, 0D, 0D),
+			FieldOfView: Math.PI / 4D,
+			// TODO: Use new() everywhere.
+			BackgroundColor: new RgbColor(0D, 0D, 0D));
+
+		// TODO: Find nice settings for all tests.
+		// TODO: Rename variables named settings to samplerSettings.
+		var settings = new ImageSettings(
+			Width: 512,
+			Height: 512,
+			Subsamples: 2,
+			XMin: -1D,
+			XMax: 1D,
+			YMin: -1,
+			YMax: 1D);
+
+		var projection = projectorComponent.Project(scene, projectorSettings);
+		var image = samplerComponent.Sample(projection, settings);
+		fileComponent.Save(image, name);
+	}
+
+	// TODO: Reorder methods alphabetically?
+	[Fact]
+	public void SphereExceptCube()
+	{
+		const string name = "sphere-except-cube";
+
+		var scene = CreateSphereExceptCubeComponent();
+		// TODO: Find nice settings for all tests.
+		var projectorSettings = new ProjectorSettings(
+			Eye: new(2D, 3D, 4D),
+			Focus: new(0D, 0D, 0D),
+			FieldOfView: Math.PI / 4D,
+			// TODO: Use new() everywhere.
+			BackgroundColor: new RgbColor(0D, 0D, 0D));
+
+		// TODO: Find nice settings for all tests.
+		// TODO: Rename variables named settings to samplerSettings.
+		var settings = new ImageSettings(
+			Width: 512,
+			Height: 512,
+			Subsamples: 2,
+			XMin: -1D,
+			XMax: 1D,
+			YMin: -1,
+			YMax: 1D);
+
+		var projection = projectorComponent.Project(scene, projectorSettings);
+		var image = samplerComponent.Sample(projection, settings);
+		fileComponent.Save(image, name);
+	}
+
+	// TODO: Reorder methods alphabetically?
+	[Fact]
+	public void CubeSphereIntersection()
+	{
+		const string name = "cube-sphere-intersection";
+
+		var scene = CreateCubeSphereIntersection();
+
+		// TODO: Find nice settings for all tests.
+		var projectorSettings = new ProjectorSettings(
+			Eye: new(2D, 3D, 4D),
+			Focus: new(0D, 0D, 0D),
+			FieldOfView: Math.PI / 4D,
+			// TODO: Use new() everywhere.
+			BackgroundColor: new RgbColor(0D, 0D, 0D));
+
+		// TODO: Find nice settings for all tests.
+		// TODO: Rename variables named settings to samplerSettings.
+		var settings = new ImageSettings(
+			Width: 512,
+			Height: 512,
+			Subsamples: 2,
+			XMin: -1D,
+			XMax: 1D,
+			YMin: -1,
+			YMax: 1D);
+
+		var projection = projectorComponent.Project(scene, projectorSettings);
+		var image = samplerComponent.Sample(projection, settings);
+		fileComponent.Save(image, name);
+	}
+
+	// TODO: Reorder methods alphabetically?
+	[Fact]
+	public void CubeSphereUnion()
+	{
+		const string name = "cube-sphere-union";
+
+		var scene = CreateCubeSphereUnion();
+
+		// TODO: Find nice settings for all tests.
+		var projectorSettings = new ProjectorSettings(
+			Eye: new(2D, 3D, 4D),
+			Focus: new(0D, 0D, 0D),
+			FieldOfView: Math.PI / 4D,
+			// TODO: Use new() everywhere.
+			BackgroundColor: new RgbColor(0D, 0D, 0D));
+
+		// TODO: Find nice settings for all tests.
+		// TODO: Rename variables named settings to samplerSettings.
+		var settings = new ImageSettings(
+			Width: 512,
+			Height: 512,
+			Subsamples: 2,
+			XMin: -1D,
+			XMax: 1D,
+			YMin: -1,
+			YMax: 1D);
+
+		var projection = projectorComponent.Project(scene, projectorSettings);
+		var image = samplerComponent.Sample(projection, settings);
+		fileComponent.Save(image, name);
+	}
+
+	// TODO: Reorder methods alphabetically?
+	[Fact]
 	public void RotatedCube()
 	{
 		const string name = "rotated-cube";
@@ -445,6 +604,77 @@ public class ProjectorTests
 	}
 
 	// TODO: Move to static class Scene.
+	private ISceneComponent CreatePlaneComponent()
+	{
+		var planes = new List<ISceneComponent>
+		{
+			new Plane(new Vector3(0D, 0D, -1D), vector3Component),
+			new Transparent(new Plane(new Vector3(1D, 0D, 0D), vector3Component)),
+			new Transparent(new Plane(new Vector3(0D, 1D, 0D), vector3Component)),
+			new Transparent(new Plane(new Vector3(-1D, 0D, 0D), vector3Component)),
+			new Transparent(new Plane(new Vector3(0D, -1D, 0D), vector3Component)),
+		};
+
+		return CreateIntersectionComponent(planes);
+	}
+
+	// TODO: Move to static class Scene.
+	private ISceneComponent CreateCubeExceptSphereComponent()
+	{
+		var sphere = CreateScaledComponent(new Sphere(vector3Component, funcDoubleDoubleComponent, line3Component), 1.3D);
+
+		var planes = new List<ISceneComponent>
+		{
+			CreateCubeComponent(),
+			new Inverted(vector3Component, sphere),
+		};
+
+		return CreateIntersectionComponent(planes);
+	}
+
+	// TODO: Move to static class Scene.
+	private ISceneComponent CreateSphereExceptCubeComponent()
+	{
+		var sphere = CreateScaledComponent(new Sphere(vector3Component, funcDoubleDoubleComponent, line3Component), 1.3D);
+
+		var planes = new List<ISceneComponent>
+		{
+			new Inverted(vector3Component, CreateCubeComponent()),
+			sphere,
+		};
+
+		return CreateIntersectionComponent(planes);
+	}
+
+	// TODO: Move to static class Scene.
+	private ISceneComponent CreateCubeSphereIntersection()
+	{
+		var sphere = CreateScaledComponent(new Sphere(vector3Component, funcDoubleDoubleComponent, line3Component), 1.3D);
+
+		var planes = new List<ISceneComponent>
+		{
+			CreateCubeComponent(),
+			sphere,
+		};
+
+		return CreateIntersectionComponent(planes);
+	}
+
+	// TODO: Move to static class Scene.
+	private ISceneComponent CreateCubeSphereUnion()
+	{
+		var sphere = CreateScaledComponent(new Sphere(vector3Component, funcDoubleDoubleComponent, line3Component), 1.3D);
+
+		var planes = new List<ISceneComponent>
+		{
+			CreateCubeComponent(),
+			sphere,
+		};
+
+		return CreateUnionComponent(planes);
+	}
+
+	// TODO: Move to static class Scene.
 	private ISceneComponent CreateConeComponent()
 	{
 		var planes = new List<ISceneComponent>
@@ -559,6 +789,16 @@ public class ProjectorTests
 					scene,
 					otherScene,
 					line3Component));
+
+	private ISceneComponent CreateUnionComponent(List<ISceneComponent> scenes) =>
+		// TODO: Use type argument instead of casting?
+		scenes.Aggregate(
+			(ISceneComponent)new Empty(),
+			(scene, otherScene) =>
+				new Union(
+					line3Component,
+					scene,
+					otherScene));
 
 	private ISceneComponent CreateRotatedComponent(ISceneComponent scene, Vector3 axis, double angle)
 	{
