@@ -621,12 +621,13 @@ public class ProjectorTests
 	// TODO: Move to static class Scene.
 	private ISceneComponent CreateCubeExceptSphereComponent()
 	{
-		var sphere = CreateScaledComponent(new Sphere(vector3Component, funcDoubleDoubleComponent, line3Component), 1.3D);
+		// TODO: Are these colors and sizes good?
+		var sphere = CreateScaledComponent(new Sphere(vector3Component, funcDoubleDoubleComponent, line3Component), Math.Sqrt(2D) * 0.99D);
 
 		var planes = new List<ISceneComponent>
 		{
-			CreateCubeComponent(),
-			new Inverted(vector3Component, sphere),
+			new Painted(CreateCubeComponent(), new RgbColor(1D, 0D, 0D)),
+			new Painted(new Inverted(vector3Component, sphere), new RgbColor(0D, 0D, 1D)),
 		};
 
 		return CreateIntersectionComponent(planes);
