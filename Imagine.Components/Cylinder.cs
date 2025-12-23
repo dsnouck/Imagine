@@ -2,8 +2,7 @@ namespace Imagine.Components;
 
 public class Cylinder(
 	IFuncDoubleDoubleComponent funcDoubleDoubleComponent,
-	ILine3Component line3Component,
-	IVector3Component vector3Component)
+	ILine3Component line3Component)
 	: ISceneComponent
 {
 	// TODO: Make radius a property.

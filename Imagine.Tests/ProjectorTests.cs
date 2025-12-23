@@ -9,13 +9,12 @@ public class ProjectorTests
 	private readonly ILine2Component line2Component;
 	private readonly ISamplerComponent samplerComponent;
 	private readonly IVector2Component vector2Component;
-	private readonly IVector3Component vector3Component;
 	private readonly IFuncDoubleDoubleComponent funcDoubleDoubleComponent;
 	private readonly ILine3Component line3Component;
 	private readonly IProjectorComponent projectorComponent;
 
 	private readonly IFuncVector2Vector3Component funcVector2Vector3Component;
-	private readonly IMatrix4Component matrix4Component = new Matrix4Component(new Vector3Component(), new Vector4Component());
+	private readonly IMatrix4Component matrix4Component = new Matrix4Component(new Vector4Component());
 
 	public ProjectorTests()
 	{
@@ -24,11 +23,10 @@ public class ProjectorTests
 		line2Component = new Line2Component();
 		samplerComponent = new SamplerComponent(colorComponent, line2Component);
 		vector2Component = new Vector2Component();
-		vector3Component = new Vector3Component();
 		funcDoubleDoubleComponent = new FuncDoubleDoubleComponent();
-		line3Component = new Line3Component(vector3Component);
-		funcVector2Vector3Component = new FuncVector2Vector3Component(vector3Component);
-		projectorComponent = new ProjectorComponent(colorComponent, vector3Component, funcVector2Vector3Component);
+		line3Component = new Line3Component();
+		funcVector2Vector3Component = new FuncVector2Vector3Component();
+		projectorComponent = new ProjectorComponent(colorComponent, funcVector2Vector3Component);
 	}
 
 	[Fact]
@@ -36,7 +34,7 @@ public class ProjectorTests
 	{
 		const string name = "sphere";
 
-		var scene = new Sphere(vector3Component, funcDoubleDoubleComponent, line3Component);
+		var scene = new Sphere(funcDoubleDoubleComponent, line3Component);
 
 		// TODO: Find nice settings for all tests.
 		var projectorSettings = new ProjectorSettings(
@@ -578,10 +576,10 @@ public class ProjectorTests
 
 		var planes = new List<ISceneComponent>
 		{
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI, 0D), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, dihedralAngle, 0D * azimuthStep), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, dihedralAngle, 1D * azimuthStep), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, dihedralAngle, 2D * azimuthStep), vector3Component),
+			new Plane(new Vector3Spherical(1D, Math.PI, 0D)),
+			new Plane(new Vector3Spherical(1D, dihedralAngle, 0D * azimuthStep)),
+			new Plane(new Vector3Spherical(1D, dihedralAngle, 1D * azimuthStep)),
+			new Plane(new Vector3Spherical(1D, dihedralAngle, 2D * azimuthStep)),
 		};
 
 		return CreateIntersectionComponent(planes);
@@ -592,12 +590,12 @@ public class ProjectorTests
 	{
 		var planes = new List<ISceneComponent>
 		{
-			new Plane(new Vector3(0D, 0D, -1D), vector3Component),
-			new Plane(new Vector3(1D, 0D, 0D), vector3Component),
-			new Plane(new Vector3(0D, 1D, 0D), vector3Component),
-			new Plane(new Vector3(-1D, 0D, 0D), vector3Component),
-			new Plane(new Vector3(0D, -1D, 0D), vector3Component),
-			new Plane(new Vector3(0D, 0D, 1D), vector3Component),
+			new Plane(new Vector3(0D, 0D, -1D)),
+			new Plane(new Vector3(1D, 0D, 0D)),
+			new Plane(new Vector3(0D, 1D, 0D)),
+			new Plane(new Vector3(-1D, 0D, 0D)),
+			new Plane(new Vector3(0D, -1D, 0D)),
+			new Plane(new Vector3(0D, 0D, 1D)),
 		};
 
 		return CreateIntersectionComponent(planes);
@@ -608,11 +606,11 @@ public class ProjectorTests
 	{
 		var planes = new List<ISceneComponent>
 		{
-			new Plane(new Vector3(0D, 0D, -1D), vector3Component),
-			new Transparent(new Plane(new Vector3(1D, 0D, 0D), vector3Component)),
-			new Transparent(new Plane(new Vector3(0D, 1D, 0D), vector3Component)),
-			new Transparent(new Plane(new Vector3(-1D, 0D, 0D), vector3Component)),
-			new Transparent(new Plane(new Vector3(0D, -1D, 0D), vector3Component)),
+			new Plane(new Vector3(0D, 0D, -1D)),
+			new Transparent(new Plane(new Vector3(1D, 0D, 0D))),
+			new Transparent(new Plane(new Vector3(0D, 1D, 0D))),
+			new Transparent(new Plane(new Vector3(-1D, 0D, 0D))),
+			new Transparent(new Plane(new Vector3(0D, -1D, 0D))),
 		};
 
 		return CreateIntersectionComponent(planes);
@@ -622,12 +620,12 @@ public class ProjectorTests
 	private ISceneComponent CreateCubeExceptSphereComponent()
 	{
 		// TODO: Are these colors and sizes good?
-		var sphere = CreateScaledComponent(new Sphere(vector3Component, funcDoubleDoubleComponent, line3Component), Math.Sqrt(2D) * 0.99D);
+		var sphere = CreateScaledComponent(new Sphere(funcDoubleDoubleComponent, line3Component), Math.Sqrt(2D) * 0.99D);
 
 		var planes = new List<ISceneComponent>
 		{
 			new Painted(CreateCubeComponent(), new RgbColor(1D, 0D, 0D)),
-			new Painted(new Inverted(vector3Component, sphere), new RgbColor(0D, 0D, 1D)),
+			new Painted(new Inverted(sphere), new RgbColor(0D, 0D, 1D)),
 		};
 
 		return CreateIntersectionComponent(planes);
@@ -636,11 +634,11 @@ public class ProjectorTests
 	// TODO: Move to static class Scene.
 	private ISceneComponent CreateSphereExceptCubeComponent()
 	{
-		var sphere = CreateScaledComponent(new Sphere(vector3Component, funcDoubleDoubleComponent, line3Component), 1.3D);
+		var sphere = CreateScaledComponent(new Sphere(funcDoubleDoubleComponent, line3Component), 1.3D);
 
 		var planes = new List<ISceneComponent>
 		{
-			new Inverted(vector3Component, CreateCubeComponent()),
+			new Inverted(CreateCubeComponent()),
 			sphere,
 		};
 
@@ -650,7 +648,7 @@ public class ProjectorTests
 	// TODO: Move to static class Scene.
 	private ISceneComponent CreateCubeSphereIntersection()
 	{
-		var sphere = CreateScaledComponent(new Sphere(vector3Component, funcDoubleDoubleComponent, line3Component), 1.3D);
+		var sphere = CreateScaledComponent(new Sphere(funcDoubleDoubleComponent, line3Component), 1.3D);
 
 		var planes = new List<ISceneComponent>
 		{
@@ -664,7 +662,7 @@ public class ProjectorTests
 	// TODO: Move to static class Scene.
 	private ISceneComponent CreateCubeSphereUnion()
 	{
-		var sphere = CreateScaledComponent(new Sphere(vector3Component, funcDoubleDoubleComponent, line3Component), 1.3D);
+		var sphere = CreateScaledComponent(new Sphere(funcDoubleDoubleComponent, line3Component), 1.3D);
 
 		var planes = new List<ISceneComponent>
 		{
@@ -680,9 +678,9 @@ public class ProjectorTests
 	{
 		var planes = new List<ISceneComponent>
 		{
-			new Cone(funcDoubleDoubleComponent, line3Component, vector3Component),
-			new Plane(new Vector3(0D, 0D, -1D), vector3Component),
-			new Plane(new Vector3(0D, 0D, 1D), vector3Component),
+			new Cone(funcDoubleDoubleComponent, line3Component),
+			new Plane(new Vector3(0D, 0D, -1D)),
+			new Plane(new Vector3(0D, 0D, 1D)),
 		};
 
 		return CreateIntersectionComponent(planes);
@@ -693,9 +691,9 @@ public class ProjectorTests
 	{
 		var planes = new List<ISceneComponent>
 		{
-			new Cylinder(funcDoubleDoubleComponent, line3Component, vector3Component),
-			new Plane(new Vector3(0D, 0D, -1D), vector3Component),
-			new Plane(new Vector3(0D, 0D, 1D), vector3Component),
+			new Cylinder(funcDoubleDoubleComponent, line3Component),
+			new Plane(new Vector3(0D, 0D, -1D)),
+			new Plane(new Vector3(0D, 0D, 1D)),
 		};
 
 		return CreateIntersectionComponent(planes);
@@ -709,14 +707,14 @@ public class ProjectorTests
 
 		var planes = new List<ISceneComponent>
 		{
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI, 0D), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, dihedralAngle, 0D * azimuthStep), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, dihedralAngle, 2D * azimuthStep), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, dihedralAngle, 4D * azimuthStep), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - dihedralAngle, 1D * azimuthStep), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - dihedralAngle, 3D * azimuthStep), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - dihedralAngle, 5D * azimuthStep), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, 0D, 0D), vector3Component),
+			new Plane(new Vector3Spherical(1D, Math.PI, 0D)),
+			new Plane(new Vector3Spherical(1D, dihedralAngle, 0D * azimuthStep)),
+			new Plane(new Vector3Spherical(1D, dihedralAngle, 2D * azimuthStep)),
+			new Plane(new Vector3Spherical(1D, dihedralAngle, 4D * azimuthStep)),
+			new Plane(new Vector3Spherical(1D, Math.PI - dihedralAngle, 1D * azimuthStep)),
+			new Plane(new Vector3Spherical(1D, Math.PI - dihedralAngle, 3D * azimuthStep)),
+			new Plane(new Vector3Spherical(1D, Math.PI - dihedralAngle, 5D * azimuthStep)),
+			new Plane(new Vector3Spherical(1D, 0D, 0D)),
 		};
 
 		return CreateIntersectionComponent(planes);
@@ -730,18 +728,18 @@ public class ProjectorTests
 
 		var planes = new List<ISceneComponent>
 		{
-					new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI, 0D), vector3Component),
-					new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, dihedralAngle, 0D * azimuthStep), vector3Component),
-					new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, dihedralAngle, 2D * azimuthStep), vector3Component),
-					new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, dihedralAngle, 4D * azimuthStep), vector3Component),
-					new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, dihedralAngle, 6D * azimuthStep), vector3Component),
-					new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, dihedralAngle, 8D * azimuthStep), vector3Component),
-					new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - dihedralAngle, 1D * azimuthStep), vector3Component),
-					new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - dihedralAngle, 3D * azimuthStep), vector3Component),
-					new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - dihedralAngle, 5D * azimuthStep), vector3Component),
-					new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - dihedralAngle, 7D * azimuthStep), vector3Component),
-					new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - dihedralAngle, 9D * azimuthStep), vector3Component),
-					new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, 0D, 0D), vector3Component),
+					new Plane(new Vector3Spherical(1D, Math.PI, 0D)),
+					new Plane(new Vector3Spherical(1D, dihedralAngle, 0D * azimuthStep)),
+					new Plane(new Vector3Spherical(1D, dihedralAngle, 2D * azimuthStep)),
+					new Plane(new Vector3Spherical(1D, dihedralAngle, 4D * azimuthStep)),
+					new Plane(new Vector3Spherical(1D, dihedralAngle, 6D * azimuthStep)),
+					new Plane(new Vector3Spherical(1D, dihedralAngle, 8D * azimuthStep)),
+					new Plane(new Vector3Spherical(1D, Math.PI - dihedralAngle, 1D * azimuthStep)),
+					new Plane(new Vector3Spherical(1D, Math.PI - dihedralAngle, 3D * azimuthStep)),
+					new Plane(new Vector3Spherical(1D, Math.PI - dihedralAngle, 5D * azimuthStep)),
+					new Plane(new Vector3Spherical(1D, Math.PI - dihedralAngle, 7D * azimuthStep)),
+					new Plane(new Vector3Spherical(1D, Math.PI - dihedralAngle, 9D * azimuthStep)),
+					new Plane(new Vector3Spherical(1D, 0D, 0D)),
 		};
 
 		return CreateIntersectionComponent(planes);
@@ -757,26 +755,26 @@ public class ProjectorTests
 
 		var planes = new List<ISceneComponent>
 		{
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI, 0D), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, dihedralAngle, 0D * azimuthStep), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, dihedralAngle, 2D * azimuthStep), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, dihedralAngle, 4D * azimuthStep), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, secondInclination, 1D * azimuthStep - azimuthOffset), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, secondInclination, 1D * azimuthStep + azimuthOffset), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, secondInclination, 3D * azimuthStep - azimuthOffset), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, secondInclination, 3D * azimuthStep + azimuthOffset), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, secondInclination, 5D * azimuthStep - azimuthOffset), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, secondInclination, 5D * azimuthStep + azimuthOffset), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - secondInclination, 0D * azimuthStep - azimuthOffset), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - secondInclination, 0D * azimuthStep + azimuthOffset), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - secondInclination, 2D * azimuthStep - azimuthOffset), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - secondInclination, 2D * azimuthStep + azimuthOffset), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - secondInclination, 4D * azimuthStep - azimuthOffset), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - secondInclination, 4D * azimuthStep + azimuthOffset), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - dihedralAngle, 1D * azimuthStep), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - dihedralAngle, 3D * azimuthStep), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, Math.PI - dihedralAngle, 5D * azimuthStep), vector3Component),
-			new Plane(vector3Component.CreateVector3FromSphericalCoordinates(1D, 0D, 0D), vector3Component),
+			new Plane(new Vector3Spherical(1D, Math.PI, 0D)),
+			new Plane(new Vector3Spherical(1D, dihedralAngle, 0D * azimuthStep)),
+			new Plane(new Vector3Spherical(1D, dihedralAngle, 2D * azimuthStep)),
+			new Plane(new Vector3Spherical(1D, dihedralAngle, 4D * azimuthStep)),
+			new Plane(new Vector3Spherical(1D, secondInclination, 1D * azimuthStep - azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, secondInclination, 1D * azimuthStep + azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, secondInclination, 3D * azimuthStep - azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, secondInclination, 3D * azimuthStep + azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, secondInclination, 5D * azimuthStep - azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, secondInclination, 5D * azimuthStep + azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, Math.PI - secondInclination, 0D * azimuthStep - azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, Math.PI - secondInclination, 0D * azimuthStep + azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, Math.PI - secondInclination, 2D * azimuthStep - azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, Math.PI - secondInclination, 2D * azimuthStep + azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, Math.PI - secondInclination, 4D * azimuthStep - azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, Math.PI - secondInclination, 4D * azimuthStep + azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, Math.PI - dihedralAngle, 1D * azimuthStep)),
+			new Plane(new Vector3Spherical(1D, Math.PI - dihedralAngle, 3D * azimuthStep)),
+			new Plane(new Vector3Spherical(1D, Math.PI - dihedralAngle, 5D * azimuthStep)),
+			new Plane(new Vector3Spherical(1D, 0D, 0D)),
 		};
 
 		return CreateIntersectionComponent(planes);

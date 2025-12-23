@@ -2,14 +2,10 @@ namespace Imagine.Components;
 
 public class Matrix4Component : IMatrix4Component
 {
-	private readonly IVector3Component vector3Component;
 	private readonly IVector4Component vector4Component;
 
-	public Matrix4Component(
-		IVector3Component vector3Component,
-		IVector4Component vector4Component)
+	public Matrix4Component(IVector4Component vector4Component)
 	{
-		this.vector3Component = vector3Component;
 		this.vector4Component = vector4Component;
 	}
 

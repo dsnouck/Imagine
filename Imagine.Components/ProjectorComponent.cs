@@ -3,7 +3,6 @@ namespace Imagine.Components;
 // TODO: Cleanup dependencies.
 public class ProjectorComponent(
 	IColorComponent colorComponent,
-	IVector3Component vector3Component,
 	IFuncVector2Vector3Component funcVector2Vector3Component)
 	: IProjectorComponent
 {

@@ -10,8 +10,7 @@ public readonly record struct Vector3(double X, double Y, double Z)
 	public double DotProduct(Vector3 other) =>
 		(X * other.X) + (Y * other.Y) + (Z * other.Z);
 
-	// TODO: Do not use Math class.
-	public double Length() => Math.Sqrt(DotProduct(this));
+	public double Length() => double.Sqrt(DotProduct(this));
 
 	// TODO: Check names of methods and parameters.
 	public Vector3 Normalized() => this / Length();

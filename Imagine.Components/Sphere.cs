@@ -1,7 +1,6 @@
 namespace Imagine.Components;
 
 public class Sphere(
-	IVector3Component vector3Component,
 	IFuncDoubleDoubleComponent funcDoubleDoubleComponent,
 	ILine3Component line3Component)
 	: ISceneComponent

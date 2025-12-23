@@ -22,6 +22,7 @@ public class ColorComponent : IColorComponent
 
 		hue *= red;
 
+		// TODO: Do not use Math class.
 		var saturation = Math.Clamp(color.Saturation, 0D, 1D);
 		var value = Math.Clamp(color.Value, 0D, 1D);
 

@@ -1,6 +1,6 @@
 namespace Imagine.Components;
 
-public class Plane(Vector3 normal, IVector3Component vector3Component) : ISceneComponent
+public class Plane(Vector3 normal) : ISceneComponent
 {
 	// TODO: Make smaller?
 	private const double Epsilon = 0.001D;
