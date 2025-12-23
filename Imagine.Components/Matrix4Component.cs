@@ -15,7 +15,7 @@ public class Matrix4Component : IMatrix4Component
 
 	public Matrix4 CreateRotationMatrix(Vector3 axis, double angle)
 	{
-		axis = vector3Component.Normalize(axis);
+		axis = axis.Normalized();
 		var l = axis.X;
 		var m = axis.Y;
 		var n = axis.Z;

@@ -17,11 +17,11 @@ public class Sphere(
 
 		var zeros = funcDoubleDoubleComponent.GetRealZerosOfQuadraticFunction(a, b, c);
 
-		// TODO: When we want to enable transformations, the distance should be relative to the length of the direction vector.
+		// TODO: When we want to enable transformations, the distance should be relative to the length of the direction vector. What about the normal?
 		return zeros.
 			Select(zero => new Intercept(
 				Distance: zero,
-				Normal: vector3Component.Normalize(line3Component.GetPointAtDistance(ray, zero)) * ray.Direction.Length(),
+				Normal: line3Component.GetPointAtDistance(ray, zero).Normalized() * ray.Direction.Length(),
 				Color: new RgbColor(1D, 1D, 1D)))
 			.ToList();
 	}

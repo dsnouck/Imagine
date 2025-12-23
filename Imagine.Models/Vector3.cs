@@ -13,6 +13,9 @@ public readonly record struct Vector3(double X, double Y, double Z)
 	// TODO: Do not use Math class.
 	public double Length() => Math.Sqrt(DotProduct(this));
 
+	// TODO: Check names of methods and parameters.
+	public Vector3 Normalized() => this / Length();
+
 	public static Vector3 operator +(Vector3 left, Vector3 right) =>
 		new(left.X + right.X, left.Y + right.Y, left.Z + right.Z);
 

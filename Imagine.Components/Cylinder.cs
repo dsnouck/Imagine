@@ -59,7 +59,7 @@ public class Cylinder(
 				return new Intercept
 				{
 					Distance = zero,
-					Normal = vector3Component.Normalize(horizontalSurfaceIntersection) * ray.Direction.Length(),
+					Normal = horizontalSurfaceIntersection.Normalized() * ray.Direction.Length(),
 					Color = new RgbColor(1D, 1D, 1D),
 				};
 			})

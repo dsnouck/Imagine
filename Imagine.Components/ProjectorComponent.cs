@@ -14,7 +14,7 @@ public class ProjectorComponent(
 
 		return point =>
 		{
-			var direction = vector3Component.Normalize(screen(point) - settings.Eye);
+			var direction = (screen(point) - settings.Eye).Normalized();
 			var lineOfSight = new Line3
 			{
 				Origin = settings.Eye,
@@ -40,11 +40,11 @@ public class ProjectorComponent(
 
 	private Func<Vector2, Vector3> GetScreen(ProjectorSettings settings)
 	{
-		var viewingDirection = vector3Component.Normalize(settings.Focus - settings.Eye);
+		var viewingDirection = (settings.Focus - settings.Eye).Normalized();
 		var centerScreen = settings.Eye + viewingDirection;
 		var vertical = new Vector3 { X = 0D, Y = 0D, Z = 1D };
-		var xVector = vector3Component.Normalize(viewingDirection.CrossProduct(vertical));
-		var yVector = vector3Component.Normalize(xVector.CrossProduct(viewingDirection));
+		var xVector = viewingDirection.CrossProduct(vertical).Normalized();
+		var yVector = xVector.CrossProduct(viewingDirection).Normalized();
 		var halfScreenExtent = Math.Tan(settings.FieldOfView * 0.5D);
 		xVector *= halfScreenExtent;
 		yVector *= halfScreenExtent;
