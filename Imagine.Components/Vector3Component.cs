@@ -19,12 +19,9 @@ public class Vector3Component : IVector3Component
 	}
 
 	// TODO: Check names of methods and parameters.
-	public Vector3 Divide(Vector3 vector, double divisor) =>
-		vector * (1D / divisor);
-
 	public double Length(Vector3 vector) => Math.Sqrt(vector.DotProduct(vector));
 
-	public Vector3 Normalize(Vector3 vector) => Divide(vector, Length(vector));
+	public Vector3 Normalize(Vector3 vector) => vector / Length(vector);
 
 	public Vector2 ToVector2(Vector3 vector) => new(vector.X, vector.Y);
 }
