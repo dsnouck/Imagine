@@ -38,8 +38,5 @@ public class Vector3Component : IVector3Component
 
 	public Vector3 Normalize(Vector3 vector) => Divide(vector, Length(vector));
 
-	public Vector3 Subtract(Vector3 minuend, Vector3 subtrahend) =>
-		new(minuend.X - subtrahend.X, minuend.Y - subtrahend.Y, minuend.Z - subtrahend.Z);
-
 	public Vector2 ToVector2(Vector3 vector) => new(vector.X, vector.Y);
 }

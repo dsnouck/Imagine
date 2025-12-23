@@ -24,9 +24,7 @@ public class Plane(Vector3 normal, IVector3Component vector3Component) : ISceneC
 
 		var distance = vector3Component.DotProduct(
 			normal,
-			vector3Component.Subtract(
-				normal,
-				lineOfSight.Origin))
+			normal - lineOfSight.Origin)
 			/ dotProductNormalDirection;
 
 		// TODO: Can we use new() here?

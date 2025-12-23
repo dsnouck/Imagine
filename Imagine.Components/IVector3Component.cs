@@ -17,7 +17,5 @@ public interface IVector3Component
 	Vector3 Normalize(Vector3 vector);
 
 	// TODO: Rename arguments.
-	Vector3 Subtract(Vector3 minuend, Vector3 subtrahend);
-
 	Vector2 ToVector2(Vector3 vector);
 }
