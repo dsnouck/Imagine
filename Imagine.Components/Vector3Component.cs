@@ -18,12 +18,6 @@ public class Vector3Component : IVector3Component
 		};
 	}
 
-	public Vector3 CrossProduct(Vector3 vector, Vector3 otherVector) =>
-		new(
-			(vector.Y * otherVector.Z) - (vector.Z * otherVector.Y),
-			(vector.Z * otherVector.X) - (vector.X * otherVector.Z),
-			(vector.X * otherVector.Y) - (vector.Y * otherVector.X));
-
 	// TODO: Check names of methods and parameters.
 	public Vector3 Divide(Vector3 vector, double divisor) =>
 		Multiply(vector, 1D / divisor);

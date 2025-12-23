@@ -43,14 +43,8 @@ public class ProjectorComponent(
 		var viewingDirection = vector3Component.Normalize(settings.Focus - settings.Eye);
 		var centerScreen = settings.Eye + viewingDirection;
 		var vertical = new Vector3 { X = 0D, Y = 0D, Z = 1D };
-		var xVector = vector3Component.Normalize(
-			vector3Component.CrossProduct(
-				viewingDirection,
-				vertical));
-		var yVector = vector3Component.Normalize(
-				vector3Component.CrossProduct(
-					xVector,
-					viewingDirection));
+		var xVector = vector3Component.Normalize(viewingDirection.CrossProduct(vertical));
+		var yVector = vector3Component.Normalize(xVector.CrossProduct(viewingDirection));
 		var halfScreenExtent = Math.Tan(settings.FieldOfView * 0.5D);
 		xVector = vector3Component.Multiply(xVector, halfScreenExtent);
 		yVector = vector3Component.Multiply(yVector, halfScreenExtent);
