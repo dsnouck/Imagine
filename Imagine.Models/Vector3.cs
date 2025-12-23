@@ -29,4 +29,6 @@ public readonly record struct Vector3(double X, double Y, double Z)
 	// TODO: Use operator * or not?
 	public static Vector3 operator /(Vector3 left, double right) =>
 		left * (1D / right);
+
+	public static explicit operator Vector2(Vector3 vector) => new(vector.X, vector.Y);
 }

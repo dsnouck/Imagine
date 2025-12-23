@@ -40,7 +40,7 @@ public class MovieTests
 		{
 			var z = point.Z < 1D ? point.Z : 2D - point.Z;
 			var center = new Vector2(z, z);
-			var point2 = vector3Component.ToVector2(point);
+			var point2 = (Vector2)point;
 			var r = vector2Component.Length(vector2Component.Subtract(point2, center));
 
 			var hue = (2D * point.X) - 1D;
@@ -96,7 +96,7 @@ public class MovieTests
 		{
 			var z = point.Z < 1D ? point.Z : 2D - point.Z;
 			var center = new Vector2(z, z);
-			var point2 = vector3Component.ToVector2(point);
+			var point2 = (Vector2)point;
 			var r = vector2Component.Length(vector2Component.Subtract(point2, center));
 
 			var red = point.X;

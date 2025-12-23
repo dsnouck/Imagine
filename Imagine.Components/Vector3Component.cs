@@ -17,6 +17,4 @@ public class Vector3Component : IVector3Component
 			Z = radius * cosineOfInclination,
 		};
 	}
-
-	public Vector2 ToVector2(Vector3 vector) => new(vector.X, vector.Y);
 }
