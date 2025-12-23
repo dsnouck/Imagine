@@ -15,10 +15,7 @@ public class Cone(
 			Z = -point.Z,
 		};
 
-		return vector3Component.DotProduct(
-			point,
-			mirroredPoint)
-			< 0D;
+		return point.DotProduct(mirroredPoint) < 0D;
 	}
 
 	public List<Intercept> Intercepts(Line3 ray)
@@ -40,16 +37,9 @@ public class Cone(
 		};
 
 		// These are the coefficients of the quadratic equation x ↦ ax² + bx + c we want to solve.
-		var a = vector3Component.DotProduct(
-			ray.Direction,
-			mirroredLineOfSight.Direction);
-		var b = vector3Component.DotProduct(
-			ray.Direction,
-			mirroredLineOfSight.Origin)
-			* 2D;
-		var c = vector3Component.DotProduct(
-			ray.Origin,
-			mirroredLineOfSight.Origin);
+		var a = ray.Direction.DotProduct(mirroredLineOfSight.Direction);
+		var b = ray.Direction.DotProduct(mirroredLineOfSight.Origin) * 2D;
+		var c = ray.Origin.DotProduct(mirroredLineOfSight.Origin);
 
 		var zeros = funcDoubleDoubleComponent.GetRealZerosOfQuadraticFunction(a, b, c);
 

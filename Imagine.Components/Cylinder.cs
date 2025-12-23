@@ -6,6 +6,7 @@ public class Cylinder(
 	IVector3Component vector3Component)
 	: ISceneComponent
 {
+	// TODO: Make radius a property.
 	public bool Contains(Vector3 point)
 	{
 		var horizontalPoint = new Vector3
@@ -15,7 +16,8 @@ public class Cylinder(
 			Z = 0D,
 		};
 
-		return vector3Component.DotProduct(horizontalPoint, horizontalPoint) <= 1D;
+		// TODO: Use Length?
+		return horizontalPoint.DotProduct(horizontalPoint) <= 1D;
 	}
 
 	public List<Intercept> Intercepts(Line3 ray)
@@ -37,17 +39,9 @@ public class Cylinder(
 		};
 
 		// These are the coefficients of the quadratic equation x ↦ ax² + bx + c we want to solve.
-		var a = vector3Component.DotProduct(
-			horizontalLineOfSight.Direction,
-			horizontalLineOfSight.Direction);
-		var b = vector3Component.DotProduct(
-			horizontalLineOfSight.Direction,
-			horizontalLineOfSight.Origin)
-			* 2D;
-		var c = vector3Component.DotProduct(
-			horizontalLineOfSight.Origin,
-			horizontalLineOfSight.Origin)
-			- 1D;
+		var a = horizontalLineOfSight.Direction.DotProduct(horizontalLineOfSight.Direction);
+		var b = horizontalLineOfSight.Direction.DotProduct(horizontalLineOfSight.Origin) * 2D;
+		var c = horizontalLineOfSight.Origin.DotProduct(horizontalLineOfSight.Origin) - 1D;
 
 		var zeros = funcDoubleDoubleComponent.GetRealZerosOfQuadraticFunction(a, b, c);
 

@@ -6,8 +6,6 @@ public interface IVector3Component
 
 	Vector3 Divide(Vector3 vector, double divisor);
 
-	double DotProduct(Vector3 vector, Vector3 otherVector);
-
 	double Length(Vector3 vector);
 
 	Vector3 Multiply(Vector3 vector, double factor);

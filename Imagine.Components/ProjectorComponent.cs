@@ -31,7 +31,7 @@ public class ProjectorComponent(
 
 			var intercept = intercepts.First();
 
-			var intensity = Math.Abs(vector3Component.DotProduct(intercept.Normal, direction));
+			var intensity = Math.Abs(intercept.Normal.DotProduct(direction));
 
 			return colorComponent.Multiply(intercept.Color, intensity);
 		};

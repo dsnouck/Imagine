@@ -22,10 +22,7 @@ public class Vector3Component : IVector3Component
 	public Vector3 Divide(Vector3 vector, double divisor) =>
 		Multiply(vector, 1D / divisor);
 
-	public double DotProduct(Vector3 vector, Vector3 otherVector) =>
-		(vector.X * otherVector.X) + (vector.Y * otherVector.Y) + (vector.Z * otherVector.Z);
-
-	public double Length(Vector3 vector) => Math.Sqrt(DotProduct(vector, vector));
+	public double Length(Vector3 vector) => Math.Sqrt(vector.DotProduct(vector));
 
 	public Vector3 Multiply(Vector3 vector, double factor) =>
 		new(factor * vector.X, factor * vector.Y, factor * vector.Z);
