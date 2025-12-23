@@ -8,8 +8,6 @@ public interface IVector3Component
 
 	double Length(Vector3 vector);
 
-	Vector3 Multiply(Vector3 vector, double factor);
-
 	Vector3 Normalize(Vector3 vector);
 
 	// TODO: Rename arguments.

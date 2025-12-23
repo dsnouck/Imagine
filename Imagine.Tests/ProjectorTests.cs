@@ -825,6 +825,6 @@ public class ProjectorTests
 			matrix4Component,
 			scene,
 			matrix4Component.CreateTranslationMatrix(translation),
-			matrix4Component.CreateTranslationMatrix(vector3Component.Multiply(translation, -1D)));
+			matrix4Component.CreateTranslationMatrix(translation * -1D));
 	}
 }

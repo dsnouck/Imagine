@@ -46,8 +46,8 @@ public class ProjectorComponent(
 		var xVector = vector3Component.Normalize(viewingDirection.CrossProduct(vertical));
 		var yVector = vector3Component.Normalize(xVector.CrossProduct(viewingDirection));
 		var halfScreenExtent = Math.Tan(settings.FieldOfView * 0.5D);
-		xVector = vector3Component.Multiply(xVector, halfScreenExtent);
-		yVector = vector3Component.Multiply(yVector, halfScreenExtent);
+		xVector *= halfScreenExtent;
+		yVector *= halfScreenExtent;
 		return funcVector2Vector3Component.CreatePlane(centerScreen, xVector, yVector);
 	}
 }

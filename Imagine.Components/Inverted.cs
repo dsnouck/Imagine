@@ -12,7 +12,7 @@ public class Inverted(
 			.Select(intercept => new Intercept
 			{
 				Distance = intercept.Distance,
-				Normal = vector3Component.Multiply(intercept.Normal, -1D),
+				Normal = intercept.Normal * -1D,
 				Color = intercept.Color,
 			})
 			.ToList();
