@@ -19,9 +19,7 @@ public class Vector3Component : IVector3Component
 	}
 
 	// TODO: Check names of methods and parameters.
-	public double Length(Vector3 vector) => Math.Sqrt(vector.DotProduct(vector));
-
-	public Vector3 Normalize(Vector3 vector) => vector / Length(vector);
+	public Vector3 Normalize(Vector3 vector) => vector / vector.Length();
 
 	public Vector2 ToVector2(Vector3 vector) => new(vector.X, vector.Y);
 }

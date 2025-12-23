@@ -30,7 +30,7 @@ public class Plane(Vector3 normal, IVector3Component vector3Component) : ISceneC
 			new()
 			{
 				Distance = distance,
-				Normal = vector3Component.Normalize(normal) * vector3Component.Length(lineOfSight.Direction),
+				Normal = vector3Component.Normalize(normal) * lineOfSight.Direction.Length(),
 				Color = new RgbColor(1, 1, 1),
 			},
 		};

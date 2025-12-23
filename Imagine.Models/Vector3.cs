@@ -10,6 +10,9 @@ public readonly record struct Vector3(double X, double Y, double Z)
 	public double DotProduct(Vector3 other) =>
 		(X * other.X) + (Y * other.Y) + (Z * other.Z);
 
+	// TODO: Do not use Math class.
+	public double Length() => Math.Sqrt(DotProduct(this));
+
 	public static Vector3 operator +(Vector3 left, Vector3 right) =>
 		new(left.X + right.X, left.Y + right.Y, left.Z + right.Z);
 

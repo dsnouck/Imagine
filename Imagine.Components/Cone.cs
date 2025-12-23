@@ -57,8 +57,7 @@ public class Cone(
 				return new Intercept
 				{
 					Distance = zero,
-					Normal = vector3Component.Normalize(mirroredSurfaceIntersection) *
-						vector3Component.Length(ray.Direction),
+					Normal = vector3Component.Normalize(mirroredSurfaceIntersection) * ray.Direction.Length(),
 					Color = new RgbColor(1D, 1D, 1D),
 				};
 			})
