@@ -30,7 +30,7 @@ public class ProjectorComponent(
 
 			var intercept = intercepts.First();
 
-			var intensity = Math.Abs(intercept.Normal.DotProduct(direction));
+			var intensity = Math.Abs(intercept.Normal.Dot(direction));
 
 			return colorComponent.Multiply(intercept.Color, intensity);
 		};
@@ -42,8 +42,8 @@ public class ProjectorComponent(
 		var viewingDirection = (settings.Focus - settings.Eye).Normalized();
 		var centerScreen = settings.Eye + viewingDirection;
 		var vertical = new Vector3 { X = 0D, Y = 0D, Z = 1D };
-		var xVector = viewingDirection.CrossProduct(vertical).Normalized();
-		var yVector = xVector.CrossProduct(viewingDirection).Normalized();
+		var xVector = viewingDirection.Cross(vertical).Normalized();
+		var yVector = xVector.Cross(viewingDirection).Normalized();
 		var halfScreenExtent = Math.Tan(settings.FieldOfView * 0.5D);
 		xVector *= halfScreenExtent;
 		yVector *= halfScreenExtent;

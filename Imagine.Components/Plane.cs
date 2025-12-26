@@ -6,14 +6,14 @@ public class Plane(Vector3 normal) : ISceneComponent
 	private const double Epsilon = 0.001D;
 
 	// TODO: Place expression bodies on their own lines or on the same line?
-	public bool Contains(Vector3 point) => point.DotProduct(normal) <= normal.DotProduct(normal);
+	public bool Contains(Vector3 point) => point.Dot(normal) <= normal.Dot(normal);
 
 	public List<Intercept> Intercepts(Line3 ray)
 	{
 		// TODO: Remove variable?
 		var lineOfSight = ray;
 
-		var dotProductNormalDirection = normal.DotProduct(lineOfSight.Direction);
+		var dotProductNormalDirection = normal.Dot(lineOfSight.Direction);
 
 		if (Math.Abs(dotProductNormalDirection) < Epsilon)
 		{
@@ -21,7 +21,7 @@ public class Plane(Vector3 normal) : ISceneComponent
 			return new List<Intercept>();
 		}
 
-		var distance = normal.DotProduct(normal - lineOfSight.Origin) / dotProductNormalDirection;
+		var distance = normal.Dot(normal - lineOfSight.Origin) / dotProductNormalDirection;
 
 		// TODO: Can we use new() here?
 		return new List<Intercept>

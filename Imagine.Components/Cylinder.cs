@@ -16,7 +16,7 @@ public class Cylinder(
 		};
 
 		// TODO: Use Length?
-		return horizontalPoint.DotProduct(horizontalPoint) <= 1D;
+		return horizontalPoint.Dot(horizontalPoint) <= 1D;
 	}
 
 	public List<Intercept> Intercepts(Line3 ray)
@@ -38,9 +38,9 @@ public class Cylinder(
 		};
 
 		// These are the coefficients of the quadratic equation x ↦ ax² + bx + c we want to solve.
-		var a = horizontalLineOfSight.Direction.DotProduct(horizontalLineOfSight.Direction);
-		var b = horizontalLineOfSight.Direction.DotProduct(horizontalLineOfSight.Origin) * 2D;
-		var c = horizontalLineOfSight.Origin.DotProduct(horizontalLineOfSight.Origin) - 1D;
+		var a = horizontalLineOfSight.Direction.Dot(horizontalLineOfSight.Direction);
+		var b = horizontalLineOfSight.Direction.Dot(horizontalLineOfSight.Origin) * 2D;
+		var c = horizontalLineOfSight.Origin.Dot(horizontalLineOfSight.Origin) - 1D;
 
 		var zeros = funcDoubleDoubleComponent.GetRealZerosOfQuadraticFunction(a, b, c);
 

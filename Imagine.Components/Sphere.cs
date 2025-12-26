@@ -5,14 +5,14 @@ public class Sphere(
 	ILine3Component line3Component)
 	: ISceneComponent
 {
-	public bool Contains(Vector3 point) => point.DotProduct(point) <= 1D;
+	public bool Contains(Vector3 point) => point.Dot(point) <= 1D;
 
 	public List<Intercept> Intercepts(Line3 ray)
 	{
 		// These are the coefficients of the quadratic equation x ↦ ax² + bx + c we want to solve.
-		var a = ray.Direction.DotProduct(ray.Direction);
-		var b = ray.Direction.DotProduct(ray.Origin) * 2D;
-		var c = ray.Origin.DotProduct(ray.Origin) - 1D;
+		var a = ray.Direction.Dot(ray.Direction);
+		var b = ray.Direction.Dot(ray.Origin) * 2D;
+		var c = ray.Origin.Dot(ray.Origin) - 1D;
 
 		var zeros = funcDoubleDoubleComponent.GetRealZerosOfQuadraticFunction(a, b, c);
 

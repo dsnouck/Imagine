@@ -2,16 +2,16 @@ namespace Imagine.Models;
 
 public readonly record struct Vector3(double X, double Y, double Z)
 {
-	public Vector3 CrossProduct(Vector3 other) =>
+	public readonly Vector3 Cross(Vector3 other) =>
 		new((Y * other.Z) - (Z * other.Y), (Z * other.X) - (X * other.Z), (X * other.Y) - (Y * other.X));
 
-	public double DotProduct(Vector3 other) =>
+	public readonly double Dot(Vector3 other) =>
 		(X * other.X) + (Y * other.Y) + (Z * other.Z);
 
-	public double Length() =>
-		double.Sqrt(DotProduct(this));
+	public readonly double Length() =>
+		double.Sqrt(Dot(this));
 
-	public Vector3 Normalized() =>
+	public readonly Vector3 Normalized() =>
 		this / Length();
 
 	public static Vector3 operator +(Vector3 left, Vector3 right) =>
