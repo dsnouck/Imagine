@@ -814,15 +814,13 @@ public class ProjectorTests
 			matrix4Component,
 			scene,
 			matrix4Component.CreateScalingMatrix(factor),
-			matrix4Component.CreateScalingMatrix(1 / factor));
+			matrix4Component.CreateScalingMatrix(1D / factor));
 	}
 
-	private ISceneComponent CreateTranslatedComponent(ISceneComponent scene, Vector3 translation)
-	{
-		return new AffinelyTransformedComponent(
+	private ISceneComponent CreateTranslatedComponent(ISceneComponent scene, Vector3 translation) =>
+		new AffinelyTransformedComponent(
 			matrix4Component,
 			scene,
 			matrix4Component.CreateTranslationMatrix(translation),
-			matrix4Component.CreateTranslationMatrix(translation * -1D));
-	}
+			matrix4Component.CreateTranslationMatrix(-translation));
 }

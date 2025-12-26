@@ -9,7 +9,7 @@ public class Inverted(ISceneComponent scene) : ISceneComponent
 			.Select(intercept => new Intercept
 			{
 				Distance = intercept.Distance,
-				Normal = intercept.Normal * -1D,
+				Normal = -intercept.Normal,
 				Color = intercept.Color,
 			})
 			.ToList();
