@@ -6,7 +6,6 @@ public class MovieTests
 	private readonly IFileComponent fileComponent;
 	private readonly ILine2Component line2Component;
 	private readonly ISamplerComponent samplerComponent;
-	private readonly IVector2Component vector2Component;
 
 	public MovieTests()
 	{
@@ -14,7 +13,6 @@ public class MovieTests
 		fileComponent = new FileComponent(colorComponent);
 		line2Component = new Line2Component();
 		samplerComponent = new SamplerComponent(colorComponent, line2Component);
-		vector2Component = new Vector2Component();
 	}
 
 	[Fact]
@@ -34,12 +32,12 @@ public class MovieTests
 			ZMin: 0D,
 			ZMax: 2D);
 
-		HsvColor Function(Vector3 point)
+		static HsvColor Function(Vector3 point)
 		{
 			var z = point.Z < 1D ? point.Z : 2D - point.Z;
 			var center = new Vector2(z, z);
 			var point2 = (Vector2)point;
-			var r = vector2Component.Length(vector2Component.Subtract(point2, center));
+			var r = (point2 - center).Length();
 
 			var hue = (2D * point.X) - 1D;
 			var saturation = r < 0.25D ? 1D - (4D * r) : 0D;
@@ -90,12 +88,12 @@ public class MovieTests
 			ZMin: 0D,
 			ZMax: 2D);
 
-		RgbColor Function(Vector3 point)
+		static RgbColor Function(Vector3 point)
 		{
 			var z = point.Z < 1D ? point.Z : 2D - point.Z;
 			var center = new Vector2(z, z);
 			var point2 = (Vector2)point;
-			var r = vector2Component.Length(vector2Component.Subtract(point2, center));
+			var r = (point2 - center).Length();
 
 			var red = point.X;
 			var green = r < 0.25D ? 1D - (4D * r) : 0D;

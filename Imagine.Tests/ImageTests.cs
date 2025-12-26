@@ -6,7 +6,6 @@ public class ImageTests
 	private readonly IFileComponent fileComponent;
 	private readonly ILine2Component line2Component;
 	private readonly ISamplerComponent samplerComponent;
-	private readonly IVector2Component vector2Component;
 
 	public ImageTests()
 	{
@@ -14,7 +13,6 @@ public class ImageTests
 		fileComponent = new FileComponent(colorComponent);
 		line2Component = new Line2Component();
 		samplerComponent = new SamplerComponent(colorComponent, line2Component);
-		vector2Component = new Vector2Component();
 	}
 
 	[Fact]
@@ -31,10 +29,10 @@ public class ImageTests
 			YMin: 0D,
 			YMax: 1D);
 
-		HsvColor Function(Vector2 point)
+		static HsvColor Function(Vector2 point)
 		{
 			var center = new Vector2(0.5D, 0.5D);
-			var r = vector2Component.Length(vector2Component.Subtract(point, center));
+			var r = (point - center).Length();
 
 			var hue = (2D * point.X) - 1D;
 			var saturation = r < 0.5D ? 1D - (2D * r) : 0D;
@@ -79,10 +77,10 @@ public class ImageTests
 			YMin: 0D,
 			YMax: 1D);
 
-		RgbColor Function(Vector2 point)
+		static RgbColor Function(Vector2 point)
 		{
 			var center = new Vector2(0.5D, 0.5D);
-			var r = vector2Component.Length(vector2Component.Subtract(point, center));
+			var r = (point - center).Length();
 
 			var red = point.X;
 			var green = r < 0.5D ? 1D - (2D * r) : 0D;

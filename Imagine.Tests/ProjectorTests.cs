@@ -8,7 +8,6 @@ public class ProjectorTests
 	private readonly IFileComponent fileComponent;
 	private readonly ILine2Component line2Component;
 	private readonly ISamplerComponent samplerComponent;
-	private readonly IVector2Component vector2Component;
 	private readonly IFuncDoubleDoubleComponent funcDoubleDoubleComponent;
 	private readonly ILine3Component line3Component;
 	private readonly IProjectorComponent projectorComponent;
@@ -22,7 +21,6 @@ public class ProjectorTests
 		fileComponent = new FileComponent(colorComponent);
 		line2Component = new Line2Component();
 		samplerComponent = new SamplerComponent(colorComponent, line2Component);
-		vector2Component = new Vector2Component();
 		funcDoubleDoubleComponent = new FuncDoubleDoubleComponent();
 		line3Component = new Line3Component();
 		funcVector2Vector3Component = new FuncVector2Vector3Component();
