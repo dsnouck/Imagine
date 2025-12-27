@@ -1,10 +1,6 @@
 namespace Imagine.Components;
 
-public class Union(
-	ILine3Component line3Component,
-	ISceneComponent scene,
-	ISceneComponent otherScene)
-	: ISceneComponent
+public class Union(ISceneComponent scene, ISceneComponent otherScene) : ISceneComponent
 {
 	public bool Contains(Vector3 point) => scene.Contains(point) || otherScene.Contains(point);
 
@@ -15,7 +11,7 @@ public class Union(
 		var sceneSurfaceIntersections = scene.Intercepts(ray);
 		foreach (var surfaceIntersection in sceneSurfaceIntersections)
 		{
-			var point = line3Component.GetPointAtDistance(ray, surfaceIntersection.Distance);
+			var point = ray.At(surfaceIntersection.Distance);
 			if (!otherScene.Contains(point))
 			{
 				allSurfaceIntersections.Add(surfaceIntersection);
@@ -25,7 +21,7 @@ public class Union(
 		var otherSceneSurfaceIntersections = otherScene.Intercepts(ray);
 		foreach (var surfaceIntersection in otherSceneSurfaceIntersections)
 		{
-			var point = line3Component.GetPointAtDistance(ray, surfaceIntersection.Distance);
+			var point = ray.At(surfaceIntersection.Distance);
 			if (!scene.Contains(point))
 			{
 				allSurfaceIntersections.Add(surfaceIntersection);

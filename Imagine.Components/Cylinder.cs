@@ -1,9 +1,6 @@
 namespace Imagine.Components;
 
-public class Cylinder(
-	IFuncDoubleDoubleComponent funcDoubleDoubleComponent,
-	ILine3Component line3Component)
-	: ISceneComponent
+public class Cylinder(IFuncDoubleDoubleComponent funcDoubleDoubleComponent) : ISceneComponent
 {
 	// TODO: Make radius a property.
 	public bool Contains(Vector3 point)
@@ -47,7 +44,7 @@ public class Cylinder(
 		return zeros
 			.Select(zero =>
 			{
-				var surfaceIntersection = line3Component.GetPointAtDistance(ray, zero);
+				var surfaceIntersection = ray.At(zero);
 				var horizontalSurfaceIntersection = new Vector3
 				{
 					X = surfaceIntersection.X,

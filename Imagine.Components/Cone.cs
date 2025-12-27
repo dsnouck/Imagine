@@ -1,9 +1,6 @@
 namespace Imagine.Components;
 
-public class Cone(
-	IFuncDoubleDoubleComponent funcDoubleDoubleComponent,
-	ILine3Component line3Component)
-	: ISceneComponent
+public class Cone(IFuncDoubleDoubleComponent funcDoubleDoubleComponent) : ISceneComponent
 {
 	public bool Contains(Vector3 point)
 	{
@@ -45,7 +42,7 @@ public class Cone(
 		return zeros.
 			Select(zero =>
 			{
-				var surfaceIntersection = line3Component.GetPointAtDistance(ray, zero);
+				var surfaceIntersection = ray.At(zero);
 				var mirroredSurfaceIntersection = new Vector3
 				{
 					X = surfaceIntersection.X,

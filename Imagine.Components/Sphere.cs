@@ -1,9 +1,6 @@
 namespace Imagine.Components;
 
-public class Sphere(
-	IFuncDoubleDoubleComponent funcDoubleDoubleComponent,
-	ILine3Component line3Component)
-	: ISceneComponent
+public class Sphere(IFuncDoubleDoubleComponent funcDoubleDoubleComponent) : ISceneComponent
 {
 	public bool Contains(Vector3 point) => point.Dot(point) <= 1D;
 
@@ -20,7 +17,7 @@ public class Sphere(
 		return zeros.
 			Select(zero => new Intercept(
 				Distance: zero,
-				Normal: line3Component.GetPointAtDistance(ray, zero).Normalized() * ray.Direction.Length(),
+				Normal: ray.At(zero).Normalized() * ray.Direction.Length(),
 				Color: new ColorRgb(1D, 1D, 1D)))
 			.ToList();
 	}
