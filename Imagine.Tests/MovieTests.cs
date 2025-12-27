@@ -2,17 +2,15 @@ namespace Imagine.Tests;
 
 public class MovieTests
 {
-	private readonly IColorComponent colorComponent;
 	private readonly IFileComponent fileComponent;
 	private readonly ILine2Component line2Component;
 	private readonly ISamplerComponent samplerComponent;
 
 	public MovieTests()
 	{
-		colorComponent = new ColorComponent();
-		fileComponent = new FileComponent(colorComponent);
+		fileComponent = new FileComponent();
 		line2Component = new Line2Component();
-		samplerComponent = new SamplerComponent(colorComponent, line2Component);
+		samplerComponent = new SamplerComponent(line2Component);
 	}
 
 	[Fact]
@@ -32,7 +30,7 @@ public class MovieTests
 			ZMin: 0D,
 			ZMax: 2D);
 
-		static HsvColor Function(Vector3 point)
+		static ColorHsv Function(Vector3 point)
 		{
 			var z = point.Z < 1D ? point.Z : 2D - point.Z;
 			var center = new Vector2(z, z);
@@ -43,7 +41,7 @@ public class MovieTests
 			var saturation = r < 0.25D ? 1D - (4D * r) : 0D;
 			var value = point.Y;
 
-			return new HsvColor(hue, saturation, value);
+			return new ColorHsv(hue, saturation, value);
 		}
 
 		var movie = samplerComponent.Sample(Function, settings);
@@ -58,7 +56,7 @@ public class MovieTests
 		const int frames = 256;
 		const int width = 256;
 		const int height = 256;
-		var red = new RgbColor(1D, 0D, 0D);
+		var red = new ColorRgb(1D, 0D, 0D);
 
 		var movie = Enumerable.Repeat(
 			Enumerable.Repeat(
@@ -88,7 +86,7 @@ public class MovieTests
 			ZMin: 0D,
 			ZMax: 2D);
 
-		static RgbColor Function(Vector3 point)
+		static ColorRgb Function(Vector3 point)
 		{
 			var z = point.Z < 1D ? point.Z : 2D - point.Z;
 			var center = new Vector2(z, z);
@@ -99,7 +97,7 @@ public class MovieTests
 			var green = r < 0.25D ? 1D - (4D * r) : 0D;
 			var blue = point.Y;
 
-			return new RgbColor(red, green, blue);
+			return new ColorRgb(red, green, blue);
 		}
 
 		var movie = samplerComponent.Sample(Function, settings);

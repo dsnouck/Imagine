@@ -5,4 +5,4 @@ public readonly record struct ProjectorSettings(
 	Vector3 Focus,
 	// TODO: Rename? Use width/something else instead of angle?
 	double FieldOfView,
-	RgbColor BackgroundColor);
+	ColorRgb BackgroundColor);

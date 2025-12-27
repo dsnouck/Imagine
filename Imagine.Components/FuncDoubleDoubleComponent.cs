@@ -11,7 +11,7 @@ public class FuncDoubleDoubleComponent : IFuncDoubleDoubleComponent
 			return new List<double>();
 		}
 
-		var squareRootOfDiscriminant = Math.Sqrt(discriminant);
+		var squareRootOfDiscriminant = double.Sqrt(discriminant);
 		var divisor = 1D / (2D * a);
 
 		return new List<double>

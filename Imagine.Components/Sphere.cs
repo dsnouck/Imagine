@@ -21,7 +21,7 @@ public class Sphere(
 			Select(zero => new Intercept(
 				Distance: zero,
 				Normal: line3Component.GetPointAtDistance(ray, zero).Normalized() * ray.Direction.Length(),
-				Color: new RgbColor(1D, 1D, 1D)))
+				Color: new ColorRgb(1D, 1D, 1D)))
 			.ToList();
 	}
 }

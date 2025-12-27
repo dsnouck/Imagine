@@ -1,15 +1,15 @@
 namespace Imagine.Components;
 
-public class SamplerComponent(IColorComponent colorComponent, ILine2Component line2Component) : ISamplerComponent
+public class SamplerComponent(ILine2Component line2Component) : ISamplerComponent
 {
-	public List<List<RgbColor>> Sample(Func<Vector2, HsvColor> function, ImageSettings settings)
+	public List<List<ColorRgb>> Sample(Func<Vector2, ColorHsv> function, ImageSettings settings)
 	{
-		RgbColor RgbFunction(Vector2 point) => colorComponent.ToRgb(function(point));
+		ColorRgb RgbFunction(Vector2 point) => (ColorRgb)function(point);
 
 		return Sample(RgbFunction, settings);
 	}
 
-	public List<List<RgbColor>> Sample(Func<Vector2, RgbColor> function, ImageSettings settings)
+	public List<List<ColorRgb>> Sample(Func<Vector2, ColorRgb> function, ImageSettings settings)
 	{
 		var rowToY = line2Component.Line(
 			new Vector2(-0.5D, settings.YMax),
@@ -23,7 +23,7 @@ public class SamplerComponent(IColorComponent colorComponent, ILine2Component li
 			.AsParallel()
 			.AsOrdered()
 			.Select(row => Enumerable.Range(0, settings.Width)
-				.Select(column => colorComponent.Average(
+				.Select(column => ColorRgb.Average(
 					Enumerable.Range(0, settings.Subsamples)
 						.Select(subrow => rowToY((row * settings.Subsamples) + subrow))
 						.SelectMany(y => Enumerable.Range(0, settings.Subsamples)
@@ -35,14 +35,14 @@ public class SamplerComponent(IColorComponent colorComponent, ILine2Component li
 			.ToList();
 	}
 
-	public List<List<List<RgbColor>>> Sample(Func<Vector3, HsvColor> function, MovieSettings settings)
+	public List<List<List<ColorRgb>>> Sample(Func<Vector3, ColorHsv> function, MovieSettings settings)
 	{
-		RgbColor RgbFunction(Vector3 point) => colorComponent.ToRgb(function(point));
+		ColorRgb RgbFunction(Vector3 point) => (ColorRgb)function(point);
 
 		return Sample(RgbFunction, settings);
 	}
 
-	public List<List<List<RgbColor>>> Sample(Func<Vector3, RgbColor> function, MovieSettings settings)
+	public List<List<List<ColorRgb>>> Sample(Func<Vector3, ColorRgb> function, MovieSettings settings)
 	{
 		var frameToZ = line2Component.Line(
 			new Vector2(-0.5D, settings.ZMin),
@@ -57,13 +57,13 @@ public class SamplerComponent(IColorComponent colorComponent, ILine2Component li
 			YMin: settings.YMin,
 			YMax: settings.YMax);
 
-		var movie = new List<List<List<RgbColor>>>();
+		var movie = new List<List<List<ColorRgb>>>();
 
 		for (var frame = 0; frame < settings.Frames; frame++)
 		{
 			var z = frameToZ(frame);
 
-			RgbColor CreateColor(Vector2 point) => function(new Vector3(point.X, point.Y, z));
+			ColorRgb CreateColor(Vector2 point) => function(new Vector3(point.X, point.Y, z));
 
 			movie.Add(Sample(CreateColor, imageSettings));
 		}

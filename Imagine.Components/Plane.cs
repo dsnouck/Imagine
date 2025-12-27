@@ -15,7 +15,7 @@ public class Plane(Vector3 normal) : ISceneComponent
 
 		var dotProductNormalDirection = normal.Dot(lineOfSight.Direction);
 
-		if (Math.Abs(dotProductNormalDirection) < Epsilon)
+		if (double.Abs(dotProductNormalDirection) < Epsilon)
 		{
 			// The line of sight is approximately parallel to the plane.
 			return new List<Intercept>();
@@ -31,7 +31,7 @@ public class Plane(Vector3 normal) : ISceneComponent
 			{
 				Distance = distance,
 				Normal = normal.Normalized() * lineOfSight.Direction.Length(),
-				Color = new RgbColor(1, 1, 1),
+				Color = new ColorRgb(1, 1, 1),
 			},
 		};
 	}

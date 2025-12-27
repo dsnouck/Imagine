@@ -15,8 +15,8 @@ public class Matrix4Component : IMatrix4Component
 		var l = axis.X;
 		var m = axis.Y;
 		var n = axis.Z;
-		var cosine = Math.Cos(angle);
-		var sine = Math.Sin(angle);
+		var cosine = double.Cos(angle);
+		var sine = double.Sin(angle);
 		var oneMinusCosine = 1D - cosine;
 
 		return new Matrix4

@@ -1,13 +1,13 @@
 namespace Imagine.Components;
 
-public class FileComponent(IColorComponent colorComponent) : IFileComponent
+public class FileComponent : IFileComponent
 {
 	private const string OutputDirectory = "output";
 	private const string FramesDirectory = $"{OutputDirectory}/frames";
 
-	public void Save(List<List<RgbColor>> image, string name) => Save(image, OutputDirectory, name);
+	public void Save(List<List<ColorRgb>> image, string name) => Save(image, OutputDirectory, name);
 
-	public void Save(List<List<List<RgbColor>>> movie, string name)
+	public void Save(List<List<List<ColorRgb>>> movie, string name)
 	{
 		Directory.CreateDirectory($"{FramesDirectory}");
 		Directory.CreateDirectory($"{OutputDirectory}");
@@ -34,7 +34,7 @@ public class FileComponent(IColorComponent colorComponent) : IFileComponent
 		process.WaitForExit();
 	}
 
-	private void Save(List<List<RgbColor>> image, string directory, string name)
+	private void Save(List<List<ColorRgb>> image, string directory, string name)
 	{
 		Directory.CreateDirectory(directory);
 
@@ -46,7 +46,7 @@ public class FileComponent(IColorComponent colorComponent) : IFileComponent
 		{
 			for (var column = 0; column < width; column++)
 			{
-				outputImage[column, row] = colorComponent.ToRgba32(image[row][column]);
+				outputImage[column, row] = (Rgba32)image[row][column];
 			}
 		}
 

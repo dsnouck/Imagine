@@ -2,17 +2,15 @@ namespace Imagine.Tests;
 
 public class ImageTests
 {
-	private readonly IColorComponent colorComponent;
 	private readonly IFileComponent fileComponent;
 	private readonly ILine2Component line2Component;
 	private readonly ISamplerComponent samplerComponent;
 
 	public ImageTests()
 	{
-		colorComponent = new ColorComponent();
-		fileComponent = new FileComponent(colorComponent);
+		fileComponent = new FileComponent();
 		line2Component = new Line2Component();
-		samplerComponent = new SamplerComponent(colorComponent, line2Component);
+		samplerComponent = new SamplerComponent(line2Component);
 	}
 
 	[Fact]
@@ -29,7 +27,7 @@ public class ImageTests
 			YMin: 0D,
 			YMax: 1D);
 
-		static HsvColor Function(Vector2 point)
+		static ColorHsv Function(Vector2 point)
 		{
 			var center = new Vector2(0.5D, 0.5D);
 			var r = (point - center).Length();
@@ -38,7 +36,7 @@ public class ImageTests
 			var saturation = r < 0.5D ? 1D - (2D * r) : 0D;
 			var value = point.Y;
 
-			return new HsvColor(hue, saturation, value);
+			return new ColorHsv(hue, saturation, value);
 		}
 
 		var image = samplerComponent.Sample(Function, settings);
@@ -52,7 +50,7 @@ public class ImageTests
 
 		const int width = 512;
 		const int height = 512;
-		var red = new RgbColor(1D, 0D, 0D);
+		var red = new ColorRgb(1D, 0D, 0D);
 
 		var image = Enumerable.Repeat(
 			Enumerable.Repeat(
@@ -77,7 +75,7 @@ public class ImageTests
 			YMin: 0D,
 			YMax: 1D);
 
-		static RgbColor Function(Vector2 point)
+		static ColorRgb Function(Vector2 point)
 		{
 			var center = new Vector2(0.5D, 0.5D);
 			var r = (point - center).Length();
@@ -86,7 +84,7 @@ public class ImageTests
 			var green = r < 0.5D ? 1D - (2D * r) : 0D;
 			var blue = point.Y;
 
-			return new RgbColor(red, green, blue);
+			return new ColorRgb(red, green, blue);
 		}
 
 		var image = samplerComponent.Sample(Function, settings);

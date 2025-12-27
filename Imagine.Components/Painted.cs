@@ -1,6 +1,6 @@
 namespace Imagine.Components;
 
-public class Painted(ISceneComponent sceneComponent, RgbColor color) : ISceneComponent
+public class Painted(ISceneComponent sceneComponent, ColorRgb color) : ISceneComponent
 {
 	public bool Contains(Vector3 point) => sceneComponent.Contains(point);
 

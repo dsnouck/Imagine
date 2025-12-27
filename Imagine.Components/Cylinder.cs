@@ -59,7 +59,7 @@ public class Cylinder(
 				{
 					Distance = zero,
 					Normal = horizontalSurfaceIntersection.Normalized() * ray.Direction.Length(),
-					Color = new RgbColor(1D, 1D, 1D),
+					Color = new ColorRgb(1D, 1D, 1D),
 				};
 			})
 			.ToList();

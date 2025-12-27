@@ -4,7 +4,6 @@ public class ProjectorTests
 {
 	// TODO: Upgrade to .NET 10.
 	// TODO: Clean up fields.
-	private readonly IColorComponent colorComponent;
 	private readonly IFileComponent fileComponent;
 	private readonly ILine2Component line2Component;
 	private readonly ISamplerComponent samplerComponent;
@@ -17,14 +16,13 @@ public class ProjectorTests
 
 	public ProjectorTests()
 	{
-		colorComponent = new ColorComponent();
-		fileComponent = new FileComponent(colorComponent);
+		fileComponent = new FileComponent();
 		line2Component = new Line2Component();
-		samplerComponent = new SamplerComponent(colorComponent, line2Component);
+		samplerComponent = new SamplerComponent(line2Component);
 		funcDoubleDoubleComponent = new FuncDoubleDoubleComponent();
 		line3Component = new Line3Component();
 		funcVector2Vector3Component = new FuncVector2Vector3Component();
-		projectorComponent = new ProjectorComponent(colorComponent, funcVector2Vector3Component);
+		projectorComponent = new ProjectorComponent(funcVector2Vector3Component);
 	}
 
 	[Fact]
@@ -40,7 +38,7 @@ public class ProjectorTests
 			Focus: new(0D, 0D, 0D),
 			FieldOfView: Math.PI / 4D,
 			// TODO: Use new() everywhere.
-			BackgroundColor: new RgbColor(0D, 0D, 0D));
+			BackgroundColor: new ColorRgb(0D, 0D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		// TODO: Rename variables named settings to samplerSettings.
@@ -72,7 +70,7 @@ public class ProjectorTests
 			Focus: new(0D, 0D, 0D),
 			FieldOfView: Math.PI / 4D,
 			// TODO: Use new() everywhere.
-			BackgroundColor: new RgbColor(0D, 0D, 0D));
+			BackgroundColor: new ColorRgb(0D, 0D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		// TODO: Rename variables named settings to samplerSettings.
@@ -104,7 +102,7 @@ public class ProjectorTests
 			Focus: new(0D, 0D, 0D),
 			FieldOfView: Math.PI / 4D,
 			// TODO: Use new() everywhere.
-			BackgroundColor: new RgbColor(0D, 0D, 0D));
+			BackgroundColor: new ColorRgb(0D, 0D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		// TODO: Rename variables named settings to samplerSettings.
@@ -136,7 +134,7 @@ public class ProjectorTests
 			Focus: new(0D, 0D, 0D),
 			FieldOfView: Math.PI / 4D,
 			// TODO: Use new() everywhere.
-			BackgroundColor: new RgbColor(0D, 0D, 0D));
+			BackgroundColor: new ColorRgb(0D, 0D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		// TODO: Rename variables named settings to samplerSettings.
@@ -168,7 +166,7 @@ public class ProjectorTests
 			Focus: new(0D, 0D, 0D),
 			FieldOfView: Math.PI / 4D,
 			// TODO: Use new() everywhere.
-			BackgroundColor: new RgbColor(0D, 0D, 0D));
+			BackgroundColor: new ColorRgb(0D, 0D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		// TODO: Rename variables named settings to samplerSettings.
@@ -200,7 +198,7 @@ public class ProjectorTests
 			Focus: new(0D, 0D, 0D),
 			FieldOfView: Math.PI / 4D,
 			// TODO: Use new() everywhere.
-			BackgroundColor: new RgbColor(0D, 0D, 0D));
+			BackgroundColor: new ColorRgb(0D, 0D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		// TODO: Rename variables named settings to samplerSettings.
@@ -232,7 +230,7 @@ public class ProjectorTests
 			Focus: new(0D, 0D, 0D),
 			FieldOfView: Math.PI / 4D,
 			// TODO: Use new() everywhere.
-			BackgroundColor: new RgbColor(0D, 0D, 0D));
+			BackgroundColor: new ColorRgb(0D, 0D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		// TODO: Rename variables named settings to samplerSettings.
@@ -263,7 +261,7 @@ public class ProjectorTests
 			Focus: new(0D, 0D, 0D),
 			FieldOfView: Math.PI / 4D,
 			// TODO: Use new() everywhere.
-			BackgroundColor: new RgbColor(0D, 0D, 0D));
+			BackgroundColor: new ColorRgb(0D, 0D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		// TODO: Rename variables named settings to samplerSettings.
@@ -295,7 +293,7 @@ public class ProjectorTests
 			Focus: new(0D, 0D, 0D),
 			FieldOfView: Math.PI / 4D,
 			// TODO: Use new() everywhere.
-			BackgroundColor: new RgbColor(0D, 0D, 0D));
+			BackgroundColor: new ColorRgb(0D, 0D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		// TODO: Rename variables named settings to samplerSettings.
@@ -327,7 +325,7 @@ public class ProjectorTests
 			Focus: new(0D, 0D, 0D),
 			FieldOfView: Math.PI / 4D,
 			// TODO: Use new() everywhere.
-			BackgroundColor: new RgbColor(0D, 0D, 0D));
+			BackgroundColor: new ColorRgb(0D, 0D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		// TODO: Rename variables named settings to samplerSettings.
@@ -359,7 +357,7 @@ public class ProjectorTests
 			Focus: new(0D, 0D, 0D),
 			FieldOfView: Math.PI / 4D,
 			// TODO: Use new() everywhere.
-			BackgroundColor: new RgbColor(0D, 0D, 0D));
+			BackgroundColor: new ColorRgb(0D, 0D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		// TODO: Rename variables named settings to samplerSettings.
@@ -391,7 +389,7 @@ public class ProjectorTests
 			Focus: new(0D, 0D, 0D),
 			FieldOfView: Math.PI / 4D,
 			// TODO: Use new() everywhere.
-			BackgroundColor: new RgbColor(0D, 0D, 0D));
+			BackgroundColor: new ColorRgb(0D, 0D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		// TODO: Rename variables named settings to samplerSettings.
@@ -423,7 +421,7 @@ public class ProjectorTests
 			Focus: new(0D, 0D, 0D),
 			FieldOfView: Math.PI / 4D,
 			// TODO: Use new() everywhere.
-			BackgroundColor: new RgbColor(0D, 0D, 0D));
+			BackgroundColor: new ColorRgb(0D, 0D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		// TODO: Rename variables named settings to samplerSettings.
@@ -454,7 +452,7 @@ public class ProjectorTests
 			Focus: new(0D, 0D, 0D),
 			FieldOfView: Math.PI / 4D,
 			// TODO: Use new() everywhere.
-			BackgroundColor: new RgbColor(0D, 0D, 0D));
+			BackgroundColor: new ColorRgb(0D, 0D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		// TODO: Rename variables named settings to samplerSettings.
@@ -485,7 +483,7 @@ public class ProjectorTests
 			Focus: new(0D, 0D, 0D),
 			FieldOfView: Math.PI / 4D,
 			// TODO: Use new() everywhere.
-			BackgroundColor: new RgbColor(0D, 0D, 0D));
+			BackgroundColor: new ColorRgb(0D, 0D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		// TODO: Rename variables named settings to samplerSettings.
@@ -516,7 +514,7 @@ public class ProjectorTests
 			Focus: new(0D, 0D, 0D),
 			FieldOfView: Math.PI / 4D,
 			// TODO: Use new() everywhere.
-			BackgroundColor: new RgbColor(0D, 0D, 0D));
+			BackgroundColor: new ColorRgb(0D, 0D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		// TODO: Rename variables named settings to samplerSettings.
@@ -540,7 +538,7 @@ public class ProjectorTests
 	{
 		const string name = "red-cube";
 
-		var scene = new Painted(CreateCubeComponent(), new RgbColor(1D, 0D, 0D));
+		var scene = new Painted(CreateCubeComponent(), new ColorRgb(1D, 0D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		var projectorSettings = new ProjectorSettings(
@@ -548,7 +546,7 @@ public class ProjectorTests
 			Focus: new(0D, 0D, 0D),
 			FieldOfView: Math.PI / 4D,
 			// TODO: Use new() everywhere.
-			BackgroundColor: new RgbColor(0D, 0D, 0D));
+			BackgroundColor: new ColorRgb(0D, 0D, 0D));
 
 		// TODO: Find nice settings for all tests.
 		// TODO: Rename variables named settings to samplerSettings.
@@ -569,7 +567,7 @@ public class ProjectorTests
 	// TODO: Move to static class Scene.
 	private ISceneComponent CreateTetrahedronComponent()
 	{
-		var dihedralAngle = Math.Acos(1D / 3D);
+		var dihedralAngle = double.Acos(1D / 3D);
 		var azimuthStep = 2D * Math.PI / 3D;
 
 		var planes = new List<ISceneComponent>
@@ -618,12 +616,12 @@ public class ProjectorTests
 	private ISceneComponent CreateCubeExceptSphereComponent()
 	{
 		// TODO: Are these colors and sizes good?
-		var sphere = CreateScaledComponent(new Sphere(funcDoubleDoubleComponent, line3Component), Math.Sqrt(2D) * 0.99D);
+		var sphere = CreateScaledComponent(new Sphere(funcDoubleDoubleComponent, line3Component), double.Sqrt(2D) * 0.99D);
 
 		var planes = new List<ISceneComponent>
 		{
-			new Painted(CreateCubeComponent(), new RgbColor(1D, 0D, 0D)),
-			new Painted(new Inverted(sphere), new RgbColor(0D, 0D, 1D)),
+			new Painted(CreateCubeComponent(), new ColorRgb(1D, 0D, 0D)),
+			new Painted(new Inverted(sphere), new ColorRgb(0D, 0D, 1D)),
 		};
 
 		return CreateIntersectionComponent(planes);
@@ -700,7 +698,7 @@ public class ProjectorTests
 	// TODO: Move to static class Scene.
 	private ISceneComponent CreateOctahedronComponent()
 	{
-		var dihedralAngle = Math.Acos(-1D / 3D);
+		var dihedralAngle = double.Acos(-1D / 3D);
 		var azimuthStep = Math.PI / 3D;
 
 		var planes = new List<ISceneComponent>
@@ -721,7 +719,7 @@ public class ProjectorTests
 	// TODO: Move to static class Scene.
 	private ISceneComponent CreateDodecahedronComponent()
 	{
-		var dihedralAngle = Math.Acos(-1D / Math.Sqrt(5D));
+		var dihedralAngle = double.Acos(-1D / double.Sqrt(5D));
 		var azimuthStep = Math.PI / 5D;
 
 		var planes = new List<ISceneComponent>
@@ -746,10 +744,10 @@ public class ProjectorTests
 	// TODO: Move to static class Scene.
 	private ISceneComponent CreateIcosahedronComponent()
 	{
-		var dihedralAngle = Math.Acos(-Math.Sqrt(5D) / 3D);
-		var secondInclination = Math.Acos(-1D / 3D);
+		var dihedralAngle = double.Acos(-double.Sqrt(5D) / 3D);
+		var secondInclination = double.Acos(-1D / 3D);
 		var azimuthStep = Math.PI / 3D;
-		var azimuthOffset = Math.PI / 3D - Math.Acos(Math.Sqrt(5D / 8D));
+		var azimuthOffset = Math.PI / 3D - double.Acos(double.Sqrt(5D / 8D));
 
 		var planes = new List<ISceneComponent>
 		{

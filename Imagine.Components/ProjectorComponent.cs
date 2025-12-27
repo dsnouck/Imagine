@@ -1,12 +1,9 @@
 namespace Imagine.Components;
 
 // TODO: Cleanup dependencies.
-public class ProjectorComponent(
-	IColorComponent colorComponent,
-	IFuncVector2Vector3Component funcVector2Vector3Component)
-	: IProjectorComponent
+public class ProjectorComponent(IFuncVector2Vector3Component funcVector2Vector3Component) : IProjectorComponent
 {
-	public Func<Vector2, RgbColor> Project(ISceneComponent scene, ProjectorSettings settings)
+	public Func<Vector2, ColorRgb> Project(ISceneComponent scene, ProjectorSettings settings)
 	{
 		// TODO: Refactor. Introduce GetRays or similar method.
 		var screen = GetScreen(settings);
@@ -30,9 +27,9 @@ public class ProjectorComponent(
 
 			var intercept = intercepts.First();
 
-			var intensity = Math.Abs(intercept.Normal.Dot(direction));
+			var intensity = double.Abs(intercept.Normal.Dot(direction));
 
-			return colorComponent.Multiply(intercept.Color, intensity);
+			return intercept.Color * intensity;
 		};
 
 	}
@@ -44,7 +41,7 @@ public class ProjectorComponent(
 		var vertical = new Vector3 { X = 0D, Y = 0D, Z = 1D };
 		var xVector = viewingDirection.Cross(vertical).Normalized();
 		var yVector = xVector.Cross(viewingDirection).Normalized();
-		var halfScreenExtent = Math.Tan(settings.FieldOfView * 0.5D);
+		var halfScreenExtent = double.Tan(settings.FieldOfView * 0.5D);
 		xVector *= halfScreenExtent;
 		yVector *= halfScreenExtent;
 		return funcVector2Vector3Component.CreatePlane(centerScreen, xVector, yVector);

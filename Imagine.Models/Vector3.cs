@@ -29,6 +29,7 @@ public readonly record struct Vector3(double X, double Y, double Z)
 	public static Vector3 operator -(Vector3 value) =>
 		new(-value.X, -value.Y, -value.Z);
 
+	// TODO: Make cast operators explicit.
 	public static implicit operator Vector2(Vector3 value) =>
 		new(value.X, value.Y);
 }
