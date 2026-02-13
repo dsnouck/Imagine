@@ -1,6 +1,6 @@
 namespace Imagine.Components;
 
-public class SamplerComponent(ILine2Component line2Component) : ISamplerComponent
+public class SamplerComponent : ISamplerComponent
 {
 	public List<List<ColorRgb>> Sample(Func<Vector2, ColorHsv> function, ImageSettings settings)
 	{
@@ -11,11 +11,11 @@ public class SamplerComponent(ILine2Component line2Component) : ISamplerComponen
 
 	public List<List<ColorRgb>> Sample(Func<Vector2, ColorRgb> function, ImageSettings settings)
 	{
-		var rowToY = line2Component.Line(
+		var rowToY = Line(
 			new Vector2(-0.5D, settings.YMax),
 			new Vector2((settings.Height * settings.Subsamples) - 0.5D, settings.YMin));
 
-		var columnToX = line2Component.Line(
+		var columnToX = Line(
 			new Vector2(-0.5D, settings.XMin),
 			new Vector2((settings.Width * settings.Subsamples) - 0.5D, settings.XMax));
 
@@ -44,7 +44,7 @@ public class SamplerComponent(ILine2Component line2Component) : ISamplerComponen
 
 	public List<List<List<ColorRgb>>> Sample(Func<Vector3, ColorRgb> function, MovieSettings settings)
 	{
-		var frameToZ = line2Component.Line(
+		var frameToZ = Line(
 			new Vector2(-0.5D, settings.ZMin),
 			new Vector2(settings.Frames - 0.5D, settings.ZMax));
 
@@ -69,5 +69,13 @@ public class SamplerComponent(ILine2Component line2Component) : ISamplerComponen
 		}
 
 		return movie;
+	}
+
+	private static Func<double, double> Line(Vector2 from, Vector2 to)
+	{
+		var slope = (to.Y - from.Y) / (to.X - from.X);
+		var intercept = ((from.Y * to.X) - (from.X * to.Y)) / (to.X - from.X);
+
+		return x => (slope * x) + intercept;
 	}
 }

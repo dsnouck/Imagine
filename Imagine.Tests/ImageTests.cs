@@ -3,14 +3,12 @@ namespace Imagine.Tests;
 public class ImageTests
 {
 	private readonly IFileComponent fileComponent;
-	private readonly ILine2Component line2Component;
 	private readonly ISamplerComponent samplerComponent;
 
 	public ImageTests()
 	{
 		fileComponent = new FileComponent();
-		line2Component = new Line2Component();
-		samplerComponent = new SamplerComponent(line2Component);
+		samplerComponent = new SamplerComponent();
 	}
 
 	[Fact]

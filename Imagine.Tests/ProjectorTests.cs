@@ -5,7 +5,6 @@ public class ProjectorTests
 	// TODO: Upgrade to .NET 10.
 	// TODO: Clean up fields.
 	private readonly IFileComponent fileComponent;
-	private readonly ILine2Component line2Component;
 	private readonly ISamplerComponent samplerComponent;
 	private readonly IProjectorComponent projectorComponent;
 	private readonly IFuncVector2Vector3Component funcVector2Vector3Component;
@@ -13,8 +12,7 @@ public class ProjectorTests
 	public ProjectorTests()
 	{
 		fileComponent = new FileComponent();
-		line2Component = new Line2Component();
-		samplerComponent = new SamplerComponent(line2Component);
+		samplerComponent = new SamplerComponent();
 		funcVector2Vector3Component = new FuncVector2Vector3Component();
 		projectorComponent = new ProjectorComponent(funcVector2Vector3Component);
 	}
