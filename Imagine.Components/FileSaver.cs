@@ -1,14 +1,15 @@
 namespace Imagine.Components;
 
-public class FileComponent : IFileComponent
+public static class FileSaver
 {
 	private const string OutputDirectory = "output";
 	private const string FramesDirectory = $"{OutputDirectory}/frames";
 
-	public void Save(List<List<ColorRgb>> image, string name) => Save(image, OutputDirectory, name);
+	public static void Save(List<List<ColorRgb>> image, string name) => Save(image, OutputDirectory, name);
 
-	public void Save(List<List<List<ColorRgb>>> movie, string name)
+	public static void Save(List<List<List<ColorRgb>>> movie, string name)
 	{
+		// TODO: Do we need to create FramesDirectory here?
 		Directory.CreateDirectory($"{FramesDirectory}");
 		Directory.CreateDirectory($"{OutputDirectory}");
 
@@ -34,7 +35,7 @@ public class FileComponent : IFileComponent
 		process.WaitForExit();
 	}
 
-	private void Save(List<List<ColorRgb>> image, string directory, string name)
+	private static void Save(List<List<ColorRgb>> image, string directory, string name)
 	{
 		Directory.CreateDirectory(directory);
 

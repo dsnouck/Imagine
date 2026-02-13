@@ -2,12 +2,10 @@ namespace Imagine.Tests;
 
 public class ImageTests
 {
-	private readonly IFileComponent fileComponent;
 	private readonly ISamplerComponent samplerComponent;
 
 	public ImageTests()
 	{
-		fileComponent = new FileComponent();
 		samplerComponent = new SamplerComponent();
 	}
 
@@ -38,7 +36,7 @@ public class ImageTests
 		}
 
 		var image = samplerComponent.Sample(Function, settings);
-		fileComponent.Save(image, name);
+		FileSaver.Save(image, name);
 	}
 
 	[Fact]
@@ -56,7 +54,7 @@ public class ImageTests
 				width).ToList(),
 			height).ToList();
 
-		fileComponent.Save(image, name);
+		FileSaver.Save(image, name);
 	}
 
 	[Fact]
@@ -86,6 +84,6 @@ public class ImageTests
 		}
 
 		var image = samplerComponent.Sample(Function, settings);
-		fileComponent.Save(image, name);
+		FileSaver.Save(image, name);
 	}
 }

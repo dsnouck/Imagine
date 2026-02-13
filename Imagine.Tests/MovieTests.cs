@@ -2,12 +2,10 @@ namespace Imagine.Tests;
 
 public class MovieTests
 {
-	private readonly IFileComponent fileComponent;
 	private readonly ISamplerComponent samplerComponent;
 
 	public MovieTests()
 	{
-		fileComponent = new FileComponent();
 		samplerComponent = new SamplerComponent();
 	}
 
@@ -43,7 +41,7 @@ public class MovieTests
 		}
 
 		var movie = samplerComponent.Sample(Function, settings);
-		fileComponent.Save(movie, name);
+		FileSaver.Save(movie, name);
 	}
 
 	[Fact]
@@ -64,7 +62,7 @@ public class MovieTests
 				height).ToList(),
 			frames).ToList();
 
-		fileComponent.Save(movie, name);
+		FileSaver.Save(movie, name);
 	}
 
 	[Fact]
@@ -99,6 +97,6 @@ public class MovieTests
 		}
 
 		var movie = samplerComponent.Sample(Function, settings);
-		fileComponent.Save(movie, name);
+		FileSaver.Save(movie, name);
 	}
 }
