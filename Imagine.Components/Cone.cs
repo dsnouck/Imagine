@@ -1,6 +1,6 @@
 namespace Imagine.Components;
 
-public class Cone(IFuncDoubleDoubleComponent funcDoubleDoubleComponent) : ISceneComponent
+public class Cone : ISceneComponent
 {
 	public bool Contains(Vector3 point)
 	{
@@ -37,7 +37,7 @@ public class Cone(IFuncDoubleDoubleComponent funcDoubleDoubleComponent) : IScene
 		var b = ray.Direction.Dot(mirroredLineOfSight.Origin) * 2D;
 		var c = ray.Origin.Dot(mirroredLineOfSight.Origin);
 
-		var zeros = funcDoubleDoubleComponent.GetRealZerosOfQuadraticFunction(a, b, c);
+		var zeros = QuadraticSolver.Solve(a, b, c);
 
 		return zeros.
 			Select(zero =>

@@ -7,7 +7,6 @@ public class ProjectorTests
 	private readonly IFileComponent fileComponent;
 	private readonly ILine2Component line2Component;
 	private readonly ISamplerComponent samplerComponent;
-	private readonly IFuncDoubleDoubleComponent funcDoubleDoubleComponent;
 	private readonly IProjectorComponent projectorComponent;
 	private readonly IFuncVector2Vector3Component funcVector2Vector3Component;
 
@@ -16,7 +15,6 @@ public class ProjectorTests
 		fileComponent = new FileComponent();
 		line2Component = new Line2Component();
 		samplerComponent = new SamplerComponent(line2Component);
-		funcDoubleDoubleComponent = new FuncDoubleDoubleComponent();
 		funcVector2Vector3Component = new FuncVector2Vector3Component();
 		projectorComponent = new ProjectorComponent(funcVector2Vector3Component);
 	}
@@ -26,7 +24,7 @@ public class ProjectorTests
 	{
 		const string name = "sphere";
 
-		var scene = new Sphere(funcDoubleDoubleComponent);
+		var scene = new Sphere();
 
 		// TODO: Find nice settings for all tests.
 		var projectorSettings = new ProjectorSettings(
@@ -612,7 +610,7 @@ public class ProjectorTests
 	private ISceneComponent CreateCubeExceptSphereComponent()
 	{
 		// TODO: Are these colors and sizes good?
-		var sphere = CreateScaledComponent(new Sphere(funcDoubleDoubleComponent), double.Sqrt(2D) * 0.99D);
+		var sphere = CreateScaledComponent(new Sphere(), double.Sqrt(2D) * 0.99D);
 
 		var planes = new List<ISceneComponent>
 		{
@@ -626,7 +624,7 @@ public class ProjectorTests
 	// TODO: Move to static class Scene.
 	private ISceneComponent CreateSphereExceptCubeComponent()
 	{
-		var sphere = CreateScaledComponent(new Sphere(funcDoubleDoubleComponent), 1.3D);
+		var sphere = CreateScaledComponent(new Sphere(), 1.3D);
 
 		var planes = new List<ISceneComponent>
 		{
@@ -640,7 +638,7 @@ public class ProjectorTests
 	// TODO: Move to static class Scene.
 	private ISceneComponent CreateCubeSphereIntersection()
 	{
-		var sphere = CreateScaledComponent(new Sphere(funcDoubleDoubleComponent), 1.3D);
+		var sphere = CreateScaledComponent(new Sphere(), 1.3D);
 
 		var planes = new List<ISceneComponent>
 		{
@@ -654,7 +652,7 @@ public class ProjectorTests
 	// TODO: Move to static class Scene.
 	private ISceneComponent CreateCubeSphereUnion()
 	{
-		var sphere = CreateScaledComponent(new Sphere(funcDoubleDoubleComponent), 1.3D);
+		var sphere = CreateScaledComponent(new Sphere(), 1.3D);
 
 		var planes = new List<ISceneComponent>
 		{
@@ -670,7 +668,7 @@ public class ProjectorTests
 	{
 		var planes = new List<ISceneComponent>
 		{
-			new Cone(funcDoubleDoubleComponent),
+			new Cone(),
 			new Plane(new Vector3(0D, 0D, -1D)),
 			new Plane(new Vector3(0D, 0D, 1D)),
 		};
@@ -683,7 +681,7 @@ public class ProjectorTests
 	{
 		var planes = new List<ISceneComponent>
 		{
-			new Cylinder(funcDoubleDoubleComponent),
+			new Cylinder(),
 			new Plane(new Vector3(0D, 0D, -1D)),
 			new Plane(new Vector3(0D, 0D, 1D)),
 		};

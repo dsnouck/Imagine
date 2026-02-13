@@ -1,6 +1,6 @@
 namespace Imagine.Components;
 
-public class Cylinder(IFuncDoubleDoubleComponent funcDoubleDoubleComponent) : ISceneComponent
+public class Cylinder : ISceneComponent
 {
 	// TODO: Make radius a property.
 	public bool Contains(Vector3 point)
@@ -39,7 +39,7 @@ public class Cylinder(IFuncDoubleDoubleComponent funcDoubleDoubleComponent) : IS
 		var b = horizontalLineOfSight.Direction.Dot(horizontalLineOfSight.Origin) * 2D;
 		var c = horizontalLineOfSight.Origin.Dot(horizontalLineOfSight.Origin) - 1D;
 
-		var zeros = funcDoubleDoubleComponent.GetRealZerosOfQuadraticFunction(a, b, c);
+		var zeros = QuadraticSolver.Solve(a, b, c);
 
 		return zeros
 			.Select(zero =>

@@ -1,6 +1,6 @@
 namespace Imagine.Components;
 
-public class Sphere(IFuncDoubleDoubleComponent funcDoubleDoubleComponent) : ISceneComponent
+public class Sphere : ISceneComponent
 {
 	public bool Contains(Vector3 point) => point.Dot(point) <= 1D;
 
@@ -11,7 +11,7 @@ public class Sphere(IFuncDoubleDoubleComponent funcDoubleDoubleComponent) : ISce
 		var b = ray.Direction.Dot(ray.Origin) * 2D;
 		var c = ray.Origin.Dot(ray.Origin) - 1D;
 
-		var zeros = funcDoubleDoubleComponent.GetRealZerosOfQuadraticFunction(a, b, c);
+		var zeros = QuadraticSolver.Solve(a, b, c);
 
 		// TODO: When we want to enable transformations, the distance should be relative to the length of the direction vector. What about the normal?
 		return zeros.
