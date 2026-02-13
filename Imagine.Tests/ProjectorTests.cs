@@ -9,9 +9,7 @@ public class ProjectorTests
 	private readonly ISamplerComponent samplerComponent;
 	private readonly IFuncDoubleDoubleComponent funcDoubleDoubleComponent;
 	private readonly IProjectorComponent projectorComponent;
-
 	private readonly IFuncVector2Vector3Component funcVector2Vector3Component;
-	private readonly IMatrix4Component matrix4Component = new Matrix4Component();
 
 	public ProjectorTests()
 	{
@@ -794,25 +792,22 @@ public class ProjectorTests
 	private ISceneComponent CreateRotatedComponent(ISceneComponent scene, Vector3 axis, double angle)
 	{
 		return new AffinelyTransformedComponent(
-			matrix4Component,
 			scene,
-			matrix4Component.CreateRotationMatrix(axis, angle),
-			matrix4Component.CreateRotationMatrix(axis, -angle));
+			Matrix4.Rotation(axis, angle),
+			Matrix4.Rotation(axis, -angle));
 	}
 
 	private ISceneComponent CreateScaledComponent(ISceneComponent scene, double factor)
 	{
 		return new AffinelyTransformedComponent(
-			matrix4Component,
 			scene,
-			matrix4Component.CreateScalingMatrix(factor),
-			matrix4Component.CreateScalingMatrix(1D / factor));
+			Matrix4.Scaling(factor),
+			Matrix4.Scaling(1D / factor));
 	}
 
 	private ISceneComponent CreateTranslatedComponent(ISceneComponent scene, Vector3 translation) =>
 		new AffinelyTransformedComponent(
-			matrix4Component,
 			scene,
-			matrix4Component.CreateTranslationMatrix(translation),
-			matrix4Component.CreateTranslationMatrix(-translation));
+			Matrix4.Translation(translation),
+			Matrix4.Translation(-translation));
 }

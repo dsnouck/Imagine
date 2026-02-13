@@ -1,7 +1,6 @@
 namespace Imagine.Components;
 
 public class AffinelyTransformedComponent(
-	IMatrix4Component matrix4Component,
 	ISceneComponent sceneComponent,
 	Matrix4 transformation,
 	Matrix4 backwardTransformation) : ISceneComponent
@@ -38,7 +37,7 @@ public class AffinelyTransformedComponent(
 			Z = direction.Z,
 			W = 0D,
 		};
-		var transformedDirection4 = matrix4Component.Multiply(transformation, direction4);
+		var transformedDirection4 = transformation * direction4;
 
 		return new Vector3
 		{
@@ -57,7 +56,7 @@ public class AffinelyTransformedComponent(
 			Z = direction.Z,
 			W = 0D,
 		};
-		var transformedDirection4 = matrix4Component.Multiply(backwardTransformation, direction4);
+		var transformedDirection4 = backwardTransformation * direction4;
 
 		return new Vector3
 		{
@@ -76,7 +75,7 @@ public class AffinelyTransformedComponent(
 			Z = point.Z,
 			W = 1D,
 		};
-		var transformedPoint4 = matrix4Component.Multiply(backwardTransformation, point4);
+		var transformedPoint4 = backwardTransformation * point4;
 
 		return new Vector3
 		{
