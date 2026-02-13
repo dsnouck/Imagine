@@ -770,21 +770,17 @@ public class ProjectorTests
 					scene,
 					otherScene));
 
-	private IScene CreateRotatedComponent(IScene scene, Vector3 axis, double angle)
-	{
-		return new Transformed(
+	private IScene CreateRotatedComponent(IScene scene, Vector3 axis, double angle) =>
+		new Transformed(
 			scene,
 			Matrix4.Rotation(axis, angle),
 			Matrix4.Rotation(axis, -angle));
-	}
 
-	private IScene CreateScaledComponent(IScene scene, double factor)
-	{
-		return new Transformed(
+	private IScene CreateScaledComponent(IScene scene, double factor) =>
+		new Transformed(
 			scene,
 			Matrix4.Scaling(factor),
 			Matrix4.Scaling(1D / factor));
-	}
 
 	private IScene CreateTranslatedComponent(IScene scene, Vector3 translation) =>
 		new Transformed(
