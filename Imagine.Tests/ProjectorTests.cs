@@ -7,14 +7,12 @@ public class ProjectorTests
 	private readonly IFileComponent fileComponent;
 	private readonly ISamplerComponent samplerComponent;
 	private readonly IProjectorComponent projectorComponent;
-	private readonly IFuncVector2Vector3Component funcVector2Vector3Component;
 
 	public ProjectorTests()
 	{
 		fileComponent = new FileComponent();
 		samplerComponent = new SamplerComponent();
-		funcVector2Vector3Component = new FuncVector2Vector3Component();
-		projectorComponent = new ProjectorComponent(funcVector2Vector3Component);
+		projectorComponent = new ProjectorComponent();
 	}
 
 	[Fact]
