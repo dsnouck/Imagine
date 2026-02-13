@@ -1,15 +1,15 @@
 namespace Imagine.Components;
 
-public class SamplerComponent : ISamplerComponent
+public static class Sampler
 {
-	public List<List<ColorRgb>> Sample(Func<Vector2, ColorHsv> function, ImageSettings settings)
+	public static List<List<ColorRgb>> Sample(Func<Vector2, ColorHsv> function, ImageSettings settings)
 	{
 		ColorRgb RgbFunction(Vector2 point) => (ColorRgb)function(point);
 
 		return Sample(RgbFunction, settings);
 	}
 
-	public List<List<ColorRgb>> Sample(Func<Vector2, ColorRgb> function, ImageSettings settings)
+	public static List<List<ColorRgb>> Sample(Func<Vector2, ColorRgb> function, ImageSettings settings)
 	{
 		var rowToY = Line(
 			new Vector2(-0.5D, settings.YMax),
@@ -35,14 +35,14 @@ public class SamplerComponent : ISamplerComponent
 			.ToList();
 	}
 
-	public List<List<List<ColorRgb>>> Sample(Func<Vector3, ColorHsv> function, MovieSettings settings)
+	public static List<List<List<ColorRgb>>> Sample(Func<Vector3, ColorHsv> function, MovieSettings settings)
 	{
 		ColorRgb RgbFunction(Vector3 point) => (ColorRgb)function(point);
 
 		return Sample(RgbFunction, settings);
 	}
 
-	public List<List<List<ColorRgb>>> Sample(Func<Vector3, ColorRgb> function, MovieSettings settings)
+	public static List<List<List<ColorRgb>>> Sample(Func<Vector3, ColorRgb> function, MovieSettings settings)
 	{
 		var frameToZ = Line(
 			new Vector2(-0.5D, settings.ZMin),

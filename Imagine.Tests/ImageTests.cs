@@ -2,13 +2,6 @@ namespace Imagine.Tests;
 
 public class ImageTests
 {
-	private readonly ISamplerComponent samplerComponent;
-
-	public ImageTests()
-	{
-		samplerComponent = new SamplerComponent();
-	}
-
 	[Fact]
 	public void Hsv()
 	{
@@ -35,7 +28,7 @@ public class ImageTests
 			return new ColorHsv(hue, saturation, value);
 		}
 
-		var image = samplerComponent.Sample(Function, settings);
+		var image = Sampler.Sample(Function, settings);
 		FileSaver.Save(image, name);
 	}
 
@@ -83,7 +76,7 @@ public class ImageTests
 			return new ColorRgb(red, green, blue);
 		}
 
-		var image = samplerComponent.Sample(Function, settings);
+		var image = Sampler.Sample(Function, settings);
 		FileSaver.Save(image, name);
 	}
 }

@@ -2,13 +2,6 @@ namespace Imagine.Tests;
 
 public class MovieTests
 {
-	private readonly ISamplerComponent samplerComponent;
-
-	public MovieTests()
-	{
-		samplerComponent = new SamplerComponent();
-	}
-
 	[Fact]
 	public void Hsv()
 	{
@@ -40,7 +33,7 @@ public class MovieTests
 			return new ColorHsv(hue, saturation, value);
 		}
 
-		var movie = samplerComponent.Sample(Function, settings);
+		var movie = Sampler.Sample(Function, settings);
 		FileSaver.Save(movie, name);
 	}
 
@@ -96,7 +89,7 @@ public class MovieTests
 			return new ColorRgb(red, green, blue);
 		}
 
-		var movie = samplerComponent.Sample(Function, settings);
+		var movie = Sampler.Sample(Function, settings);
 		FileSaver.Save(movie, name);
 	}
 }

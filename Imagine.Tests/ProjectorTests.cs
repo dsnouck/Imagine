@@ -4,12 +4,10 @@ public class ProjectorTests
 {
 	// TODO: Upgrade to .NET 10.
 	// TODO: Clean up fields.
-	private readonly ISamplerComponent samplerComponent;
 	private readonly IProjectorComponent projectorComponent;
 
 	public ProjectorTests()
 	{
-		samplerComponent = new SamplerComponent();
 		projectorComponent = new ProjectorComponent();
 	}
 
@@ -40,7 +38,7 @@ public class ProjectorTests
 			YMax: 1D);
 
 		var projection = projectorComponent.Project(scene, projectorSettings);
-		var image = samplerComponent.Sample(projection, settings);
+		var image = Sampler.Sample(projection, settings);
 		FileSaver.Save(image, name);
 	}
 
@@ -72,7 +70,7 @@ public class ProjectorTests
 			YMax: 1D);
 
 		var projection = projectorComponent.Project(scene, projectorSettings);
-		var image = samplerComponent.Sample(projection, settings);
+		var image = Sampler.Sample(projection, settings);
 		FileSaver.Save(image, name);
 	}
 
@@ -105,7 +103,7 @@ public class ProjectorTests
 
 		// TODO: Assert saved file is correct.
 		var projection = projectorComponent.Project(scene, projectorSettings);
-		var image = samplerComponent.Sample(projection, settings);
+		var image = Sampler.Sample(projection, settings);
 		FileSaver.Save(image, name);
 	}
 
@@ -136,7 +134,7 @@ public class ProjectorTests
 			YMax: 1D);
 
 		var projection = projectorComponent.Project(scene, projectorSettings);
-		var image = samplerComponent.Sample(projection, settings);
+		var image = Sampler.Sample(projection, settings);
 		FileSaver.Save(image, name);
 	}
 
@@ -168,7 +166,7 @@ public class ProjectorTests
 			YMax: 1D);
 
 		var projection = projectorComponent.Project(scene, projectorSettings);
-		var image = samplerComponent.Sample(projection, settings);
+		var image = Sampler.Sample(projection, settings);
 		FileSaver.Save(image, name);
 	}
 
@@ -200,7 +198,7 @@ public class ProjectorTests
 			YMax: 1D);
 
 		var projection = projectorComponent.Project(scene, projectorSettings);
-		var image = samplerComponent.Sample(projection, settings);
+		var image = Sampler.Sample(projection, settings);
 		FileSaver.Save(image, name);
 	}
 
@@ -232,7 +230,7 @@ public class ProjectorTests
 			YMax: 1D);
 
 		var projection = projectorComponent.Project(scene, projectorSettings);
-		var image = samplerComponent.Sample(projection, settings);
+		var image = Sampler.Sample(projection, settings);
 		FileSaver.Save(image, name);
 	}
 
@@ -263,7 +261,7 @@ public class ProjectorTests
 			YMax: 1D);
 
 		var projection = projectorComponent.Project(scene, projectorSettings);
-		var image = samplerComponent.Sample(projection, settings);
+		var image = Sampler.Sample(projection, settings);
 		FileSaver.Save(image, name);
 	}
 
@@ -295,7 +293,7 @@ public class ProjectorTests
 			YMax: 1D);
 
 		var projection = projectorComponent.Project(scene, projectorSettings);
-		var image = samplerComponent.Sample(projection, settings);
+		var image = Sampler.Sample(projection, settings);
 		FileSaver.Save(image, name);
 	}
 
@@ -327,7 +325,7 @@ public class ProjectorTests
 			YMax: 1D);
 
 		var projection = projectorComponent.Project(scene, projectorSettings);
-		var image = samplerComponent.Sample(projection, settings);
+		var image = Sampler.Sample(projection, settings);
 		FileSaver.Save(image, name);
 	}
 
@@ -359,7 +357,7 @@ public class ProjectorTests
 			YMax: 1D);
 
 		var projection = projectorComponent.Project(scene, projectorSettings);
-		var image = samplerComponent.Sample(projection, settings);
+		var image = Sampler.Sample(projection, settings);
 		FileSaver.Save(image, name);
 	}
 
@@ -391,7 +389,7 @@ public class ProjectorTests
 			YMax: 1D);
 
 		var projection = projectorComponent.Project(scene, projectorSettings);
-		var image = samplerComponent.Sample(projection, settings);
+		var image = Sampler.Sample(projection, settings);
 		FileSaver.Save(image, name);
 	}
 
@@ -423,7 +421,7 @@ public class ProjectorTests
 			YMax: 1D);
 
 		var projection = projectorComponent.Project(scene, projectorSettings);
-		var image = samplerComponent.Sample(projection, settings);
+		var image = Sampler.Sample(projection, settings);
 		FileSaver.Save(image, name);
 	}
 
@@ -454,7 +452,7 @@ public class ProjectorTests
 			YMax: 1D);
 
 		var projection = projectorComponent.Project(scene, projectorSettings);
-		var image = samplerComponent.Sample(projection, settings);
+		var image = Sampler.Sample(projection, settings);
 		FileSaver.Save(image, name);
 	}
 
@@ -485,7 +483,7 @@ public class ProjectorTests
 			YMax: 1D);
 
 		var projection = projectorComponent.Project(scene, projectorSettings);
-		var image = samplerComponent.Sample(projection, settings);
+		var image = Sampler.Sample(projection, settings);
 		FileSaver.Save(image, name);
 	}
 
@@ -516,7 +514,7 @@ public class ProjectorTests
 			YMax: 1D);
 
 		var projection = projectorComponent.Project(scene, projectorSettings);
-		var image = samplerComponent.Sample(projection, settings);
+		var image = Sampler.Sample(projection, settings);
 		FileSaver.Save(image, name);
 	}
 
@@ -548,7 +546,7 @@ public class ProjectorTests
 			YMax: 1D);
 
 		var projection = projectorComponent.Project(scene, projectorSettings);
-		var image = samplerComponent.Sample(projection, settings);
+		var image = Sampler.Sample(projection, settings);
 		FileSaver.Save(image, name);
 	}
 
