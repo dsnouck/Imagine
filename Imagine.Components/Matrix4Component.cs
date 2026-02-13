@@ -2,13 +2,6 @@ namespace Imagine.Components;
 
 public class Matrix4Component : IMatrix4Component
 {
-	private readonly IVector4Component vector4Component;
-
-	public Matrix4Component(IVector4Component vector4Component)
-	{
-		this.vector4Component = vector4Component;
-	}
-
 	public Matrix4 CreateRotationMatrix(Vector3 axis, double angle)
 	{
 		axis = axis.Normalized();
@@ -126,10 +119,10 @@ public class Matrix4Component : IMatrix4Component
 	{
 		return new Vector4
 		{
-			X = vector4Component.DotProduct(matrix.FirstRow, vector),
-			Y = vector4Component.DotProduct(matrix.SecondRow, vector),
-			Z = vector4Component.DotProduct(matrix.ThirdRow, vector),
-			W = vector4Component.DotProduct(matrix.FourthRow, vector),
+			X = matrix.FirstRow.Dot(vector),
+			Y = matrix.SecondRow.Dot(vector),
+			Z = matrix.ThirdRow.Dot(vector),
+			W = matrix.FourthRow.Dot(vector),
 		};
 	}
 }

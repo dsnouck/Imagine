@@ -11,7 +11,7 @@ public class ProjectorTests
 	private readonly IProjectorComponent projectorComponent;
 
 	private readonly IFuncVector2Vector3Component funcVector2Vector3Component;
-	private readonly IMatrix4Component matrix4Component = new Matrix4Component(new Vector4Component());
+	private readonly IMatrix4Component matrix4Component = new Matrix4Component();
 
 	public ProjectorTests()
 	{
