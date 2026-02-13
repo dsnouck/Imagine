@@ -1,6 +1,6 @@
 namespace Imagine.Components;
 
-public class Full : ISceneComponent
+public class Full : IScene
 {
 	public bool Contains(Vector3 point) => true;
 

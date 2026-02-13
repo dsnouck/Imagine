@@ -1,9 +1,6 @@
 namespace Imagine.Components;
 
-public class AffinelyTransformedComponent(
-	ISceneComponent sceneComponent,
-	Matrix4 transformation,
-	Matrix4 backwardTransformation) : ISceneComponent
+public class Transformed(IScene sceneComponent, Matrix4 transformation, Matrix4 backwardTransformation) : IScene
 {
 	public bool Contains(Vector3 point)
 	{

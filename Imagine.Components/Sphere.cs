@@ -1,6 +1,6 @@
 namespace Imagine.Components;
 
-public class Sphere : ISceneComponent
+public class Sphere : IScene
 {
 	public bool Contains(Vector3 point) => point.Dot(point) <= 1D;
 

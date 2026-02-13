@@ -1,8 +1,6 @@
 namespace Imagine.Components;
 
-public class Transparent(
-	ISceneComponent scene)
-	: ISceneComponent
+public class Transparent(IScene scene) : IScene
 {
 	public bool Contains(Vector3 point) => scene.Contains(point);
 

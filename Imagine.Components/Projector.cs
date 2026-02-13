@@ -2,7 +2,7 @@ namespace Imagine.Components;
 
 public static class Projector
 {
-	public static Func<Vector2, ColorRgb> Project(ISceneComponent scene, ProjectorSettings settings)
+	public static Func<Vector2, ColorRgb> Project(IScene scene, ProjectorSettings settings)
 	{
 		// TODO: Refactor. Introduce GetRays or similar method.
 		var screen = Screen(settings);

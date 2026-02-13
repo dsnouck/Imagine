@@ -1,6 +1,6 @@
 namespace Imagine.Components;
 
-public class Cone : ISceneComponent
+public class Cone : IScene
 {
 	public bool Contains(Vector3 point)
 	{

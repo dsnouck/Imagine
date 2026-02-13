@@ -542,12 +542,12 @@ public class ProjectorTests
 	}
 
 	// TODO: Move to static class Scene.
-	private ISceneComponent CreateTetrahedronComponent()
+	private IScene CreateTetrahedronComponent()
 	{
 		var dihedralAngle = double.Acos(1D / 3D);
 		var azimuthStep = 2D * Math.PI / 3D;
 
-		var planes = new List<ISceneComponent>
+		var planes = new List<IScene>
 		{
 			new Plane(new Vector3Spherical(1D, Math.PI, 0D)),
 			new Plane(new Vector3Spherical(1D, dihedralAngle, 0D * azimuthStep)),
@@ -559,9 +559,9 @@ public class ProjectorTests
 	}
 
 	// TODO: Move to static class Scene.
-	private ISceneComponent CreateCubeComponent()
+	private IScene CreateCubeComponent()
 	{
-		var planes = new List<ISceneComponent>
+		var planes = new List<IScene>
 		{
 			new Plane(new Vector3(0D, 0D, -1D)),
 			new Plane(new Vector3(1D, 0D, 0D)),
@@ -575,9 +575,9 @@ public class ProjectorTests
 	}
 
 	// TODO: Move to static class Scene.
-	private ISceneComponent CreatePlaneComponent()
+	private IScene CreatePlaneComponent()
 	{
-		var planes = new List<ISceneComponent>
+		var planes = new List<IScene>
 		{
 			new Plane(new Vector3(0D, 0D, -1D)),
 			new Transparent(new Plane(new Vector3(1D, 0D, 0D))),
@@ -590,12 +590,12 @@ public class ProjectorTests
 	}
 
 	// TODO: Move to static class Scene.
-	private ISceneComponent CreateCubeExceptSphereComponent()
+	private IScene CreateCubeExceptSphereComponent()
 	{
 		// TODO: Are these colors and sizes good?
 		var sphere = CreateScaledComponent(new Sphere(), double.Sqrt(2D) * 0.99D);
 
-		var planes = new List<ISceneComponent>
+		var planes = new List<IScene>
 		{
 			new Painted(CreateCubeComponent(), new ColorRgb(1D, 0D, 0D)),
 			new Painted(new Inverted(sphere), new ColorRgb(0D, 0D, 1D)),
@@ -605,11 +605,11 @@ public class ProjectorTests
 	}
 
 	// TODO: Move to static class Scene.
-	private ISceneComponent CreateSphereExceptCubeComponent()
+	private IScene CreateSphereExceptCubeComponent()
 	{
 		var sphere = CreateScaledComponent(new Sphere(), 1.3D);
 
-		var planes = new List<ISceneComponent>
+		var planes = new List<IScene>
 		{
 			new Inverted(CreateCubeComponent()),
 			sphere,
@@ -619,11 +619,11 @@ public class ProjectorTests
 	}
 
 	// TODO: Move to static class Scene.
-	private ISceneComponent CreateCubeSphereIntersection()
+	private IScene CreateCubeSphereIntersection()
 	{
 		var sphere = CreateScaledComponent(new Sphere(), 1.3D);
 
-		var planes = new List<ISceneComponent>
+		var planes = new List<IScene>
 		{
 			CreateCubeComponent(),
 			sphere,
@@ -633,11 +633,11 @@ public class ProjectorTests
 	}
 
 	// TODO: Move to static class Scene.
-	private ISceneComponent CreateCubeSphereUnion()
+	private IScene CreateCubeSphereUnion()
 	{
 		var sphere = CreateScaledComponent(new Sphere(), 1.3D);
 
-		var planes = new List<ISceneComponent>
+		var planes = new List<IScene>
 		{
 			CreateCubeComponent(),
 			sphere,
@@ -647,9 +647,9 @@ public class ProjectorTests
 	}
 
 	// TODO: Move to static class Scene.
-	private ISceneComponent CreateConeComponent()
+	private IScene CreateConeComponent()
 	{
-		var planes = new List<ISceneComponent>
+		var planes = new List<IScene>
 		{
 			new Cone(),
 			new Plane(new Vector3(0D, 0D, -1D)),
@@ -660,9 +660,9 @@ public class ProjectorTests
 	}
 
 	// TODO: Move to static class Scene.
-	private ISceneComponent CreateCylinderComponent()
+	private IScene CreateCylinderComponent()
 	{
-		var planes = new List<ISceneComponent>
+		var planes = new List<IScene>
 		{
 			new Cylinder(),
 			new Plane(new Vector3(0D, 0D, -1D)),
@@ -673,12 +673,12 @@ public class ProjectorTests
 	}
 
 	// TODO: Move to static class Scene.
-	private ISceneComponent CreateOctahedronComponent()
+	private IScene CreateOctahedronComponent()
 	{
 		var dihedralAngle = double.Acos(-1D / 3D);
 		var azimuthStep = Math.PI / 3D;
 
-		var planes = new List<ISceneComponent>
+		var planes = new List<IScene>
 		{
 			new Plane(new Vector3Spherical(1D, Math.PI, 0D)),
 			new Plane(new Vector3Spherical(1D, dihedralAngle, 0D * azimuthStep)),
@@ -694,12 +694,12 @@ public class ProjectorTests
 	}
 
 	// TODO: Move to static class Scene.
-	private ISceneComponent CreateDodecahedronComponent()
+	private IScene CreateDodecahedronComponent()
 	{
 		var dihedralAngle = double.Acos(-1D / double.Sqrt(5D));
 		var azimuthStep = Math.PI / 5D;
 
-		var planes = new List<ISceneComponent>
+		var planes = new List<IScene>
 		{
 					new Plane(new Vector3Spherical(1D, Math.PI, 0D)),
 					new Plane(new Vector3Spherical(1D, dihedralAngle, 0D * azimuthStep)),
@@ -719,14 +719,14 @@ public class ProjectorTests
 	}
 
 	// TODO: Move to static class Scene.
-	private ISceneComponent CreateIcosahedronComponent()
+	private IScene CreateIcosahedronComponent()
 	{
 		var dihedralAngle = double.Acos(-double.Sqrt(5D) / 3D);
 		var secondInclination = double.Acos(-1D / 3D);
 		var azimuthStep = Math.PI / 3D;
 		var azimuthOffset = Math.PI / 3D - double.Acos(double.Sqrt(5D / 8D));
 
-		var planes = new List<ISceneComponent>
+		var planes = new List<IScene>
 		{
 			new Plane(new Vector3Spherical(1D, Math.PI, 0D)),
 			new Plane(new Vector3Spherical(1D, dihedralAngle, 0D * azimuthStep)),
@@ -753,41 +753,41 @@ public class ProjectorTests
 		return CreateIntersectionComponent(planes);
 	}
 
-	private ISceneComponent CreateIntersectionComponent(List<ISceneComponent> scenes) =>
+	private IScene CreateIntersectionComponent(List<IScene> scenes) =>
 		scenes.Aggregate(
-			(ISceneComponent)new Full(),
+			(IScene)new Full(),
 			(scene, otherScene) =>
 				new Intersection(
 					scene,
 					otherScene));
 
-	private ISceneComponent CreateUnionComponent(List<ISceneComponent> scenes) =>
+	private IScene CreateUnionComponent(List<IScene> scenes) =>
 		// TODO: Use type argument instead of casting?
 		scenes.Aggregate(
-			(ISceneComponent)new Empty(),
+			(IScene)new Empty(),
 			(scene, otherScene) =>
 				new Union(
 					scene,
 					otherScene));
 
-	private ISceneComponent CreateRotatedComponent(ISceneComponent scene, Vector3 axis, double angle)
+	private IScene CreateRotatedComponent(IScene scene, Vector3 axis, double angle)
 	{
-		return new AffinelyTransformedComponent(
+		return new Transformed(
 			scene,
 			Matrix4.Rotation(axis, angle),
 			Matrix4.Rotation(axis, -angle));
 	}
 
-	private ISceneComponent CreateScaledComponent(ISceneComponent scene, double factor)
+	private IScene CreateScaledComponent(IScene scene, double factor)
 	{
-		return new AffinelyTransformedComponent(
+		return new Transformed(
 			scene,
 			Matrix4.Scaling(factor),
 			Matrix4.Scaling(1D / factor));
 	}
 
-	private ISceneComponent CreateTranslatedComponent(ISceneComponent scene, Vector3 translation) =>
-		new AffinelyTransformedComponent(
+	private IScene CreateTranslatedComponent(IScene scene, Vector3 translation) =>
+		new Transformed(
 			scene,
 			Matrix4.Translation(translation),
 			Matrix4.Translation(-translation));

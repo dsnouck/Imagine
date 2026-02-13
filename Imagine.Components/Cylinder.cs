@@ -1,6 +1,6 @@
 namespace Imagine.Components;
 
-public class Cylinder : ISceneComponent
+public class Cylinder : IScene
 {
 	// TODO: Make radius a property.
 	public bool Contains(Vector3 point)

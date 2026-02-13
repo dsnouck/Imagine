@@ -1,7 +1,6 @@
 namespace Imagine.Components;
 
-// TODO: Rename to IScene?
-public interface ISceneComponent
+public interface IScene
 {
 	List<Intercept> Intercepts(Line3 ray);
 

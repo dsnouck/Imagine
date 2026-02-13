@@ -1,6 +1,6 @@
 namespace Imagine.Components;
 
-public class Inverted(ISceneComponent scene) : ISceneComponent
+public class Inverted(IScene scene) : IScene
 {
 	public bool Contains(Vector3 point) => !scene.Contains(point);
 
