@@ -1,9 +1,8 @@
 namespace Imagine.Components;
 
-// TODO: Cleanup dependencies.
-public class ProjectorComponent : IProjectorComponent
+public static class Projector
 {
-	public Func<Vector2, ColorRgb> Project(ISceneComponent scene, ProjectorSettings settings)
+	public static Func<Vector2, ColorRgb> Project(ISceneComponent scene, ProjectorSettings settings)
 	{
 		// TODO: Refactor. Introduce GetRays or similar method.
 		var screen = Screen(settings);
@@ -31,7 +30,6 @@ public class ProjectorComponent : IProjectorComponent
 
 			return intercept.Color * intensity;
 		};
-
 	}
 
 	private static Func<Vector2, Vector3> Screen(ProjectorSettings settings)
