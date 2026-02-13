@@ -1,10 +1,10 @@
 namespace Imagine.Components;
 
-public class Transformed(IScene sceneComponent, Matrix4 transformation, Matrix4 backwardTransformation) : IScene
+public class Transformed(IScene scene, Matrix4 transformation, Matrix4 backwardTransformation) : IScene
 {
 	public bool Contains(Vector3 point)
 	{
-		return sceneComponent.Contains(TransformedBackPoint(point));
+		return scene.Contains(TransformedBackPoint(point));
 	}
 
 	public List<Intercept> Intercepts(Line3 ray)
@@ -15,7 +15,7 @@ public class Transformed(IScene sceneComponent, Matrix4 transformation, Matrix4 
 			Direction = TransformedBackDirection(ray.Direction),
 		};
 
-		return sceneComponent.Intercepts(transformedLineOfSight)
+		return scene.Intercepts(transformedLineOfSight)
 			.Select(surfaceIntersection => new Intercept
 			{
 				Color = surfaceIntersection.Color,
