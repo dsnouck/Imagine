@@ -11,12 +11,14 @@
 	<ItemGroup>
 		<Using Include="Imagine.Components" />
 		<Using Include="Imagine.Models" />
+		<Using Include="Imagine.Scenes" />
 		<Using Include="Xunit" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="../Imagine.Components/Imagine.Components.csproj" />
 		<ProjectReference Include="../Imagine.Models/Imagine.Models.csproj" />
+		<ProjectReference Include="../Imagine.Scenes/Imagine.Scenes.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,4 +1,4 @@
-namespace Imagine.Components;
+namespace Imagine.Scenes;
 
 public class Painted(IScene scene, ColorRgb color) : IScene
 {

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
@@ -8,20 +8,13 @@
 
 	<ItemGroup>
 		<Using Include="Imagine.Models" />
-		<Using Include="Imagine.Scenes" />
-		<Using Include="SixLabors.ImageSharp" />
-		<Using Include="SixLabors.ImageSharp.PixelFormats" />
-		<Using Include="System.Collections.Generic" />
-		<Using Include="System.Diagnostics" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="../Imagine.Models/Imagine.Models.csproj" />
-		<ProjectReference Include="../Imagine.Scenes/Imagine.Scenes.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
 		<PackageReference Include="SonarAnalyzer.CSharp" Version="10.19.0.132793">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>

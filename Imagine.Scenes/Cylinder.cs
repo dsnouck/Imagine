@@ -1,59 +1,61 @@
-namespace Imagine.Components;
+namespace Imagine.Scenes;
 
-public class Cone : IScene
+public class Cylinder : IScene
 {
+	// TODO: Make radius a property.
 	public bool Contains(Vector3 point)
 	{
-		var mirroredPoint = new Vector3
+		var horizontalPoint = new Vector3
 		{
 			X = point.X,
 			Y = point.Y,
-			Z = -point.Z,
+			Z = 0D,
 		};
 
-		return point.Dot(mirroredPoint) < 0D;
+		// TODO: Use Length?
+		return horizontalPoint.Dot(horizontalPoint) <= 1D;
 	}
 
 	public List<Intercept> Intercepts(Line3 ray)
 	{
-		var mirroredLineOfSight = new Line3
+		var horizontalLineOfSight = new Line3
 		{
 			Origin = new Vector3
 			{
 				X = ray.Origin.X,
 				Y = ray.Origin.Y,
-				Z = -ray.Origin.Z,
+				Z = 0D,
 			},
 			Direction = new Vector3
 			{
 				X = ray.Direction.X,
 				Y = ray.Direction.Y,
-				Z = -ray.Direction.Z,
+				Z = 0D,
 			},
 		};
 
 		// These are the coefficients of the quadratic equation x ↦ ax² + bx + c we want to solve.
-		var a = ray.Direction.Dot(mirroredLineOfSight.Direction);
-		var b = ray.Direction.Dot(mirroredLineOfSight.Origin) * 2D;
-		var c = ray.Origin.Dot(mirroredLineOfSight.Origin);
+		var a = horizontalLineOfSight.Direction.Dot(horizontalLineOfSight.Direction);
+		var b = horizontalLineOfSight.Direction.Dot(horizontalLineOfSight.Origin) * 2D;
+		var c = horizontalLineOfSight.Origin.Dot(horizontalLineOfSight.Origin) - 1D;
 
 		var zeros = QuadraticSolver.Solve(a, b, c);
 
-		return zeros.
-			Select(zero =>
+		return zeros
+			.Select(zero =>
 			{
 				var surfaceIntersection = ray.At(zero);
-				var mirroredSurfaceIntersection = new Vector3
+				var horizontalSurfaceIntersection = new Vector3
 				{
 					X = surfaceIntersection.X,
 					Y = surfaceIntersection.Y,
-					Z = -surfaceIntersection.Z,
+					Z = 0D,
 				};
 
 				return new Intercept
 				{
 					Distance = zero,
-					Normal = mirroredSurfaceIntersection.Normalized() * ray.Direction.Length(),
+					Normal = horizontalSurfaceIntersection.Normalized() * ray.Direction.Length(),
 					Color = new ColorRgb(1D, 1D, 1D),
 				};
 			})

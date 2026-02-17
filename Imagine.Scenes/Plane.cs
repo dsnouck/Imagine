@@ -1,4 +1,4 @@
-namespace Imagine.Components;
+namespace Imagine.Scenes;
 
 public class Plane(Vector3 normal) : IScene
 {

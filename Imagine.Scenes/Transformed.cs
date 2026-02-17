@@ -1,4 +1,4 @@
-namespace Imagine.Components;
+namespace Imagine.Scenes;
 
 public class Transformed(IScene scene, Matrix4 transformation, Matrix4 backwardTransformation) : IScene
 {

@@ -1,4 +1,4 @@
-namespace Imagine.Components;
+namespace Imagine.Scenes;
 
 public class Union(IScene scene, IScene otherScene) : IScene
 {
