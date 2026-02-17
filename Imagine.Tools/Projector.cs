@@ -1,4 +1,4 @@
-namespace Imagine.Components;
+namespace Imagine.Tools;
 
 public static class Projector
 {
