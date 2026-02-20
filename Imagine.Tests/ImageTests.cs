@@ -29,7 +29,7 @@ public class ImageTests
 		}
 
 		var image = Sampler.Sample(Function, settings);
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 
 	[Fact]
@@ -47,7 +47,7 @@ public class ImageTests
 				width).ToList(),
 			height).ToList();
 
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 
 	[Fact]
@@ -77,6 +77,6 @@ public class ImageTests
 		}
 
 		var image = Sampler.Sample(Function, settings);
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 }

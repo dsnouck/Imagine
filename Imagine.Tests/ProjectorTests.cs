@@ -1,39 +1,40 @@
 namespace Imagine.Tests;
 
+// TODO: Find nice settings for all tests.
+// TODO: Use new() everywhere.
+// TODO: Rename variables named settings to samplerSettings.
+// TODO: Create ProjectorSettings constructor with default BackgroundColor.
+// TODO: Reorder methods alphabetically?
 public class ProjectorTests
 {
+	private readonly ProjectorSettings projectorSettings = new(
+		Eye: new(2D, 3D, 4D),
+		Focus: new(0D, 0D, 0D),
+		FieldOfView: Math.PI / 4D,
+		BackgroundColor: new(0D, 0D, 0D));
+
+	private readonly ImageSettings imageSettings = new(
+		Width: 512,
+		Height: 512,
+		Subsamples: 2,
+		XMin: -1D,
+		XMax: 1D,
+		YMin: -1,
+		YMax: 1D);
+
 	[Fact]
 	public void Sphere()
 	{
 		const string name = "sphere";
-
-		var scene = new Sphere();
-
-		// TODO: Find nice settings for all tests.
-		var projectorSettings = new ProjectorSettings(
-			Eye: new(2D, 3D, 4D),
-			Focus: new(0D, 0D, 0D),
-			FieldOfView: Math.PI / 4D,
-			// TODO: Use new() everywhere.
-			BackgroundColor: new ColorRgb(0D, 0D, 0D));
-
-		// TODO: Find nice settings for all tests.
-		// TODO: Rename variables named settings to samplerSettings.
-		var settings = new ImageSettings(
-			Width: 512,
-			Height: 512,
-			Subsamples: 2,
-			XMin: -1D,
-			XMax: 1D,
-			YMin: -1,
-			YMax: 1D);
+		var scene = Scene.Sphere();
 
 		var projection = Projector.Project(scene, projectorSettings);
-		var image = Sampler.Sample(projection, settings);
-		FileSaver.Save(image, name);
+		var image = Sampler.Sample(projection, imageSettings);
+		var file = Saver.Save(image, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 
-	// TODO: Reorder methods alphabetically?
 	[Fact]
 	public void Cone()
 	{
@@ -62,7 +63,7 @@ public class ProjectorTests
 
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, settings);
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 
 	// TODO: Reorder methods alphabetically?
@@ -95,7 +96,7 @@ public class ProjectorTests
 		// TODO: Assert saved file is correct.
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, settings);
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 
 	[Fact]
@@ -126,7 +127,7 @@ public class ProjectorTests
 
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, settings);
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 
 	// TODO: Reorder methods alphabetically?
@@ -158,7 +159,7 @@ public class ProjectorTests
 
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, settings);
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 
 	// TODO: Reorder methods alphabetically?
@@ -190,7 +191,7 @@ public class ProjectorTests
 
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, settings);
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 
 	// TODO: Reorder methods alphabetically?
@@ -222,7 +223,7 @@ public class ProjectorTests
 
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, settings);
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 
 	// TODO: Reorder methods alphabetically?
@@ -253,7 +254,7 @@ public class ProjectorTests
 
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, settings);
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 
 	// TODO: Reorder methods alphabetically?
@@ -285,7 +286,7 @@ public class ProjectorTests
 
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, settings);
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 
 	// TODO: Reorder methods alphabetically?
@@ -317,7 +318,7 @@ public class ProjectorTests
 
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, settings);
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 
 	// TODO: Reorder methods alphabetically?
@@ -349,7 +350,7 @@ public class ProjectorTests
 
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, settings);
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 
 	// TODO: Reorder methods alphabetically?
@@ -381,7 +382,7 @@ public class ProjectorTests
 
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, settings);
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 
 	// TODO: Reorder methods alphabetically?
@@ -413,7 +414,7 @@ public class ProjectorTests
 
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, settings);
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 
 	[Fact]
@@ -444,7 +445,7 @@ public class ProjectorTests
 
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, settings);
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 
 	[Fact]
@@ -475,7 +476,7 @@ public class ProjectorTests
 
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, settings);
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 
 	[Fact]
@@ -506,7 +507,7 @@ public class ProjectorTests
 
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, settings);
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 
 	// TODO: Reorder methods alphabetically?
@@ -538,7 +539,7 @@ public class ProjectorTests
 
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, settings);
-		FileSaver.Save(image, name);
+		Saver.Save(image, name);
 	}
 
 	// TODO: Move to static class Scene.

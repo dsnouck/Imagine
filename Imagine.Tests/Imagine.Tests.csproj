@@ -9,6 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Using Include="AwesomeAssertions" />
 		<Using Include="Imagine.Models" />
 		<Using Include="Imagine.Scenes" />
 		<Using Include="Imagine.Tools" />
@@ -22,6 +23,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AwesomeAssertions" Version="9.4.0" />
 		<PackageReference Include="coverlet.collector" Version="8.0.0">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
