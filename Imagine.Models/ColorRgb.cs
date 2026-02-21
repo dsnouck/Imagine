@@ -1,5 +1,6 @@
 namespace Imagine.Models;
 
+// TODO: Rename to RgbColor.
 public readonly record struct ColorRgb(double Red, double Green, double Blue)
 {
 	// TODO: Use a maximum line length of 120 characters.

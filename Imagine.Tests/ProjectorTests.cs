@@ -39,31 +39,18 @@ public class ProjectorTests
 	public void Cone()
 	{
 		const string name = "cone";
-
-		var scene = CreateConeComponent();
-
-		// TODO: Find nice settings for all tests.
-		var projectorSettings = new ProjectorSettings(
-			Eye: new(2D, 3D, 2D),
-			Focus: new(0D, 0D, 0D),
-			FieldOfView: Math.PI / 4D,
-			// TODO: Use new() everywhere.
-			BackgroundColor: new ColorRgb(0D, 0D, 0D));
-
-		// TODO: Find nice settings for all tests.
-		// TODO: Rename variables named settings to samplerSettings.
-		var settings = new ImageSettings(
-			Width: 512,
-			Height: 512,
-			Subsamples: 2,
-			XMin: -1D,
-			XMax: 1D,
-			YMin: -1,
-			YMax: 1D);
+		var scene = Scene.Intersection(new List<IScene>
+		{
+			Scene.Cone(),
+			Scene.Plane(new(0D, 0D, -1D)),
+			Scene.Plane(new(0D, 0D, 1D)),
+		});
 
 		var projection = Projector.Project(scene, projectorSettings);
-		var image = Sampler.Sample(projection, settings);
-		Saver.Save(image, name);
+		var image = Sampler.Sample(projection, imageSettings);
+		var file = Saver.Save(image, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 
 	// TODO: Reorder methods alphabetically?
@@ -645,19 +632,6 @@ public class ProjectorTests
 		};
 
 		return CreateUnionComponent(planes);
-	}
-
-	// TODO: Move to static class Scene.
-	private IScene CreateConeComponent()
-	{
-		var planes = new List<IScene>
-		{
-			new Cone(),
-			new Plane(new Vector3(0D, 0D, -1D)),
-			new Plane(new Vector3(0D, 0D, 1D)),
-		};
-
-		return CreateIntersectionComponent(planes);
 	}
 
 	// TODO: Move to static class Scene.
