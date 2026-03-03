@@ -39,12 +39,10 @@ public class ProjectorTests
 	public void Cone()
 	{
 		const string name = "cone";
-		var scene = Scene.Intersection(new List<IScene>
-		{
+		var scene = Scene.Intersection(
 			Scene.Cone(),
 			Scene.Plane(new(0D, 0D, -1D)),
-			Scene.Plane(new(0D, 0D, 1D)),
-		});
+			Scene.Plane(new(0D, 0D, 1D)));
 
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, imageSettings);
@@ -53,68 +51,33 @@ public class ProjectorTests
 		File.Exists(file).Should().BeTrue();
 	}
 
-	// TODO: Reorder methods alphabetically?
 	[Fact]
 	public void Cylinder()
 	{
 		const string name = "cylinder";
+		var scene = Scene.Intersection(
+			Scene.Cylinder(),
+			Scene.Plane(new(0D, 0D, -1D)),
+			Scene.Plane(new(0D, 0D, 1D)));
 
-		var scene = CreateCylinderComponent();
-
-		// TODO: Find nice settings for all tests.
-		var projectorSettings = new ProjectorSettings(
-			Eye: new(2D, 3D, 2D),
-			Focus: new(0D, 0D, 0D),
-			FieldOfView: Math.PI / 4D,
-			// TODO: Use new() everywhere.
-			BackgroundColor: new ColorRgb(0D, 0D, 0D));
-
-		// TODO: Find nice settings for all tests.
-		// TODO: Rename variables named settings to samplerSettings.
-		var settings = new ImageSettings(
-			Width: 512,
-			Height: 512,
-			Subsamples: 2,
-			XMin: -1D,
-			XMax: 1D,
-			YMin: -1,
-			YMax: 1D);
-
-		// TODO: Assert saved file is correct.
 		var projection = Projector.Project(scene, projectorSettings);
-		var image = Sampler.Sample(projection, settings);
-		Saver.Save(image, name);
+		var image = Sampler.Sample(projection, imageSettings);
+		var file = Saver.Save(image, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 
 	[Fact]
 	public void Tetrahedron()
 	{
 		const string name = "tetrahedron";
-
-		var scene = CreateTetrahedronComponent();
-
-		// TODO: Find nice settings for all tests.
-		var projectorSettings = new ProjectorSettings(
-			Eye: new(3D, 4D, 12D),
-			Focus: new(0D, 0D, 0D),
-			FieldOfView: Math.PI / 4D,
-			// TODO: Use new() everywhere.
-			BackgroundColor: new ColorRgb(0D, 0D, 0D));
-
-		// TODO: Find nice settings for all tests.
-		// TODO: Rename variables named settings to samplerSettings.
-		var settings = new ImageSettings(
-			Width: 512,
-			Height: 512,
-			Subsamples: 2,
-			XMin: -1D,
-			XMax: 1D,
-			YMin: -1,
-			YMax: 1D);
+		var scene = Scene.Tetrahedron();
 
 		var projection = Projector.Project(scene, projectorSettings);
-		var image = Sampler.Sample(projection, settings);
-		Saver.Save(image, name);
+		var image = Sampler.Sample(projection, imageSettings);
+		var file = Saver.Save(image, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 
 	// TODO: Reorder methods alphabetically?
@@ -527,23 +490,6 @@ public class ProjectorTests
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, settings);
 		Saver.Save(image, name);
-	}
-
-	// TODO: Move to static class Scene.
-	private IScene CreateTetrahedronComponent()
-	{
-		var dihedralAngle = double.Acos(1D / 3D);
-		var azimuthStep = 2D * Math.PI / 3D;
-
-		var planes = new List<IScene>
-		{
-			new Plane(new Vector3Spherical(1D, Math.PI, 0D)),
-			new Plane(new Vector3Spherical(1D, dihedralAngle, 0D * azimuthStep)),
-			new Plane(new Vector3Spherical(1D, dihedralAngle, 1D * azimuthStep)),
-			new Plane(new Vector3Spherical(1D, dihedralAngle, 2D * azimuthStep)),
-		};
-
-		return CreateIntersectionComponent(planes);
 	}
 
 	// TODO: Move to static class Scene.
