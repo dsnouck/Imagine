@@ -1,5 +1,6 @@
 namespace Imagine.Models;
 
+// TODO: Switch Theta and Phi?
 public readonly record struct Vector3Spherical(double R, double Theta, double Phi)
 {
 	public static implicit operator Vector3(Vector3Spherical vector)

@@ -115,8 +115,7 @@ public class ProjectorTests
 	public void CubeExceptSphere()
 	{
 		const string name = "cube-except-sphere";
-		var scene = Scene.Cube().Except(
-			Scene.Sphere().Scaled(double.Sqrt(2D) - 0.1D));
+		var scene = Scene.Cube().Except(Scene.Sphere().Scaled(double.Sqrt(2D) - 0.1D));
 
 		var projection = Projector.Project(scene, projectorSettings);
 		var image = Sampler.Sample(projection, imageSettings);
@@ -125,320 +124,134 @@ public class ProjectorTests
 		File.Exists(file).Should().BeTrue();
 	}
 
-	// TODO: Reorder methods alphabetically?
 	[Fact]
 	public void SphereExceptCube()
 	{
 		const string name = "sphere-except-cube";
-
-		var scene = CreateSphereExceptCubeComponent();
-		// TODO: Find nice settings for all tests.
-		var projectorSettings = new ProjectorSettings(
-			Eye: new(2D, 3D, 4D),
-			Focus: new(0D, 0D, 0D),
-			FieldOfView: Math.PI / 4D,
-			// TODO: Use new() everywhere.
-			BackgroundColor: new ColorRgb(0D, 0D, 0D));
-
-		// TODO: Find nice settings for all tests.
-		// TODO: Rename variables named settings to samplerSettings.
-		var settings = new ImageSettings(
-			Width: 512,
-			Height: 512,
-			Subsamples: 2,
-			XMin: -1D,
-			XMax: 1D,
-			YMin: -1,
-			YMax: 1D);
+		var scene = Scene.Sphere().Scaled(double.Sqrt(2D) - 0.1D).Except(Scene.Cube());
 
 		var projection = Projector.Project(scene, projectorSettings);
-		var image = Sampler.Sample(projection, settings);
-		Saver.Save(image, name);
+		var image = Sampler.Sample(projection, imageSettings);
+		var file = Saver.Save(image, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 
-	// TODO: Reorder methods alphabetically?
 	[Fact]
 	public void CubeSphereIntersection()
 	{
 		const string name = "cube-sphere-intersection";
-
-		var scene = CreateCubeSphereIntersection();
-
-		// TODO: Find nice settings for all tests.
-		var projectorSettings = new ProjectorSettings(
-			Eye: new(2D, 3D, 4D),
-			Focus: new(0D, 0D, 0D),
-			FieldOfView: Math.PI / 4D,
-			// TODO: Use new() everywhere.
-			BackgroundColor: new ColorRgb(0D, 0D, 0D));
-
-		// TODO: Find nice settings for all tests.
-		// TODO: Rename variables named settings to samplerSettings.
-		var settings = new ImageSettings(
-			Width: 512,
-			Height: 512,
-			Subsamples: 2,
-			XMin: -1D,
-			XMax: 1D,
-			YMin: -1,
-			YMax: 1D);
+		var scene = Scene.Cube().IntersectedWith(Scene.Sphere().Scaled(double.Sqrt(2D) - 0.1D));
 
 		var projection = Projector.Project(scene, projectorSettings);
-		var image = Sampler.Sample(projection, settings);
-		Saver.Save(image, name);
+		var image = Sampler.Sample(projection, imageSettings);
+		var file = Saver.Save(image, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 
-	// TODO: Reorder methods alphabetically?
 	[Fact]
 	public void CubeSphereUnion()
 	{
 		const string name = "cube-sphere-union";
-
-		var scene = CreateCubeSphereUnion();
-
-		// TODO: Find nice settings for all tests.
-		var projectorSettings = new ProjectorSettings(
-			Eye: new(2D, 3D, 4D),
-			Focus: new(0D, 0D, 0D),
-			FieldOfView: Math.PI / 4D,
-			// TODO: Use new() everywhere.
-			BackgroundColor: new ColorRgb(0D, 0D, 0D));
-
-		// TODO: Find nice settings for all tests.
-		// TODO: Rename variables named settings to samplerSettings.
-		var settings = new ImageSettings(
-			Width: 512,
-			Height: 512,
-			Subsamples: 2,
-			XMin: -1D,
-			XMax: 1D,
-			YMin: -1,
-			YMax: 1D);
+		var scene = Scene.Cube().UnitedWith(Scene.Sphere().Scaled(double.Sqrt(2D) - 0.1D));
 
 		var projection = Projector.Project(scene, projectorSettings);
-		var image = Sampler.Sample(projection, settings);
-		Saver.Save(image, name);
+		var image = Sampler.Sample(projection, imageSettings);
+		var file = Saver.Save(image, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 
-	// TODO: Reorder methods alphabetically?
 	[Fact]
 	public void RotatedCube()
 	{
 		const string name = "rotated-cube";
-
-		var scene = CreateRotatedComponent(CreateCubeComponent(), new Vector3(0D, 0D, 1D), Math.PI / 4D);
-
-		// TODO: Find nice settings for all tests.
-		var projectorSettings = new ProjectorSettings(
-			Eye: new(2D, 3D, 4D),
-			Focus: new(0D, 0D, 0D),
-			FieldOfView: Math.PI / 4D,
-			// TODO: Use new() everywhere.
-			BackgroundColor: new ColorRgb(0D, 0D, 0D));
-
-		// TODO: Find nice settings for all tests.
-		// TODO: Rename variables named settings to samplerSettings.
-		var settings = new ImageSettings(
-			Width: 512,
-			Height: 512,
-			Subsamples: 2,
-			XMin: -1D,
-			XMax: 1D,
-			YMin: -1,
-			YMax: 1D);
+		var scene = Scene.Cube().Rotated(Math.PI / 4D);
 
 		var projection = Projector.Project(scene, projectorSettings);
-		var image = Sampler.Sample(projection, settings);
-		Saver.Save(image, name);
+		var image = Sampler.Sample(projection, imageSettings);
+		var file = Saver.Save(image, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 
-	// TODO: Reorder methods alphabetically?
 	[Fact]
 	public void ScaledCube()
 	{
 		const string name = "scaled-cube";
-
-		var scene = CreateScaledComponent(CreateCubeComponent(), 0.5D);
-
-		// TODO: Find nice settings for all tests.
-		var projectorSettings = new ProjectorSettings(
-			Eye: new(2D, 3D, 4D),
-			Focus: new(0D, 0D, 0D),
-			FieldOfView: Math.PI / 4D,
-			// TODO: Use new() everywhere.
-			BackgroundColor: new ColorRgb(0D, 0D, 0D));
-
-		// TODO: Find nice settings for all tests.
-		// TODO: Rename variables named settings to samplerSettings.
-		var settings = new ImageSettings(
-			Width: 512,
-			Height: 512,
-			Subsamples: 2,
-			XMin: -1D,
-			XMax: 1D,
-			YMin: -1,
-			YMax: 1D);
+		var scene = Scene.Cube().Scaled(0.5D);
 
 		var projection = Projector.Project(scene, projectorSettings);
-		var image = Sampler.Sample(projection, settings);
-		Saver.Save(image, name);
+		var image = Sampler.Sample(projection, imageSettings);
+		var file = Saver.Save(image, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 
-	// TODO: Reorder methods alphabetically?
 	[Fact]
 	public void TranslatedCube()
 	{
 		const string name = "translated-cube";
-
-		var scene = CreateTranslatedComponent(CreateCubeComponent(), new Vector3(0D, 0.5D, 0D));
-
-		// TODO: Find nice settings for all tests.
-		var projectorSettings = new ProjectorSettings(
-			Eye: new(2D, 3D, 4D),
-			Focus: new(0D, 0D, 0D),
-			FieldOfView: Math.PI / 4D,
-			// TODO: Use new() everywhere.
-			BackgroundColor: new ColorRgb(0D, 0D, 0D));
-
-		// TODO: Find nice settings for all tests.
-		// TODO: Rename variables named settings to samplerSettings.
-		var settings = new ImageSettings(
-			Width: 512,
-			Height: 512,
-			Subsamples: 2,
-			XMin: -1D,
-			XMax: 1D,
-			YMin: -1,
-			YMax: 1D);
+		var scene = Scene.Cube().Translated(new Vector3(0D, 0.5D, 0D));
 
 		var projection = Projector.Project(scene, projectorSettings);
-		var image = Sampler.Sample(projection, settings);
-		Saver.Save(image, name);
+		var image = Sampler.Sample(projection, imageSettings);
+		var file = Saver.Save(image, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 
 	[Fact]
 	public void Octahedron()
 	{
-		const string name = "octahdedron";
-
-		var scene = CreateOctahedronComponent();
-
-		// TODO: Find nice settings for all tests.
-		var projectorSettings = new ProjectorSettings(
-			Eye: new(4D, 4D, 4D),
-			Focus: new(0D, 0D, 0D),
-			FieldOfView: Math.PI / 4D,
-			// TODO: Use new() everywhere.
-			BackgroundColor: new ColorRgb(0D, 0D, 0D));
-
-		// TODO: Find nice settings for all tests.
-		// TODO: Rename variables named settings to samplerSettings.
-		var settings = new ImageSettings(
-			Width: 512,
-			Height: 512,
-			Subsamples: 2,
-			XMin: -1D,
-			XMax: 1D,
-			YMin: -1,
-			YMax: 1D);
+		const string name = "octahedron";
+		var scene = Scene.Octahedron();
 
 		var projection = Projector.Project(scene, projectorSettings);
-		var image = Sampler.Sample(projection, settings);
-		Saver.Save(image, name);
+		var image = Sampler.Sample(projection, imageSettings);
+		var file = Saver.Save(image, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 
 	[Fact]
 	public void Dodecahedron()
 	{
 		const string name = "dodecahedron";
-
-		var scene = CreateDodecahedronComponent();
-
-		// TODO: Find nice settings for all tests.
-		var projectorSettings = new ProjectorSettings(
-			Eye: new(2D, 3D, 4D),
-			Focus: new(0D, 0D, 0D),
-			FieldOfView: Math.PI / 4D,
-			// TODO: Use new() everywhere.
-			BackgroundColor: new ColorRgb(0D, 0D, 0D));
-
-		// TODO: Find nice settings for all tests.
-		// TODO: Rename variables named settings to samplerSettings.
-		var settings = new ImageSettings(
-			Width: 512,
-			Height: 512,
-			Subsamples: 2,
-			XMin: -1D,
-			XMax: 1D,
-			YMin: -1,
-			YMax: 1D);
+		var scene = Scene.Dodecahedron();
 
 		var projection = Projector.Project(scene, projectorSettings);
-		var image = Sampler.Sample(projection, settings);
-		Saver.Save(image, name);
+		var image = Sampler.Sample(projection, imageSettings);
+		var file = Saver.Save(image, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 
 	[Fact]
 	public void Icosahedron()
 	{
 		const string name = "icosahedron";
-
-		var scene = CreateIcosahedronComponent();
-
-		// TODO: Find nice settings for all tests.
-		var projectorSettings = new ProjectorSettings(
-			Eye: new(4D, 4D, 4D),
-			Focus: new(0D, 0D, 0D),
-			FieldOfView: Math.PI / 4D,
-			// TODO: Use new() everywhere.
-			BackgroundColor: new ColorRgb(0D, 0D, 0D));
-
-		// TODO: Find nice settings for all tests.
-		// TODO: Rename variables named settings to samplerSettings.
-		var settings = new ImageSettings(
-			Width: 512,
-			Height: 512,
-			Subsamples: 2,
-			XMin: -1D,
-			XMax: 1D,
-			YMin: -1,
-			YMax: 1D);
+		var scene = Scene.Icosahedron();
 
 		var projection = Projector.Project(scene, projectorSettings);
-		var image = Sampler.Sample(projection, settings);
-		Saver.Save(image, name);
+		var image = Sampler.Sample(projection, imageSettings);
+		var file = Saver.Save(image, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 
-	// TODO: Reorder methods alphabetically?
 	[Fact]
 	public void Painted()
 	{
 		const string name = "red-cube";
-
-		var scene = new Painted(CreateCubeComponent(), new ColorRgb(1D, 0D, 0D));
-
-		// TODO: Find nice settings for all tests.
-		var projectorSettings = new ProjectorSettings(
-			Eye: new(2D, 3D, 4D),
-			Focus: new(0D, 0D, 0D),
-			FieldOfView: Math.PI / 4D,
-			// TODO: Use new() everywhere.
-			BackgroundColor: new ColorRgb(0D, 0D, 0D));
-
-		// TODO: Find nice settings for all tests.
-		// TODO: Rename variables named settings to samplerSettings.
-		var settings = new ImageSettings(
-			Width: 512,
-			Height: 512,
-			Subsamples: 2,
-			XMin: -1D,
-			XMax: 1D,
-			YMin: -1,
-			YMax: 1D);
+		var scene = Scene.Cube().Painted(new ColorRgb(1D, 0D, 0D));
 
 		var projection = Projector.Project(scene, projectorSettings);
-		var image = Sampler.Sample(projection, settings);
-		Saver.Save(image, name);
+		var image = Sampler.Sample(projection, imageSettings);
+		var file = Saver.Save(image, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 
 	// TODO: Move to static class Scene.
@@ -579,7 +392,7 @@ public class ProjectorTests
 		var dihedralAngle = double.Acos(-double.Sqrt(5D) / 3D);
 		var secondInclination = double.Acos(-1D / 3D);
 		var azimuthStep = Math.PI / 3D;
-		var azimuthOffset = Math.PI / 3D - double.Acos(double.Sqrt(5D / 8D));
+		var azimuthOffset = (Math.PI / 3D) - double.Acos(double.Sqrt(5D / 8D));
 
 		var planes = new List<IScene>
 		{
@@ -587,18 +400,18 @@ public class ProjectorTests
 			new Plane(new Vector3Spherical(1D, dihedralAngle, 0D * azimuthStep)),
 			new Plane(new Vector3Spherical(1D, dihedralAngle, 2D * azimuthStep)),
 			new Plane(new Vector3Spherical(1D, dihedralAngle, 4D * azimuthStep)),
-			new Plane(new Vector3Spherical(1D, secondInclination, 1D * azimuthStep - azimuthOffset)),
-			new Plane(new Vector3Spherical(1D, secondInclination, 1D * azimuthStep + azimuthOffset)),
-			new Plane(new Vector3Spherical(1D, secondInclination, 3D * azimuthStep - azimuthOffset)),
-			new Plane(new Vector3Spherical(1D, secondInclination, 3D * azimuthStep + azimuthOffset)),
-			new Plane(new Vector3Spherical(1D, secondInclination, 5D * azimuthStep - azimuthOffset)),
-			new Plane(new Vector3Spherical(1D, secondInclination, 5D * azimuthStep + azimuthOffset)),
-			new Plane(new Vector3Spherical(1D, Math.PI - secondInclination, 0D * azimuthStep - azimuthOffset)),
-			new Plane(new Vector3Spherical(1D, Math.PI - secondInclination, 0D * azimuthStep + azimuthOffset)),
-			new Plane(new Vector3Spherical(1D, Math.PI - secondInclination, 2D * azimuthStep - azimuthOffset)),
-			new Plane(new Vector3Spherical(1D, Math.PI - secondInclination, 2D * azimuthStep + azimuthOffset)),
-			new Plane(new Vector3Spherical(1D, Math.PI - secondInclination, 4D * azimuthStep - azimuthOffset)),
-			new Plane(new Vector3Spherical(1D, Math.PI - secondInclination, 4D * azimuthStep + azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, secondInclination, (1D * azimuthStep) - azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, secondInclination, (1D * azimuthStep) + azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, secondInclination, (3D * azimuthStep) - azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, secondInclination, (3D * azimuthStep) + azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, secondInclination, (5D * azimuthStep) - azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, secondInclination, (5D * azimuthStep) + azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, Math.PI - secondInclination, (0D * azimuthStep) - azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, Math.PI - secondInclination, (0D * azimuthStep) + azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, Math.PI - secondInclination, (2D * azimuthStep) - azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, Math.PI - secondInclination, (2D * azimuthStep) + azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, Math.PI - secondInclination, (4D * azimuthStep) - azimuthOffset)),
+			new Plane(new Vector3Spherical(1D, Math.PI - secondInclination, (4D * azimuthStep) + azimuthOffset)),
 			new Plane(new Vector3Spherical(1D, Math.PI - dihedralAngle, 1D * azimuthStep)),
 			new Plane(new Vector3Spherical(1D, Math.PI - dihedralAngle, 3D * azimuthStep)),
 			new Plane(new Vector3Spherical(1D, Math.PI - dihedralAngle, 5D * azimuthStep)),
