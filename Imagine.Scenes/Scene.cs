@@ -1,5 +1,6 @@
 namespace Imagine.Scenes;
 
+// TODO: Reorder methods alphabetically!
 public static class Scene
 {
 	public static IScene Cone() => new Cone();
