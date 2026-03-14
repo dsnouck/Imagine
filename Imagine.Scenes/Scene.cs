@@ -119,7 +119,6 @@ public static class Scene
 
 	public static IScene PlaneThroughOrigin(Vector3 normal) => Plane(normal).Translated(-normal);
 
-	// TODO: A List is also an Array.
 	public static IScene Polyhedron(params Vector3[] normals) => Intersection(normals.Select(Plane).ToArray());
 
 	public static IScene Rotated(this IScene scene, double angle) => scene.Rotated(new Vector3(0D, 0D, 1D), angle);
