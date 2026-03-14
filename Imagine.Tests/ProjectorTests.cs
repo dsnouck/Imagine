@@ -4,6 +4,7 @@ namespace Imagine.Tests;
 // TODO: Rename variables named settings to samplerSettings.
 // TODO: Create ImageSettings constructor with default XMin, XMax, YMin, YMax based on Width and Height.
 // TODO: Try a smaller FieldOfView!
+// TODO: Calculate fieldOfView from eye and focus (and radius of field of view at focus).
 public class ProjectorTests
 {
 	private const double Narrow = 0.01D;
