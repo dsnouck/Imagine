@@ -22,9 +22,8 @@ public class Sphere(double r) : IScene
 		// TODO: Create inline method for lambda.
 		return zeros.
 			Select(zero => new Intercept(
-				Distance: zero,
-				Normal: ray.At(zero).Normalized() * ray.Direction.Length(),
-				Color: new ColorRgb(1D, 1D, 1D)))
+				distance: zero,
+				normal: ray.At(zero).Normalized() * ray.Direction.Length()))
 			.ToList();
 	}
 }

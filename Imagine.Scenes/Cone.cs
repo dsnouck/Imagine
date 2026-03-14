@@ -50,12 +50,9 @@ public class Cone : IScene
 					Z = -surfaceIntersection.Z,
 				};
 
-				return new Intercept
-				{
-					Distance = zero,
-					Normal = mirroredSurfaceIntersection.Normalized() * ray.Direction.Length(),
-					Color = new ColorRgb(1D, 1D, 1D),
-				};
+				return new Intercept(
+					distance: zero,
+					normal: mirroredSurfaceIntersection.Normalized() * ray.Direction.Length());
 			})
 			.ToList();
 	}

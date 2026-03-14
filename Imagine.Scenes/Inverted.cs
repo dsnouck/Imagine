@@ -6,11 +6,10 @@ public class Inverted(IScene scene) : IScene
 
 	public List<Intercept> Intercepts(Line3 ray) =>
 		scene.Intercepts(ray)
-			.Select(intercept => new Intercept
-			{
-				Distance = intercept.Distance,
-				Normal = -intercept.Normal,
-				Color = intercept.Color,
-			})
+			.Select(intercept =>
+				new Intercept(
+					Distance: intercept.Distance,
+					Normal: -intercept.Normal,
+					Color: intercept.Color))
 			.ToList();
 }

@@ -50,12 +50,9 @@ public class Cylinder(double r) : IScene
 					Z = 0D,
 				};
 
-				return new Intercept
-				{
-					Distance = zero,
-					Normal = horizontalSurfaceIntersection.Normalized() * ray.Direction.Length(),
-					Color = new ColorRgb(1D, 1D, 1D),
-				};
+				return new Intercept(
+					distance: zero,
+					normal: horizontalSurfaceIntersection.Normalized() * ray.Direction.Length());
 			})
 			.ToList();
 	}

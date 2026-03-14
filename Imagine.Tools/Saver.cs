@@ -9,7 +9,6 @@ public static class Saver
 
 	public static string Save(List<List<List<ColorRgb>>> movie, string name) => Save(movie, OutputDirectory, name);
 
-
 	private static string Save(List<List<ColorRgb>> image, string directory, string name)
 	{
 		Directory.CreateDirectory(directory);

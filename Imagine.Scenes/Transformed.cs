@@ -7,19 +7,20 @@ public class Transformed(IScene scene, Matrix4 transformation, Matrix4 backwardT
 
 	public List<Intercept> Intercepts(Line3 ray)
 	{
+		// TODO Rename all lineOfSight to ray!
 		var transformedLineOfSight = new Line3
 		{
 			Origin = TransformedBackPoint(ray.Origin),
 			Direction = TransformedBackDirection(ray.Direction),
 		};
 
+		// TODO: Rename surfaceIntersection to intercept everywhere?
 		return scene.Intercepts(transformedLineOfSight)
-			.Select(surfaceIntersection => new Intercept
-			{
-				Color = surfaceIntersection.Color,
-				Distance = surfaceIntersection.Distance,
-				Normal = TransformedDirection(surfaceIntersection.Normal),
-			})
+			.Select(surfaceIntersection =>
+				new Intercept(
+					Distance: surfaceIntersection.Distance,
+					Normal: TransformedDirection(surfaceIntersection.Normal),
+					Color: surfaceIntersection.Color))
 			.ToList();
 	}
 

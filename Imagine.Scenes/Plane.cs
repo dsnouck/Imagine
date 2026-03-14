@@ -17,22 +17,19 @@ public class Plane(Vector3 normal) : IScene
 
 		if (double.Abs(dotProductNormalDirection) < Epsilon)
 		{
+			// TODO: Remove unnecessary comments!
 			// The line of sight is approximately parallel to the plane.
 			return new List<Intercept>();
 		}
 
 		var distance = normal.Dot(normal - lineOfSight.Origin) / dotProductNormalDirection;
 
-		// TODO: Can we use new() here?
-		return new List<Intercept>
+		// TODO: Can we use new() everywhere?
+		return new()
 		{
-			// TODO: Use the correct override of new()
-			new()
-			{
-				Distance = distance,
-				Normal = normal.Normalized() * lineOfSight.Direction.Length(),
-				Color = new ColorRgb(1, 1, 1),
-			},
+			new(
+				distance: distance,
+				normal: normal.Normalized() * lineOfSight.Direction.Length()),
 		};
 	}
 }
