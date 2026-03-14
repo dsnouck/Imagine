@@ -15,10 +15,6 @@ public class Sphere(double r) : IScene
 
 		var zeros = QuadraticSolver.Solve(a, b, c);
 
-		// TODO: When we want to enable transformations, the distance should be relative to the length of the direction vector. What about the normal?
-		// TODO: Make Normal lazy.
-		// TODO: Make Color lazy.
-		// TODO: Create an Intercept constructor with a default color.
 		// TODO: Create inline method for lambda.
 		return zeros.
 			Select(zero => new Intercept(

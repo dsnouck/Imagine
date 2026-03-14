@@ -2,7 +2,6 @@ namespace Imagine.Scenes;
 
 public class Plane(Vector3 normal) : IScene
 {
-	// TODO: Make smaller?
 	private const double Epsilon = 0.001D;
 
 	// TODO: Place expression bodies on their own lines or on the same line?

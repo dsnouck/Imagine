@@ -2,7 +2,6 @@ namespace Imagine.Scenes;
 
 public static class Scene
 {
-	// TODO: Add parameters angle and orientation.
 	public static IScene Cone() => new Cone();
 
 	public static IScene Cube() => CubeWithCircumradius(1D);
@@ -20,7 +19,6 @@ public static class Scene
 
 	public static IScene Cylinder() => CylinderWithRadius(1D);
 
-	// TODO: Add parameter orientation.
 	public static IScene CylinderWithRadius(double r) => new Cylinder(r);
 
 	public static IScene Dodecahedron() => DodecahedronWithCircumradius(1D);
@@ -88,11 +86,9 @@ public static class Scene
 			new Vector3Spherical(r, 0D, 0D));
 	}
 
-	// TODO: Use extension block.
 	public static IScene IntersectedWith(this IScene scene, IScene otherScene) =>
 		new Intersection(scene, otherScene);
 
-	// TODO: Use params List.
 	public static IScene Intersection(params IScene[] scenes) => scenes.Aggregate(Full(), IntersectedWith);
 
 	public static IScene Inverted(this IScene scene) => new Inverted(scene);

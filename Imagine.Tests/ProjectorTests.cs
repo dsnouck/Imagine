@@ -3,7 +3,6 @@ namespace Imagine.Tests;
 // TODO: Use new() everywhere.
 // TODO: Rename variables named settings to samplerSettings.
 // TODO: Create ProjectorSettings constructor with default BackgroundColor.
-// TODO: Assert rendered images are correct (e.g. by comparing to reference images).
 public class ProjectorTests
 {
 	private const double Narrow = 0.01D;
