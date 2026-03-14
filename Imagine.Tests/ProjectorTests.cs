@@ -2,7 +2,8 @@ namespace Imagine.Tests;
 
 // TODO: Use new() everywhere.
 // TODO: Rename variables named settings to samplerSettings.
-// TODO: Create ProjectorSettings constructor with default BackgroundColor.
+// TODO: Create ImageSettings constructor with default XMin, XMax, YMin, YMax based on Width and Height.
+// TODO: Try a smaller FieldOfView!
 public class ProjectorTests
 {
 	private const double Narrow = 0.01D;
@@ -10,10 +11,9 @@ public class ProjectorTests
 
 	private static readonly ProjectorSettings ProjectorSettings =
 		new(
-			Eye: new Vector3Spherical(3D, Math.PI / 3D, Math.PI / 6D),
-			Focus: new(0D, 0D, 0D),
-			FieldOfView: Math.PI / 4D,
-			BackgroundColor: new(0D, 0D, 0D));
+			eye: new Vector3Spherical(3D, Math.PI / 3D, Math.PI / 6D),
+			focus: new(0D, 0D, 0D),
+			fieldOfView: Math.PI / 4D);
 
 	private static readonly ImageSettings ImageSettings =
 		new(
@@ -22,7 +22,7 @@ public class ProjectorTests
 			Subsamples: 2,
 			XMin: -1D,
 			XMax: 1D,
-			YMin: -1,
+			YMin: -1D,
 			YMax: 1D);
 
 	private static readonly IScene BoundingSphere = Scene.Sphere().Transparent();
