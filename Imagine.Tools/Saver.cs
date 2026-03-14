@@ -5,10 +5,8 @@ public static class Saver
 	private const string OutputDirectory = "output";
 	private const string FramesDirectory = $"{OutputDirectory}/frames";
 
-	// TODO: Use output.
 	public static string Save(List<List<ColorRgb>> image, string name) => Save(image, OutputDirectory, name);
 
-	// TODO: Use output.
 	public static string Save(List<List<List<ColorRgb>>> movie, string name) => Save(movie, OutputDirectory, name);
 
 

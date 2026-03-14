@@ -1,8 +1,7 @@
 namespace Imagine.Scenes;
 
-public class Cylinder : IScene
+public class Cylinder(double r) : IScene
 {
-	// TODO: Make radius a property.
 	public bool Contains(Vector3 point)
 	{
 		var horizontalPoint = new Vector3
@@ -12,8 +11,7 @@ public class Cylinder : IScene
 			Z = 0D,
 		};
 
-		// TODO: Use Length?
-		return horizontalPoint.Dot(horizontalPoint) <= 1D;
+		return horizontalPoint.Dot(horizontalPoint) <= (r * r);
 	}
 
 	public List<Intercept> Intercepts(Line3 ray)
@@ -37,7 +35,7 @@ public class Cylinder : IScene
 		// These are the coefficients of the quadratic equation x ↦ ax² + bx + c we want to solve.
 		var a = horizontalLineOfSight.Direction.Dot(horizontalLineOfSight.Direction);
 		var b = horizontalLineOfSight.Direction.Dot(horizontalLineOfSight.Origin) * 2D;
-		var c = horizontalLineOfSight.Origin.Dot(horizontalLineOfSight.Origin) - 1D;
+		var c = horizontalLineOfSight.Origin.Dot(horizontalLineOfSight.Origin) - (r * r);
 
 		var zeros = QuadraticSolver.Solve(a, b, c);
 
