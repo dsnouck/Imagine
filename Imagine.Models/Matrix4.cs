@@ -1,7 +1,6 @@
 namespace Imagine.Models;
 
-// TODO: Rename properties to something like Row0?
-public readonly record struct Matrix4(Vector4 FirstRow, Vector4 SecondRow, Vector4 ThirdRow, Vector4 FourthRow)
+public readonly record struct Matrix4(Vector4 Row0, Vector4 Row1, Vector4 Row2, Vector4 Row3)
 {
 	public static Matrix4 Rotation(Vector3 axis, double angle)
 	{
@@ -53,8 +52,8 @@ public readonly record struct Matrix4(Vector4 FirstRow, Vector4 SecondRow, Vecto
 
 	public static Vector4 operator *(Matrix4 left, Vector4 right) =>
 		new(
-			left.FirstRow.Dot(right),
-			left.SecondRow.Dot(right),
-			left.ThirdRow.Dot(right),
-			left.FourthRow.Dot(right));
+			left.Row0.Dot(right),
+			left.Row1.Dot(right),
+			left.Row2.Dot(right),
+			left.Row3.Dot(right));
 }
