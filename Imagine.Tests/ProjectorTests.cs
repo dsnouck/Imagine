@@ -25,26 +25,31 @@ public class ProjectorTests
 			YMin: -1,
 			YMax: 1D);
 
+	private static readonly IScene BoundingSphere = Scene.Sphere().Transparent();
+	private static readonly IScene Cylinder = Scene.CylinderWithRadius(0.5D);
+	private static readonly IScene Sphere = Scene.SphereWithRadius(SphereRadius);
+	private static readonly IScene Tetrahedron = Scene.Tetrahedron().Rotated(11D * Math.PI / 24D);
+
 	private static readonly Dictionary<string, IScene> Scenes =
 		new()
 		{
-			{ "cone", Scene.Intersection(Scene.Cone(), Scene.Sphere().Transparent()) },
-			{ "cube-except-sphere", Scene.Cube().Except(Scene.SphereWithRadius(SphereRadius)) },
+			{ "cone", Scene.Intersection(Scene.Cone(), BoundingSphere) },
+			{ "cube-except-sphere", Scene.Cube().Except(Sphere) },
+			{ "cube-painted", Scene.Cube().Painted(new(1D, 0D, 0D)) },
 			{ "cube-rotated", Scene.Cube().Rotated(Math.PI / 4D) },
 			{ "cube-scaled", Scene.Cube().Scaled(0.5D) },
-			{ "cube-sphere-intersection", Scene.Cube().IntersectedWith(Scene.SphereWithRadius(SphereRadius)) },
-			{ "cube-sphere-union", Scene.Cube().UnitedWith(Scene.SphereWithRadius(SphereRadius)) },
-			{ "cube-translated", Scene.Cube().Translated(new Vector3(0D, 0.25D, 0D)) },
+			{ "cube-sphere-intersection", Scene.Cube().IntersectedWith(Sphere) },
+			{ "cube-sphere-union", Scene.Cube().UnitedWith(Sphere) },
+			{ "cube-translated", Scene.Cube().Translated(new(0D, 0.25D, 0D)) },
 			{ "cube", Scene.Cube() },
-			{ "cylinder", Scene.Intersection(Scene.CylinderWithRadius(0.5D), Scene.Sphere().Transparent()) },
+			{ "cylinder", Scene.Intersection(Cylinder, BoundingSphere) },
 			{ "dodecahedron", Scene.Dodecahedron() },
 			{ "icosahedron", Scene.Icosahedron() },
 			{ "octahedron", Scene.Octahedron() },
-			{ "plane", Scene.Intersection(Scene.PlaneThroughOrigin(new(0D, 0D, 1D)), Scene.Sphere().Transparent()) },
-			{ "red-cube", Scene.Cube().Painted(new ColorRgb(1D, 0D, 0D)) },
-			{ "sphere-except-cube", Scene.SphereWithRadius(SphereRadius).Except(Scene.Cube()) },
-			{ "sphere", Scene.SphereWithRadius(SphereRadius) },
-			{ "tetrahedron", Scene.Tetrahedron().Rotated(11D * Math.PI / 24D) },
+			{ "plane", Scene.Intersection(Scene.PlaneThroughOrigin(new(0D, 0D, 1D)), BoundingSphere) },
+			{ "sphere-except-cube", Sphere.Except(Scene.Cube()) },
+			{ "sphere", Sphere },
+			{ "tetrahedron", Tetrahedron },
 		};
 
 	public static TheoryData<string> Names =>

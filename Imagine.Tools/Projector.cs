@@ -4,7 +4,6 @@ public static class Projector
 {
 	public static Func<Vector2, ColorRgb> Project(IScene scene, ProjectorSettings settings)
 	{
-		// TODO: Refactor. Introduce GetRays or similar method.
 		var screen = Screen(settings);
 
 		return point =>
@@ -26,6 +25,7 @@ public static class Projector
 
 			var intercept = intercepts.First();
 
+			// TODO: Is this Normal always normalized?
 			var intensity = double.Abs(intercept.Normal.Dot(direction));
 
 			return intercept.Color * intensity;
@@ -36,6 +36,7 @@ public static class Projector
 	{
 		var viewingDirection = (settings.Focus - settings.Eye).Normalized();
 		var centerScreen = settings.Eye + viewingDirection;
+		// TODO: Use new() everywhere!
 		var vertical = new Vector3 { X = 0D, Y = 0D, Z = 1D };
 		var xVector = viewingDirection.Cross(vertical).Normalized();
 		var yVector = xVector.Cross(viewingDirection).Normalized();
