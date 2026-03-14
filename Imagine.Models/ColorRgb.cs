@@ -10,8 +10,8 @@ public readonly record struct ColorRgb(double Red, double Green, double Blue)
 	public static ColorRgb operator *(ColorRgb left, double right) =>
 		new(left.Red * right, left.Green * right, left.Blue * right);
 
-	public static explicit operator Rgba32(ColorRgb color) =>
-		new(ToByte(color.Red), ToByte(color.Green), ToByte(color.Blue));
+	public static explicit operator Rgba32(ColorRgb value) =>
+		new(ToByte(value.Red), ToByte(value.Green), ToByte(value.Blue));
 
 	private static byte ToByte(double value)
 	{

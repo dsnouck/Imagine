@@ -51,10 +51,10 @@ public readonly record struct Matrix4(Vector4 FirstRow, Vector4 SecondRow, Vecto
 			new(0D, 0D, 1D, translation.Z),
 			new(0D, 0D, 0D, 1D));
 
-	public static Vector4 operator *(Matrix4 matrix, Vector4 vector) =>
+	public static Vector4 operator *(Matrix4 left, Vector4 right) =>
 		new(
-			matrix.FirstRow.Dot(vector),
-			matrix.SecondRow.Dot(vector),
-			matrix.ThirdRow.Dot(vector),
-			matrix.FourthRow.Dot(vector));
+			left.FirstRow.Dot(right),
+			left.SecondRow.Dot(right),
+			left.ThirdRow.Dot(right),
+			left.FourthRow.Dot(right));
 }

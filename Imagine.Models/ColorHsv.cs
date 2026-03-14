@@ -2,8 +2,7 @@ namespace Imagine.Models;
 
 public readonly record struct ColorHsv(double Hue, double Saturation, double Value)
 {
-	// TODO: Other cast operators use paramter name value. Make this consistent.
-	public static explicit operator ColorRgb(ColorHsv color)
+	public static explicit operator ColorRgb(ColorHsv value)
 	{
 		const double yellow = 1D;
 		const double green = 2D;
@@ -12,7 +11,7 @@ public readonly record struct ColorHsv(double Hue, double Saturation, double Val
 		const double magenta = 5D;
 		const double red = 6D;
 
-		var hue = color.Hue % 1D;
+		var hue = value.Hue % 1D;
 		if (hue < 0D)
 		{
 			hue++;
@@ -20,12 +19,12 @@ public readonly record struct ColorHsv(double Hue, double Saturation, double Val
 
 		hue *= red;
 
-		var saturation = double.Clamp(color.Saturation, 0D, 1D);
-		var value = double.Clamp(color.Value, 0D, 1D);
+		var saturation = double.Clamp(value.Saturation, 0D, 1D);
+		var hsvValue = double.Clamp(value.Value, 0D, 1D);
 
-		var min = value * (1D - saturation);
-		var between = value * (1D - (saturation * double.Abs((hue % 2D) - 1D)));
-		var max = value;
+		var min = hsvValue * (1D - saturation);
+		var between = hsvValue * (1D - (saturation * double.Abs((hue % 2D) - 1D)));
+		var max = hsvValue;
 
 		return hue switch
 		{
