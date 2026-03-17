@@ -1,7 +1,6 @@
 namespace Imagine.Tests;
 
 // TODO: Use new() everywhere.
-// TODO: Rename variables named settings to samplerSettings.
 public class ProjectorTests
 {
 	private const double Narrow = 0.01D;

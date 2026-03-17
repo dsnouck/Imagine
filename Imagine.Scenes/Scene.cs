@@ -135,6 +135,7 @@ public static class Scene
 
 	public static IScene Tetrahedron() => TetrahedronWithCircumradius(1D);
 
+	// TODO: Rename arguments named r to circumradius and inradius respectively.
 	public static IScene TetrahedronWithCircumradius(double r) => TetrahedronWithInradius(r / 3D);
 
 	public static IScene TetrahedronWithInradius(double r)

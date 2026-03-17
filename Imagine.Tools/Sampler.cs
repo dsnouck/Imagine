@@ -48,14 +48,7 @@ public static class Sampler
 			new Vector2(-0.5D, settings.ZMin),
 			new Vector2(settings.Frames - 0.5D, settings.ZMax));
 
-		var imageSettings = new ImageSettings(
-			Width: settings.Width,
-			Height: settings.Height,
-			Subsamples: settings.Subsamples,
-			XMin: settings.XMin,
-			XMax: settings.XMax,
-			YMin: settings.YMin,
-			YMax: settings.YMax);
+		var imageSettings = new ImageSettings(settings);
 
 		var movie = new List<List<List<ColorRgb>>>();
 
