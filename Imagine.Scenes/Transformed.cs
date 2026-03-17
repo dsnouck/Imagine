@@ -1,28 +1,28 @@
 namespace Imagine.Scenes;
 
 // TODO: Rename to scene, forward, backward?
-internal class Transformed(IScene scene, Matrix4 transformation, Matrix4 backwardTransformation) : IScene
+internal class Transformed(IScene scene, Matrix4 forward, Matrix4 backward) : IScene
 {
-	public bool Contains(Vector3 point) => scene.Contains(TransformedBackPoint(point));
+	public bool Contains(Vector3 point) => scene.Contains(BackwardPoint(point));
 
 	public List<Intercept> Intercepts(Line3 ray)
 	{
-		var transformedRay = new Line3
+		var backwardRay = new Line3
 		{
-			Origin = TransformedBackPoint(ray.Origin),
-			Direction = TransformedBackDirection(ray.Direction),
+			Origin = BackwardPoint(ray.Origin),
+			Direction = BackwardDirection(ray.Direction),
 		};
 
-		return scene.Intercepts(transformedRay)
+		return scene.Intercepts(backwardRay)
 			.Select(intercept =>
 				new Intercept(
 					Distance: intercept.Distance,
-					Normal: TransformedDirection(intercept.Normal),
+					Normal: ForwardDirection(intercept.Normal),
 					Color: intercept.Color))
 			.ToList();
 	}
 
-	private Vector3 TransformedDirection(Vector3 direction)
+	private Vector3 BackwardDirection(Vector3 direction)
 	{
 		var direction4 = new Vector4
 		{
@@ -31,36 +31,18 @@ internal class Transformed(IScene scene, Matrix4 transformation, Matrix4 backwar
 			Z = direction.Z,
 			W = 0D,
 		};
-		var transformedDirection4 = transformation * direction4;
+
+		var backwardDirection4 = backward * direction4;
 
 		return new Vector3
 		{
-			X = transformedDirection4.X,
-			Y = transformedDirection4.Y,
-			Z = transformedDirection4.Z,
+			X = backwardDirection4.X,
+			Y = backwardDirection4.Y,
+			Z = backwardDirection4.Z,
 		};
 	}
 
-	private Vector3 TransformedBackDirection(Vector3 direction)
-	{
-		var direction4 = new Vector4
-		{
-			X = direction.X,
-			Y = direction.Y,
-			Z = direction.Z,
-			W = 0D,
-		};
-		var transformedDirection4 = backwardTransformation * direction4;
-
-		return new Vector3
-		{
-			X = transformedDirection4.X,
-			Y = transformedDirection4.Y,
-			Z = transformedDirection4.Z,
-		};
-	}
-
-	private Vector3 TransformedBackPoint(Vector3 point)
+	private Vector3 BackwardPoint(Vector3 point)
 	{
 		var point4 = new Vector4
 		{
@@ -69,13 +51,34 @@ internal class Transformed(IScene scene, Matrix4 transformation, Matrix4 backwar
 			Z = point.Z,
 			W = 1D,
 		};
-		var transformedPoint4 = backwardTransformation * point4;
+
+		var backwardPoint4 = backward * point4;
 
 		return new Vector3
 		{
-			X = transformedPoint4.X,
-			Y = transformedPoint4.Y,
-			Z = transformedPoint4.Z,
+			X = backwardPoint4.X,
+			Y = backwardPoint4.Y,
+			Z = backwardPoint4.Z,
+		};
+	}
+
+	private Vector3 ForwardDirection(Vector3 direction)
+	{
+		var direction4 = new Vector4
+		{
+			X = direction.X,
+			Y = direction.Y,
+			Z = direction.Z,
+			W = 0D,
+		};
+
+		var forwardDirection4 = forward * direction4;
+
+		return new Vector3
+		{
+			X = forwardDirection4.X,
+			Y = forwardDirection4.Y,
+			Z = forwardDirection4.Z,
 		};
 	}
 }

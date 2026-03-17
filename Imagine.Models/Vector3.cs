@@ -30,6 +30,7 @@ public readonly record struct Vector3(double X, double Y, double Z)
 		new(-value.X, -value.Y, -value.Z);
 
 	// TODO: Make cast operators explicit.
+	// TODO: Cast operators or constructors?
 	public static implicit operator Vector2(Vector3 value) =>
 		new(value.X, value.Y);
 }
