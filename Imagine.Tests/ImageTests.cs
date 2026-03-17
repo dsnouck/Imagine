@@ -3,7 +3,7 @@ namespace Imagine.Tests;
 public class ImageTests
 {
 	[Fact]
-	public void Hsv()
+	public void ImageHsv()
 	{
 		const string name = "hsv";
 
@@ -33,7 +33,7 @@ public class ImageTests
 	}
 
 	[Fact]
-	public void Red()
+	public void ImageRed()
 	{
 		const string name = "red";
 
@@ -51,7 +51,7 @@ public class ImageTests
 	}
 
 	[Fact]
-	public void Rgb()
+	public void ImageRgb()
 	{
 		const string name = "rgb";
 

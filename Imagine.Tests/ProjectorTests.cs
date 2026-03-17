@@ -45,12 +45,11 @@ public class ProjectorTests
 			{ "tetrahedron", Tetrahedron },
 		};
 
-	public static TheoryData<string> Names =>
-		new(Scenes.Keys.ToList());
+	public static TheoryData<string> Names => new(Scenes.Keys.ToList());
 
 	[Theory]
 	[MemberData(nameof(Names))]
-	public void SceneIsRendered(string name)
+	public void Projection(string name)
 	{
 		var scene = Scenes[name];
 		var projection = Projector.Project(scene, ProjectorSettings);

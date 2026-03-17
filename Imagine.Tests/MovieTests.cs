@@ -3,7 +3,7 @@ namespace Imagine.Tests;
 public class MovieTests
 {
 	[Fact]
-	public void Hsv()
+	public void MovieHsv()
 	{
 		const string name = "hsv";
 
@@ -40,7 +40,7 @@ public class MovieTests
 	}
 
 	[Fact]
-	public void Red()
+	public void MovieRed()
 	{
 		const string name = "red";
 
@@ -61,7 +61,7 @@ public class MovieTests
 	}
 
 	[Fact]
-	public void Rgb()
+	public void MovieRgb()
 	{
 		const string name = "rgb";
 
