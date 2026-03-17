@@ -1,7 +1,7 @@
 namespace Imagine.Scenes;
 
 // TODO: Rename to scene, forward, backward?
-public class Transformed(IScene scene, Matrix4 transformation, Matrix4 backwardTransformation) : IScene
+internal class Transformed(IScene scene, Matrix4 transformation, Matrix4 backwardTransformation) : IScene
 {
 	public bool Contains(Vector3 point) => scene.Contains(TransformedBackPoint(point));
 

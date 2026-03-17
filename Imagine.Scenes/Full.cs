@@ -1,6 +1,6 @@
 namespace Imagine.Scenes;
 
-public class Full : IScene
+internal class Full : IScene
 {
 	public bool Contains(Vector3 point) => true;
 

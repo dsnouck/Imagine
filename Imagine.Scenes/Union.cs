@@ -1,6 +1,6 @@
 namespace Imagine.Scenes;
 
-public class Union(IScene scene, IScene otherScene) : IScene
+internal class Union(IScene scene, IScene otherScene) : IScene
 {
 	public bool Contains(Vector3 point) => scene.Contains(point) || otherScene.Contains(point);
 

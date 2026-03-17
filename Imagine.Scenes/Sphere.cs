@@ -1,7 +1,6 @@
 namespace Imagine.Scenes;
 
-// TODO: Make implementations of IScene internal.
-public class Sphere(double r) : IScene
+internal class Sphere(double r) : IScene
 {
 	public bool Contains(Vector3 point) => point.Dot(point) <= r * r;
 

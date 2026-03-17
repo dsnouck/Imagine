@@ -1,6 +1,6 @@
 namespace Imagine.Scenes;
 
-public class Cylinder(double r) : IScene
+internal class Cylinder(double r) : IScene
 {
 	public bool Contains(Vector3 point)
 	{

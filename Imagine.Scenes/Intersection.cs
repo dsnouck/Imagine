@@ -1,6 +1,6 @@
 namespace Imagine.Scenes;
 
-public class Intersection(IScene scene, IScene otherScene) : IScene
+internal class Intersection(IScene scene, IScene otherScene) : IScene
 {
 	public bool Contains(Vector3 point) => scene.Contains(point) && otherScene.Contains(point);
 

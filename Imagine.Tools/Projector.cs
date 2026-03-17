@@ -25,7 +25,6 @@ public static class Projector
 
 			var intercept = intercepts.First();
 
-			// TODO: Is this Normal always normalized?
 			var intensity = double.Abs(intercept.Normal.Dot(direction));
 
 			return intercept.Color * intensity;

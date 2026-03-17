@@ -1,6 +1,6 @@
 namespace Imagine.Scenes;
 
-public class Transparent(IScene scene) : IScene
+internal class Transparent(IScene scene) : IScene
 {
 	public bool Contains(Vector3 point) => scene.Contains(point);
 
