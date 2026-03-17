@@ -42,17 +42,17 @@ internal class Cylinder(double r) : IScene
 		return zeros
 			.Select(zero =>
 			{
-				var surfaceIntersection = ray.At(zero);
-				var horizontalSurfaceIntersection = new Vector3
+				var intercept = ray.At(zero);
+				var horizontalIntercept = new Vector3
 				{
-					X = surfaceIntersection.X,
-					Y = surfaceIntersection.Y,
+					X = intercept.X,
+					Y = intercept.Y,
 					Z = 0D,
 				};
 
 				return new Intercept(
 					distance: zero,
-					normal: horizontalSurfaceIntersection.Normalized() * ray.Direction.Length());
+					normal: horizontalIntercept.Normalized() * ray.Direction.Length());
 			})
 			.ToList();
 	}

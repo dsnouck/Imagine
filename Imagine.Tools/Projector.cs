@@ -15,8 +15,8 @@ public static class Projector
 				Direction = direction,
 			};
 			var intercepts = scene.Intercepts(lineOfSight)
-				.Where(surfaceIntersection => surfaceIntersection.Distance > 0D)
-				.OrderBy(surfaceIntersection => surfaceIntersection.Distance)
+				.Where(intercept => intercept.Distance > 0D)
+				.OrderBy(intercept => intercept.Distance)
 				.ToList();
 			if (!intercepts.Any())
 			{

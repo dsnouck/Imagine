@@ -14,13 +14,12 @@ internal class Transformed(IScene scene, Matrix4 transformation, Matrix4 backwar
 			Direction = TransformedBackDirection(ray.Direction),
 		};
 
-		// TODO: Rename surfaceIntersection to intercept everywhere?
 		return scene.Intercepts(transformedLineOfSight)
-			.Select(surfaceIntersection =>
+			.Select(intercept =>
 				new Intercept(
-					Distance: surfaceIntersection.Distance,
-					Normal: TransformedDirection(surfaceIntersection.Normal),
-					Color: surfaceIntersection.Color))
+					Distance: intercept.Distance,
+					Normal: TransformedDirection(intercept.Normal),
+					Color: intercept.Color))
 			.ToList();
 	}
 

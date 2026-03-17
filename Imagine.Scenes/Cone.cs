@@ -32,6 +32,7 @@ internal class Cone : IScene
 			},
 		};
 
+		// TODO: Remove useless comments.
 		// These are the coefficients of the quadratic equation x ↦ ax² + bx + c we want to solve.
 		var a = ray.Direction.Dot(mirroredLineOfSight.Direction);
 		var b = ray.Direction.Dot(mirroredLineOfSight.Origin) * 2D;
@@ -42,17 +43,17 @@ internal class Cone : IScene
 		return zeros.
 			Select(zero =>
 			{
-				var surfaceIntersection = ray.At(zero);
-				var mirroredSurfaceIntersection = new Vector3
+				var intercept = ray.At(zero);
+				var mirroredIntercept = new Vector3
 				{
-					X = surfaceIntersection.X,
-					Y = surfaceIntersection.Y,
-					Z = -surfaceIntersection.Z,
+					X = intercept.X,
+					Y = intercept.Y,
+					Z = -intercept.Z,
 				};
 
 				return new Intercept(
 					distance: zero,
-					normal: mirroredSurfaceIntersection.Normalized() * ray.Direction.Length());
+					normal: mirroredIntercept.Normalized() * ray.Direction.Length());
 			})
 			.ToList();
 	}
