@@ -9,12 +9,12 @@ public static class Projector
 		return point =>
 		{
 			var direction = (screen(point) - settings.Eye).Normalized();
-			var lineOfSight = new Line3
+			var ray = new Line3
 			{
 				Origin = settings.Eye,
 				Direction = direction,
 			};
-			var intercepts = scene.Intercepts(lineOfSight)
+			var intercepts = scene.Intercepts(ray)
 				.Where(intercept => intercept.Distance > 0D)
 				.OrderBy(intercept => intercept.Distance)
 				.ToList();

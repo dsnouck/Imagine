@@ -7,14 +7,13 @@ internal class Transformed(IScene scene, Matrix4 transformation, Matrix4 backwar
 
 	public List<Intercept> Intercepts(Line3 ray)
 	{
-		// TODO Rename all lineOfSight to ray!
-		var transformedLineOfSight = new Line3
+		var transformedRay = new Line3
 		{
 			Origin = TransformedBackPoint(ray.Origin),
 			Direction = TransformedBackDirection(ray.Direction),
 		};
 
-		return scene.Intercepts(transformedLineOfSight)
+		return scene.Intercepts(transformedRay)
 			.Select(intercept =>
 				new Intercept(
 					Distance: intercept.Distance,

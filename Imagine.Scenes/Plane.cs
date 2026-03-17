@@ -9,10 +9,8 @@ internal class Plane(Vector3 normal) : IScene
 
 	public List<Intercept> Intercepts(Line3 ray)
 	{
-		// TODO: Remove variable?
-		var lineOfSight = ray;
-
-		var dotProductNormalDirection = normal.Dot(lineOfSight.Direction);
+		// TODO: Rename names using dotProduct.
+		var dotProductNormalDirection = normal.Dot(ray.Direction);
 
 		if (double.Abs(dotProductNormalDirection) < Epsilon)
 		{
@@ -21,14 +19,14 @@ internal class Plane(Vector3 normal) : IScene
 			return new List<Intercept>();
 		}
 
-		var distance = normal.Dot(normal - lineOfSight.Origin) / dotProductNormalDirection;
+		var distance = normal.Dot(normal - ray.Origin) / dotProductNormalDirection;
 
 		// TODO: Can we use new() everywhere?
 		return new()
 		{
 			new(
 				distance: distance,
-				normal: normal.Normalized() * lineOfSight.Direction.Length()),
+				normal: normal.Normalized() * ray.Direction.Length()),
 		};
 	}
 }

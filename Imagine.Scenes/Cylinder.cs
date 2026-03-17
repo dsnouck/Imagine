@@ -16,7 +16,7 @@ internal class Cylinder(double r) : IScene
 
 	public List<Intercept> Intercepts(Line3 ray)
 	{
-		var horizontalLineOfSight = new Line3
+		var horizontalRay = new Line3
 		{
 			Origin = new Vector3
 			{
@@ -33,9 +33,9 @@ internal class Cylinder(double r) : IScene
 		};
 
 		// These are the coefficients of the quadratic equation x ↦ ax² + bx + c we want to solve.
-		var a = horizontalLineOfSight.Direction.Dot(horizontalLineOfSight.Direction);
-		var b = horizontalLineOfSight.Direction.Dot(horizontalLineOfSight.Origin) * 2D;
-		var c = horizontalLineOfSight.Origin.Dot(horizontalLineOfSight.Origin) - (r * r);
+		var a = horizontalRay.Direction.Dot(horizontalRay.Direction);
+		var b = horizontalRay.Direction.Dot(horizontalRay.Origin) * 2D;
+		var c = horizontalRay.Origin.Dot(horizontalRay.Origin) - (r * r);
 
 		var zeros = QuadraticSolver.Solve(a, b, c);
 

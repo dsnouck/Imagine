@@ -16,7 +16,7 @@ internal class Cone : IScene
 
 	public List<Intercept> Intercepts(Line3 ray)
 	{
-		var mirroredLineOfSight = new Line3
+		var mirroredRay = new Line3
 		{
 			Origin = new Vector3
 			{
@@ -34,9 +34,9 @@ internal class Cone : IScene
 
 		// TODO: Remove useless comments.
 		// These are the coefficients of the quadratic equation x ↦ ax² + bx + c we want to solve.
-		var a = ray.Direction.Dot(mirroredLineOfSight.Direction);
-		var b = ray.Direction.Dot(mirroredLineOfSight.Origin) * 2D;
-		var c = ray.Origin.Dot(mirroredLineOfSight.Origin);
+		var a = ray.Direction.Dot(mirroredRay.Direction);
+		var b = ray.Direction.Dot(mirroredRay.Origin) * 2D;
+		var c = ray.Origin.Dot(mirroredRay.Origin);
 
 		var zeros = QuadraticSolver.Solve(a, b, c);
 
