@@ -39,9 +39,9 @@ public static class Projector
 		var halfScreenExtent = double.Tan(settings.FieldOfView * 0.5D);
 		xVector *= halfScreenExtent;
 		yVector *= halfScreenExtent;
-		return Plane(centerScreen, xVector, yVector);
+		return Screen(centerScreen, xVector, yVector);
 	}
 
-	private static Func<Vector2, Vector3> Plane(Vector3 origin, Vector3 xDirection, Vector3 yDirection) =>
+	private static Func<Vector2, Vector3> Screen(Vector3 origin, Vector3 xDirection, Vector3 yDirection) =>
 		point => origin + (xDirection * point.X) + (yDirection * point.Y);
 }

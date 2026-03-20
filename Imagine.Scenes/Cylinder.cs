@@ -33,5 +33,6 @@ internal class Cylinder(double radius) : IScene
 			.ToList();
 	}
 
-	private static Vector3 Horizontal(Vector3 point) => new(point.X, point.Y, 0D);
+	private static Vector3 Horizontal(Vector3 point) =>
+		new(point.X, point.Y, 0D);
 }

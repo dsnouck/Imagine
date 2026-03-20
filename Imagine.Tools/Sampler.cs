@@ -4,7 +4,8 @@ public static class Sampler
 {
 	public static List<List<ColorRgb>> Sample(Func<Vector2, ColorHsv> function, ImageSettings settings)
 	{
-		ColorRgb RgbFunction(Vector2 point) => (ColorRgb)function(point);
+		ColorRgb RgbFunction(Vector2 point) =>
+			(ColorRgb)function(point);
 
 		return Sample(RgbFunction, settings);
 	}
@@ -37,7 +38,8 @@ public static class Sampler
 
 	public static List<List<List<ColorRgb>>> Sample(Func<Vector3, ColorHsv> function, MovieSettings settings)
 	{
-		ColorRgb RgbFunction(Vector3 point) => (ColorRgb)function(point);
+		ColorRgb RgbFunction(Vector3 point) =>
+			(ColorRgb)function(point);
 
 		return Sample(RgbFunction, settings);
 	}
@@ -53,9 +55,10 @@ public static class Sampler
 		{
 			var z = frameToZ(frame);
 
-			ColorRgb CreateColor(Vector2 point) => function(new Vector3(point.X, point.Y, z));
+			ColorRgb FrameFunction(Vector2 point) =>
+				function(new Vector3(point.X, point.Y, z));
 
-			movie.Add(Sample(CreateColor, (ImageSettings)settings));
+			movie.Add(Sample(FrameFunction, (ImageSettings)settings));
 		}
 
 		return movie;

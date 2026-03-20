@@ -2,7 +2,8 @@ namespace Imagine.Scenes;
 
 internal class Cone : IScene
 {
-	public bool Contains(Vector3 point) => point.Dot(Mirrored(point)) < 0D;
+	public bool Contains(Vector3 point) =>
+		point.Dot(Mirrored(point)) < 0D;
 
 	public List<Intercept> Intercepts(Line3 ray)
 	{
@@ -10,7 +11,6 @@ internal class Cone : IScene
 			Origin: Mirrored(ray.Origin),
 			Direction: Mirrored(ray.Direction));
 
-		// TODO: Remove useless comments.
 		var distances = QuadraticSolver.Solve(
 			ray.Direction.Dot(mirroredRay.Direction),
 			ray.Direction.Dot(mirroredRay.Origin) * 2D,
@@ -29,6 +29,6 @@ internal class Cone : IScene
 			.ToList();
 	}
 
-	private static Vector3 Mirrored(Vector3 point) => new(point.X, point.Y, -point.Z);
-
+	private static Vector3 Mirrored(Vector3 point) =>
+		new(point.X, point.Y, -point.Z);
 }

@@ -2,7 +2,8 @@ namespace Imagine.Scenes;
 
 internal class Union(IScene scene, IScene otherScene) : IScene
 {
-	public bool Contains(Vector3 point) => scene.Contains(point) || otherScene.Contains(point);
+	public bool Contains(Vector3 point) =>
+		scene.Contains(point) || otherScene.Contains(point);
 
 	public List<Intercept> Intercepts(Line3 ray)
 	{

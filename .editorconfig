@@ -364,6 +364,9 @@ dotnet_naming_style.s_camelcase.capitalization = camel_case
 
 #### Suppressions ####
 
+# CA1860: Avoid using 'Enumerable.Any()' extension method
+dotnet_diagnostic.CA1860.severity = none
+
 # SA0001: XML comment analysis is disabled due to project configuration
 dotnet_diagnostic.SA0001.severity = none
 
@@ -379,7 +382,6 @@ dotnet_diagnostic.SA1027.severity = none
 # SA1101: Prefix local calls with this
 dotnet_diagnostic.SA1101.severity = none
 
-# TODO: Enable?
 # SA1313: Parameter names should begin with lower-case letter
 dotnet_diagnostic.SA1313.severity = none
 
@@ -394,10 +396,3 @@ dotnet_diagnostic.S2699.severity = none
 
 # S6608: Prefer indexing instead of "Enumerable" methods on types implementing "IList"
 dotnet_diagnostic.S6608.severity = none
-
-# TOFO: Reorder rules.
-# CA1860: Avoid using 'Enumerable.Any()' extension method
-dotnet_diagnostic.CA1860.severity = none
-
-# TODO: Move to correct location. Is this working?
-csharp_style_implicit_object_creation_when_type_is_apparent = true:warning

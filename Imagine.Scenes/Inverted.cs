@@ -2,7 +2,8 @@ namespace Imagine.Scenes;
 
 internal class Inverted(IScene scene) : IScene
 {
-	public bool Contains(Vector3 point) => !scene.Contains(point);
+	public bool Contains(Vector3 point) =>
+		!scene.Contains(point);
 
 	public List<Intercept> Intercepts(Line3 ray) =>
 		scene.Intercepts(ray)

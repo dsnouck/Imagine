@@ -5,9 +5,11 @@ public static class Saver
 	private const string OutputDirectory = "output";
 	private const string FramesDirectory = $"{OutputDirectory}/frames";
 
-	public static string Save(List<List<ColorRgb>> image, string name) => Save(image, OutputDirectory, name);
+	public static string Save(List<List<ColorRgb>> image, string name) =>
+		Save(image, OutputDirectory, name);
 
-	public static string Save(List<List<List<ColorRgb>>> movie, string name) => Save(movie, OutputDirectory, name);
+	public static string Save(List<List<List<ColorRgb>>> movie, string name) =>
+		Save(movie, OutputDirectory, name);
 
 	private static string Save(List<List<ColorRgb>> image, string directory, string name)
 	{

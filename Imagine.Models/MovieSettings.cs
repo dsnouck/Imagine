@@ -12,8 +12,8 @@ public readonly record struct MovieSettings(
 	double ZMin,
 	double ZMax)
 {
-	public static explicit operator ImageSettings(MovieSettings movieSettings)
-		=> new(
+	public static explicit operator ImageSettings(MovieSettings movieSettings) =>
+		new(
 			  Width: movieSettings.Width,
 			  Height: movieSettings.Height,
 			  Subsamples: movieSettings.Subsamples,

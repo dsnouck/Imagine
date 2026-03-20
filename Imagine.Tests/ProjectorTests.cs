@@ -44,7 +44,8 @@ public class ProjectorTests
 			{ "tetrahedron", Tetrahedron },
 		};
 
-	public static TheoryData<string> Names => new(Scenes.Keys.ToList());
+	public static TheoryData<string> Names =>
+		new(Scenes.Keys.ToList());
 
 	[Theory]
 	[MemberData(nameof(Names))]
