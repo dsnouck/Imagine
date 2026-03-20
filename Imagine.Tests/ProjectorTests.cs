@@ -52,6 +52,7 @@ public class ProjectorTests
 	public void Projection(string name)
 	{
 		var scene = Scenes[name];
+
 		var projection = Projector.Project(scene, ProjectorSettings);
 		var image = Sampler.Sample(projection, ImageSettings);
 		var file = Saver.Save(image, name);

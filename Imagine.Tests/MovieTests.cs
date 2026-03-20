@@ -34,9 +34,9 @@ public class MovieTests
 		}
 
 		var movie = Sampler.Sample(Function, settings);
+		var file = Saver.Save(movie, name);
 
-		// TODO: Check File.Exists.
-		Saver.Save(movie, name);
+		File.Exists(file).Should().BeTrue();
 	}
 
 	[Fact]
@@ -57,7 +57,9 @@ public class MovieTests
 				height).ToList(),
 			frames).ToList();
 
-		Saver.Save(movie, name);
+		var file = Saver.Save(movie, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 
 	[Fact]
@@ -92,6 +94,8 @@ public class MovieTests
 		}
 
 		var movie = Sampler.Sample(Function, settings);
-		Saver.Save(movie, name);
+		var file = Saver.Save(movie, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 }
