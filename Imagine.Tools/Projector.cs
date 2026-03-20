@@ -9,11 +9,9 @@ public static class Projector
 		return point =>
 		{
 			var direction = (screen(point) - settings.Eye).Normalized();
-			var ray = new Line3
-			{
-				Origin = settings.Eye,
-				Direction = direction,
-			};
+			var ray = new Line3(
+				Origin: settings.Eye,
+				Direction: direction);
 			var intercepts = scene.Intercepts(ray)
 				.Where(intercept => intercept.Distance > 0D)
 				.OrderBy(intercept => intercept.Distance)
@@ -35,8 +33,7 @@ public static class Projector
 	{
 		var viewingDirection = (settings.Focus - settings.Eye).Normalized();
 		var centerScreen = settings.Eye + viewingDirection;
-		// TODO: Use new() everywhere!
-		var vertical = new Vector3 { X = 0D, Y = 0D, Z = 1D };
+		var vertical = new Vector3(0D, 0D, 1D);
 		var xVector = viewingDirection.Cross(vertical).Normalized();
 		var yVector = xVector.Cross(viewingDirection).Normalized();
 		var halfScreenExtent = double.Tan(settings.FieldOfView * 0.5D);

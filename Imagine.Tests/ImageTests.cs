@@ -25,7 +25,7 @@ public class ImageTests
 			var saturation = r < 0.5D ? 1D - (2D * r) : 0D;
 			var value = point.Y;
 
-			return new ColorHsv(hue, saturation, value);
+			return new(hue, saturation, value);
 		}
 
 		var image = Sampler.Sample(Function, settings);
@@ -77,7 +77,7 @@ public class ImageTests
 			var green = r < 0.5D ? 1D - (2D * r) : 0D;
 			var blue = point.Y;
 
-			return new ColorRgb(red, green, blue);
+			return new(red, green, blue);
 		}
 
 		var image = Sampler.Sample(Function, settings);

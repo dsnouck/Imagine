@@ -30,7 +30,7 @@ public class MovieTests
 			var saturation = r < 0.25D ? 1D - (4D * r) : 0D;
 			var value = point.Y;
 
-			return new ColorHsv(hue, saturation, value);
+			return new(hue, saturation, value);
 		}
 
 		var movie = Sampler.Sample(Function, settings);
@@ -90,7 +90,7 @@ public class MovieTests
 			var green = r < 0.25D ? 1D - (4D * r) : 0D;
 			var blue = point.Y;
 
-			return new ColorRgb(red, green, blue);
+			return new(red, green, blue);
 		}
 
 		var movie = Sampler.Sample(Function, settings);

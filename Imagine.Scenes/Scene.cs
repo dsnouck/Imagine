@@ -122,7 +122,7 @@ public static class Scene
 
 	public static IScene Polyhedron(params Vector3Spherical[] normals) => Intersection(normals.Select(normal => (Vector3)normal).Select(Plane).ToArray());
 
-	public static IScene Rotated(this IScene scene, double angle) => scene.Rotated(new Vector3(0D, 0D, 1D), angle);
+	public static IScene Rotated(this IScene scene, double angle) => scene.Rotated(new(0D, 0D, 1D), angle);
 
 	public static IScene Rotated(this IScene scene, Vector3 axis, double angle) =>
 		scene.Transformed(Matrix4.Rotation(axis, angle), Matrix4.Rotation(axis, -angle));

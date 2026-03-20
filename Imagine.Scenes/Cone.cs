@@ -6,11 +6,9 @@ internal class Cone : IScene
 
 	public List<Intercept> Intercepts(Line3 ray)
 	{
-		var mirroredRay = new Line3
-		{
-			Origin = Mirrored(ray.Origin),
-			Direction = Mirrored(ray.Direction),
-		};
+		var mirroredRay = new Line3(
+			Origin: Mirrored(ray.Origin),
+			Direction: Mirrored(ray.Direction));
 
 		// TODO: Remove useless comments.
 		var distances = QuadraticSolver.Solve(

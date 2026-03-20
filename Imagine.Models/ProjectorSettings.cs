@@ -7,7 +7,11 @@ public readonly record struct ProjectorSettings(
 	ColorRgb BackgroundColor)
 {
 	public ProjectorSettings(Vector3 eye, Vector3 focus, double fieldOfView)
-		: this(eye, focus, fieldOfView, new(0D, 0D, 0D))
+		: this(
+			  Eye: eye,
+			  Focus: focus,
+			  FieldOfView: fieldOfView,
+			  BackgroundColor: new(0D, 0D, 0D))
 	{
 	}
 }

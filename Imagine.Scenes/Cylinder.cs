@@ -11,11 +11,9 @@ internal class Cylinder(double radius) : IScene
 
 	public List<Intercept> Intercepts(Line3 ray)
 	{
-		var horizontalRay = new Line3
-		{
-			Origin = Horizontal(ray.Origin),
-			Direction = Horizontal(ray.Direction),
-		};
+		var horizontalRay = new Line3(
+			Origin: Horizontal(ray.Origin),
+			Direction: Horizontal(ray.Direction));
 
 		var distances = QuadraticSolver.Solve(
 			horizontalRay.Direction.Dot(horizontalRay.Direction),

@@ -28,12 +28,12 @@ public readonly record struct ColorHsv(double Hue, double Saturation, double Val
 
 		return hue switch
 		{
-			< yellow => new ColorRgb(max, between, min),
-			< green => new ColorRgb(between, max, min),
-			< cyan => new ColorRgb(min, max, between),
-			< blue => new ColorRgb(min, between, max),
-			< magenta => new ColorRgb(between, min, max),
-			_ => new ColorRgb(max, min, between),
+			< yellow => new(max, between, min),
+			< green => new(between, max, min),
+			< cyan => new(min, max, between),
+			< blue => new(min, between, max),
+			< magenta => new(between, min, max),
+			_ => new(max, min, between),
 		};
 	}
 }

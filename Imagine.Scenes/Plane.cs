@@ -14,13 +14,11 @@ internal class Plane(Vector3 normal) : IScene
 		if (double.Abs(normalDotRayDirection) < Epsilon)
 		{
 			// TODO: Remove unnecessary comments!
-			// The line of sight is approximately parallel to the plane.
-			return new List<Intercept>();
+			return new();
 		}
 
 		var distance = normal.Dot(normal - ray.Origin) / normalDotRayDirection;
 
-		// TODO: Can we use new() everywhere?
 		return new()
 		{
 			new(

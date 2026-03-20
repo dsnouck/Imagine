@@ -12,12 +12,12 @@ public static class Sampler
 	public static List<List<ColorRgb>> Sample(Func<Vector2, ColorRgb> function, ImageSettings settings)
 	{
 		var rowToY = Line(
-			new Vector2(-0.5D, settings.YMax),
-			new Vector2((settings.Height * settings.Subsamples) - 0.5D, settings.YMin));
+			from: new(-0.5D, settings.YMax),
+			to: new((settings.Height * settings.Subsamples) - 0.5D, settings.YMin));
 
 		var columnToX = Line(
-			new Vector2(-0.5D, settings.XMin),
-			new Vector2((settings.Width * settings.Subsamples) - 0.5D, settings.XMax));
+			from: new(-0.5D, settings.XMin),
+			to: new((settings.Width * settings.Subsamples) - 0.5D, settings.XMax));
 
 		return Enumerable.Range(0, settings.Height)
 			.AsParallel()
@@ -45,8 +45,8 @@ public static class Sampler
 	public static List<List<List<ColorRgb>>> Sample(Func<Vector3, ColorRgb> function, MovieSettings settings)
 	{
 		var frameToZ = Line(
-			new Vector2(-0.5D, settings.ZMin),
-			new Vector2(settings.Frames - 0.5D, settings.ZMax));
+			from: new(-0.5D, settings.ZMin),
+			to: new(settings.Frames - 0.5D, settings.ZMax));
 
 		var movie = new List<List<List<ColorRgb>>>();
 		for (var frame = 0; frame < settings.Frames; frame++)

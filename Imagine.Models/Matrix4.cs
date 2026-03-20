@@ -12,28 +12,11 @@ public readonly record struct Matrix4(Vector4 Row0, Vector4 Row1, Vector4 Row2, 
 		var sine = double.Sin(angle);
 		var oneMinusCosine = 1D - cosine;
 
-		// TODO: Using just new instead of new Matrix4 and new Vector4 produces a warning!
-		return new Matrix4(
-			new Vector4(
-				(l * l * oneMinusCosine) + cosine,
-				(m * l * oneMinusCosine) - (n * sine),
-				(n * l * oneMinusCosine) + (m * sine),
-				0D),
-			new Vector4(
-				(l * m * oneMinusCosine) + (n * sine),
-				(m * m * oneMinusCosine) + cosine,
-				(n * m * oneMinusCosine) - (l * sine),
-				0D),
-			new Vector4(
-				(l * n * oneMinusCosine) - (m * sine),
-				(m * n * oneMinusCosine) + (l * sine),
-				(n * n * oneMinusCosine) + cosine,
-				0D),
-			new Vector4(
-				0D,
-				0D,
-				0D,
-				1D));
+		return new(
+			new((l * l * oneMinusCosine) + cosine, (m * l * oneMinusCosine) - (n * sine), (n * l * oneMinusCosine) + (m * sine), 0D),
+			new((l * m * oneMinusCosine) + (n * sine), (m * m * oneMinusCosine) + cosine, (n * m * oneMinusCosine) - (l * sine), 0D),
+			new((l * n * oneMinusCosine) - (m * sine), (m * n * oneMinusCosine) + (l * sine), (n * n * oneMinusCosine) + cosine, 0D),
+			new(0D, 0D, 0D, 1D));
 	}
 
 	public static Matrix4 Scaling(double factor) =>

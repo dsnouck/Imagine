@@ -6,11 +6,9 @@ internal class Transformed(IScene scene, Matrix4 forward, Matrix4 backward) : IS
 
 	public List<Intercept> Intercepts(Line3 ray)
 	{
-		var backwardRay = new Line3
-		{
-			Origin = BackwardPoint(ray.Origin),
-			Direction = BackwardDirection(ray.Direction),
-		};
+		var backwardRay = new Line3(
+			Origin: BackwardPoint(ray.Origin),
+			Direction: BackwardDirection(ray.Direction));
 
 		return scene.Intercepts(backwardRay)
 			.Select(intercept =>

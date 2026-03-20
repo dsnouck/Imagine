@@ -1,6 +1,5 @@
 namespace Imagine.Tests;
 
-// TODO: Use new() everywhere.
 public class ProjectorTests
 {
 	private const double Narrow = 0.01D;

@@ -43,7 +43,7 @@ public static class Saver
 
 		using var process = new Process
 		{
-			StartInfo = new ProcessStartInfo
+			StartInfo = new()
 			{
 				FileName = "ffmpeg",
 				Arguments = $"-y -framerate 30 -i {FramesDirectory}/{name}-%04d.png -c:v libx264 -pix_fmt yuv420p {file}",
