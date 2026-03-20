@@ -34,17 +34,15 @@ internal class Cone : IScene
 		};
 
 		// TODO: Remove useless comments.
-		// These are the coefficients of the quadratic equation x ↦ ax² + bx + c we want to solve.
-		var a = ray.Direction.Dot(mirroredRay.Direction);
-		var b = ray.Direction.Dot(mirroredRay.Origin) * 2D;
-		var c = ray.Origin.Dot(mirroredRay.Origin);
+		var distances = QuadraticSolver.Solve(
+			ray.Direction.Dot(mirroredRay.Direction),
+			ray.Direction.Dot(mirroredRay.Origin) * 2D,
+			ray.Origin.Dot(mirroredRay.Origin));
 
-		var zeros = QuadraticSolver.Solve(a, b, c);
-
-		return zeros.
-			Select(zero =>
+		return distances.
+			Select(distance =>
 			{
-				var intercept = ray.At(zero);
+				var intercept = ray.At(distance);
 				var mirroredIntercept = new Vector3
 				{
 					X = intercept.X,
@@ -53,7 +51,7 @@ internal class Cone : IScene
 				};
 
 				return new Intercept(
-					distance: zero,
+					distance: distance,
 					normal: mirroredIntercept.Normalized() * ray.Direction.Length());
 			})
 			.ToList();

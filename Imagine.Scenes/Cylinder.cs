@@ -33,17 +33,15 @@ internal class Cylinder(double radius) : IScene
 			},
 		};
 
-		// These are the coefficients of the quadratic equation x ↦ ax² + bx + c we want to solve.
-		var a = horizontalRay.Direction.Dot(horizontalRay.Direction);
-		var b = horizontalRay.Direction.Dot(horizontalRay.Origin) * 2D;
-		var c = horizontalRay.Origin.Dot(horizontalRay.Origin) - (radius * radius);
+		var distances = QuadraticSolver.Solve(
+			horizontalRay.Direction.Dot(horizontalRay.Direction),
+			horizontalRay.Direction.Dot(horizontalRay.Origin) * 2D,
+			horizontalRay.Origin.Dot(horizontalRay.Origin) - (radius * radius));
 
-		var zeros = QuadraticSolver.Solve(a, b, c);
-
-		return zeros
-			.Select(zero =>
+		return distances
+			.Select(distance =>
 			{
-				var intercept = ray.At(zero);
+				var intercept = ray.At(distance);
 				var horizontalIntercept = new Vector3
 				{
 					X = intercept.X,
@@ -52,7 +50,7 @@ internal class Cylinder(double radius) : IScene
 				};
 
 				return new Intercept(
-					distance: zero,
+					distance: distance,
 					normal: horizontalIntercept.Normalized() * ray.Direction.Length());
 			})
 			.ToList();
