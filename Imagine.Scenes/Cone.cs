@@ -2,35 +2,14 @@ namespace Imagine.Scenes;
 
 internal class Cone : IScene
 {
-	public bool Contains(Vector3 point)
-	{
-		// TODO: Introduce a method to mirror a point across the plane z = 0.
-		var mirroredPoint = new Vector3
-		{
-			X = point.X,
-			Y = point.Y,
-			Z = -point.Z,
-		};
-
-		return point.Dot(mirroredPoint) < 0D;
-	}
+	public bool Contains(Vector3 point) => point.Dot(Mirrored(point)) < 0D;
 
 	public List<Intercept> Intercepts(Line3 ray)
 	{
 		var mirroredRay = new Line3
 		{
-			Origin = new Vector3
-			{
-				X = ray.Origin.X,
-				Y = ray.Origin.Y,
-				Z = -ray.Origin.Z,
-			},
-			Direction = new Vector3
-			{
-				X = ray.Direction.X,
-				Y = ray.Direction.Y,
-				Z = -ray.Direction.Z,
-			},
+			Origin = Mirrored(ray.Origin),
+			Direction = Mirrored(ray.Direction),
 		};
 
 		// TODO: Remove useless comments.
@@ -43,12 +22,7 @@ internal class Cone : IScene
 			Select(distance =>
 			{
 				var intercept = ray.At(distance);
-				var mirroredIntercept = new Vector3
-				{
-					X = intercept.X,
-					Y = intercept.Y,
-					Z = -intercept.Z,
-				};
+				var mirroredIntercept = Mirrored(intercept);
 
 				return new Intercept(
 					distance: distance,
@@ -56,4 +30,7 @@ internal class Cone : IScene
 			})
 			.ToList();
 	}
+
+	private static Vector3 Mirrored(Vector3 point) => new(point.X, point.Y, -point.Z);
+
 }
