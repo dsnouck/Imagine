@@ -4,13 +4,7 @@ internal class Cylinder(double radius) : IScene
 {
 	public bool Contains(Vector3 point)
 	{
-		// TODO: Introduce a method to get the horizontal component of a vector.
-		var horizontalPoint = new Vector3
-		{
-			X = point.X,
-			Y = point.Y,
-			Z = 0D,
-		};
+		var horizontalPoint = Horizontal(point);
 
 		return horizontalPoint.Dot(horizontalPoint) <= radius * radius;
 	}
@@ -19,18 +13,8 @@ internal class Cylinder(double radius) : IScene
 	{
 		var horizontalRay = new Line3
 		{
-			Origin = new Vector3
-			{
-				X = ray.Origin.X,
-				Y = ray.Origin.Y,
-				Z = 0D,
-			},
-			Direction = new Vector3
-			{
-				X = ray.Direction.X,
-				Y = ray.Direction.Y,
-				Z = 0D,
-			},
+			Origin = Horizontal(ray.Origin),
+			Direction = Horizontal(ray.Direction),
 		};
 
 		var distances = QuadraticSolver.Solve(
@@ -42,12 +26,7 @@ internal class Cylinder(double radius) : IScene
 			.Select(distance =>
 			{
 				var intercept = ray.At(distance);
-				var horizontalIntercept = new Vector3
-				{
-					X = intercept.X,
-					Y = intercept.Y,
-					Z = 0D,
-				};
+				var horizontalIntercept = Horizontal(intercept);
 
 				return new Intercept(
 					distance: distance,
@@ -55,4 +34,6 @@ internal class Cylinder(double radius) : IScene
 			})
 			.ToList();
 	}
+
+	private static Vector3 Horizontal(Vector3 point) => new(point.X, point.Y, 0D);
 }
