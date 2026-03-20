@@ -4,6 +4,7 @@ internal class Cone : IScene
 {
 	public bool Contains(Vector3 point)
 	{
+		// TODO: Introduce a method to mirror a point across the plane z = 0.
 		var mirroredPoint = new Vector3
 		{
 			X = point.X,

@@ -48,17 +48,14 @@ public static class Sampler
 			new Vector2(-0.5D, settings.ZMin),
 			new Vector2(settings.Frames - 0.5D, settings.ZMax));
 
-		var imageSettings = new ImageSettings(settings);
-
 		var movie = new List<List<List<ColorRgb>>>();
-
 		for (var frame = 0; frame < settings.Frames; frame++)
 		{
 			var z = frameToZ(frame);
 
 			ColorRgb CreateColor(Vector2 point) => function(new Vector3(point.X, point.Y, z));
 
-			movie.Add(Sample(CreateColor, imageSettings));
+			movie.Add(Sample(CreateColor, (ImageSettings)settings));
 		}
 
 		return movie;

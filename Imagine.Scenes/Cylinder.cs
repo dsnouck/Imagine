@@ -4,6 +4,7 @@ internal class Cylinder(double r) : IScene
 {
 	public bool Contains(Vector3 point)
 	{
+		// TODO: Introduce a method to get the horizontal component of a vector.
 		var horizontalPoint = new Vector3
 		{
 			X = point.X,

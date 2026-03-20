@@ -3,7 +3,7 @@ namespace Imagine.Models;
 // TODO: Switch Theta and Phi?
 public readonly record struct Vector3Spherical(double R, double Theta, double Phi)
 {
-	public static implicit operator Vector3(Vector3Spherical value)
+	public static explicit operator Vector3(Vector3Spherical value)
 	{
 		var sinTheta = double.Sin(value.Theta);
 		var cosTheta = double.Cos(value.Theta);

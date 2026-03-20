@@ -8,7 +8,7 @@ public class ProjectorTests
 
 	private static readonly ProjectorSettings ProjectorSettings =
 		new(
-			eye: new Vector3Spherical(3D, Math.PI / 3D, Math.PI / 6D),
+			eye: (Vector3)new Vector3Spherical(3D, Math.PI / 3D, Math.PI / 6D),
 			focus: new(0D, 0D, 0D),
 			fieldOfView: Math.PI / 4D);
 

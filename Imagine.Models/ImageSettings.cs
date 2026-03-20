@@ -20,16 +20,4 @@ public readonly record struct ImageSettings(
 			  YMax: (double)height / width)
 	{
 	}
-
-	public ImageSettings(MovieSettings movieSettings)
-		: this(
-			  Width: movieSettings.Width,
-			  Height: movieSettings.Height,
-			  Subsamples: movieSettings.Subsamples,
-			  XMin: movieSettings.XMin,
-			  XMax: movieSettings.XMax,
-			  YMin: movieSettings.YMin,
-			  YMax: movieSettings.YMax)
-	{
-	}
 }

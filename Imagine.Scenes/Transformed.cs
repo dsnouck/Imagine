@@ -1,6 +1,5 @@
 namespace Imagine.Scenes;
 
-// TODO: Rename to scene, forward, backward?
 internal class Transformed(IScene scene, Matrix4 forward, Matrix4 backward) : IScene
 {
 	public bool Contains(Vector3 point) => scene.Contains(BackwardPoint(point));
@@ -22,63 +21,9 @@ internal class Transformed(IScene scene, Matrix4 forward, Matrix4 backward) : IS
 			.ToList();
 	}
 
-	private Vector3 BackwardDirection(Vector3 direction)
-	{
-		var direction4 = new Vector4
-		{
-			X = direction.X,
-			Y = direction.Y,
-			Z = direction.Z,
-			W = 0D,
-		};
+	private Vector3 BackwardDirection(Vector3 direction) => (Vector3)(backward * new Vector4(direction, 0D));
 
-		var backwardDirection4 = backward * direction4;
+	private Vector3 BackwardPoint(Vector3 point) => (Vector3)(backward * new Vector4(point, 1D));
 
-		return new Vector3
-		{
-			X = backwardDirection4.X,
-			Y = backwardDirection4.Y,
-			Z = backwardDirection4.Z,
-		};
-	}
-
-	private Vector3 BackwardPoint(Vector3 point)
-	{
-		var point4 = new Vector4
-		{
-			X = point.X,
-			Y = point.Y,
-			Z = point.Z,
-			W = 1D,
-		};
-
-		var backwardPoint4 = backward * point4;
-
-		return new Vector3
-		{
-			X = backwardPoint4.X,
-			Y = backwardPoint4.Y,
-			Z = backwardPoint4.Z,
-		};
-	}
-
-	private Vector3 ForwardDirection(Vector3 direction)
-	{
-		var direction4 = new Vector4
-		{
-			X = direction.X,
-			Y = direction.Y,
-			Z = direction.Z,
-			W = 0D,
-		};
-
-		var forwardDirection4 = forward * direction4;
-
-		return new Vector3
-		{
-			X = forwardDirection4.X,
-			Y = forwardDirection4.Y,
-			Z = forwardDirection4.Z,
-		};
-	}
+	private Vector3 ForwardDirection(Vector3 direction) => (Vector3)(forward * new Vector4(direction, 0D));
 }

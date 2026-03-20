@@ -2,6 +2,8 @@ namespace Imagine.Models;
 
 public readonly record struct Vector3(double X, double Y, double Z)
 {
+	public static explicit operator Vector2(Vector3 value) => new(value.X, value.Y);
+
 	public readonly Vector3 Cross(Vector3 other) =>
 		new((Y * other.Z) - (Z * other.Y), (Z * other.X) - (X * other.Z), (X * other.Y) - (Y * other.X));
 
@@ -28,9 +30,4 @@ public readonly record struct Vector3(double X, double Y, double Z)
 
 	public static Vector3 operator -(Vector3 value) =>
 		new(-value.X, -value.Y, -value.Z);
-
-	// TODO: Make cast operators explicit.
-	// TODO: Cast operators or constructors?
-	public static implicit operator Vector2(Vector3 value) =>
-		new(value.X, value.Y);
 }

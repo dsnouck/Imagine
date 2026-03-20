@@ -30,7 +30,6 @@ public static class Scene
 		var dihedralAngle = double.Acos(-1D / double.Sqrt(5D));
 		var azimuthStep = Math.PI / 5D;
 
-		// TODO: Use cartesian coordinates here instead of spherical coordinates when possible.
 		return Polyhedron(
 			new Vector3Spherical(r, Math.PI, 0D),
 			new Vector3Spherical(r, dihedralAngle, 0D * azimuthStep),
@@ -120,6 +119,8 @@ public static class Scene
 	public static IScene PlaneThroughOrigin(Vector3 normal) => Plane(normal).Translated(-normal);
 
 	public static IScene Polyhedron(params Vector3[] normals) => Intersection(normals.Select(Plane).ToArray());
+
+	public static IScene Polyhedron(params Vector3Spherical[] normals) => Intersection(normals.Select(normal => (Vector3)normal).Select(Plane).ToArray());
 
 	public static IScene Rotated(this IScene scene, double angle) => scene.Rotated(new Vector3(0D, 0D, 1D), angle);
 
