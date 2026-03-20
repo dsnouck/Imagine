@@ -1,8 +1,8 @@
 namespace Imagine.Scenes;
 
-internal class Sphere(double r) : IScene
+internal class Sphere(double radius) : IScene
 {
-	public bool Contains(Vector3 point) => point.Dot(point) <= r * r;
+	public bool Contains(Vector3 point) => point.Dot(point) <= radius * radius;
 
 	public List<Intercept> Intercepts(Line3 ray)
 	{
@@ -10,7 +10,7 @@ internal class Sphere(double r) : IScene
 		// TODO: Inline.
 		var a = ray.Direction.Dot(ray.Direction);
 		var b = ray.Direction.Dot(ray.Origin) * 2D;
-		var c = ray.Origin.Dot(ray.Origin) - (r * r);
+		var c = ray.Origin.Dot(ray.Origin) - (radius * radius);
 
 		var zeros = QuadraticSolver.Solve(a, b, c);
 
