@@ -1,2 +1,4 @@
 # Imagine
-Renders images and movies.
+- Images
+- Movies
+- Ray casting
