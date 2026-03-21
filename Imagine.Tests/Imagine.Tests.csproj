@@ -25,13 +25,13 @@
 
 	<ItemGroup>
 		<PackageReference Include="AwesomeAssertions" Version="9.4.0" />
-		<PackageReference Include="coverlet.collector" Version="8.0.0">
+		<PackageReference Include="coverlet.collector" Version="8.0.1">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
-		<PackageReference Include="SonarAnalyzer.CSharp" Version="10.19.0.132793">
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="10.21.0.135717">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
