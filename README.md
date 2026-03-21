@@ -1,4 +1,4 @@
 # Imagine
 - Images
 - Movies
-- Ray casting
+- Ray tracing
