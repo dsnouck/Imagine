@@ -13,6 +13,7 @@
 		<Using Include="Imagine.Models" />
 		<Using Include="Imagine.Scenes" />
 		<Using Include="Imagine.Tools" />
+		<Using Include="System.Diagnostics.CodeAnalysis" />
 		<Using Include="Xunit" />
 	</ItemGroup>
 

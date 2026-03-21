@@ -35,15 +35,33 @@ public class ProjectorTests
 			{ "cube-translated", Scene.Cube().Translated(new(0D, 0.25D, 0D)) },
 			{ "cube", Scene.Cube() },
 			{ "cylinder", Scene.Intersection(Cylinder, BoundingSphere) },
+			{
+				"cylinder-intersection",
+				Scene.Intersection(
+					Scene.Cylinder().Rotated(new(0D, 1D, 0D), Math.PI / 2D).Painted(new(1D, 0D, 0D)),
+					Scene.Cylinder().Rotated(new(1D, 0D, 0D), Math.PI / 2D).Painted(new(0D, 1D, 0D)),
+					Scene.Cylinder().Painted(new(0D, 0D, 1D)))
+					.Scaled(0.5D)
+			},
+			{
+				"cylinder-union",
+				Scene.Union(
+					Scene.Cylinder().Rotated(new(0D, 1D, 0D), Math.PI / 2D).Painted(new(1D, 0D, 0D)),
+					Scene.Cylinder().Rotated(new(1D, 0D, 0D), Math.PI / 2D).Painted(new(0D, 1D, 0D)),
+					Scene.Cylinder().Painted(new(0D, 0D, 1D)))
+					.Scaled(0.5D)
+			},
 			{ "dodecahedron", Scene.Dodecahedron() },
 			{ "icosahedron", Scene.Icosahedron() },
 			{ "octahedron", Scene.Octahedron() },
 			{ "plane", Scene.Intersection(Scene.PlaneThroughOrigin(new(0D, 0D, 1D)), BoundingSphere) },
+			{ "sphere-except-cone", Sphere.Except(Scene.Cone()) },
 			{ "sphere-except-cube", Sphere.Except(Scene.Cube()) },
 			{ "sphere", Sphere },
 			{ "tetrahedron", Tetrahedron },
 		};
 
+	[ExcludeFromCodeCoverage]
 	public static TheoryData<string> Names =>
 		new(Scenes.Keys.ToList());
 
