@@ -36,7 +36,6 @@ public class ProjectorTests
 			{
 				 "cube-painted",
 				 Scene.Cube().Painted(new(1D, 0D, 0D))
-
 			},
 			{
 				"cube-rotated",
