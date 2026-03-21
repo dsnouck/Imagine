@@ -9,20 +9,22 @@ public static class Projector
 		return point =>
 		{
 			var direction = (screen(point) - settings.Eye).Normalized();
+
 			var ray = new Line3(
 				Origin: settings.Eye,
 				Direction: direction);
+
 			var intercepts = scene.Intercepts(ray)
 				.Where(intercept => intercept.Distance > 0D)
 				.OrderBy(intercept => intercept.Distance)
 				.ToList();
+
 			if (!intercepts.Any())
 			{
 				return settings.BackgroundColor;
 			}
 
 			var intercept = intercepts.First();
-
 			var intensity = double.Abs(intercept.Normal.Dot(direction));
 
 			return intercept.Color * intensity;
@@ -39,6 +41,7 @@ public static class Projector
 		var halfScreenExtent = double.Tan(settings.FieldOfView * 0.5D);
 		xVector *= halfScreenExtent;
 		yVector *= halfScreenExtent;
+
 		return Screen(centerScreen, xVector, yVector);
 	}
 

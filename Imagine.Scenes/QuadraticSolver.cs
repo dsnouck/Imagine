@@ -4,19 +4,19 @@ public static class QuadraticSolver
 {
 	public static List<double> Solve(double a, double b, double c)
 	{
-		var discriminant = (b * b) - (4D * a * c);
-		if (discriminant < 0D)
+		var d = (b * b) - (4D * a * c);
+
+		if (d < 0D)
 		{
 			return new();
 		}
 
-		var squareRootOfDiscriminant = double.Sqrt(discriminant);
-		var divisor = 1D / (2D * a);
+		var sqrtD = double.Sqrt(d);
 
 		return new()
 		{
-			(-b - squareRootOfDiscriminant) * divisor,
-			(-b + squareRootOfDiscriminant) * divisor,
+			(-b - sqrtD) / (2D * a),
+			(-b + sqrtD) / (2D * a),
 		};
 	}
 }
