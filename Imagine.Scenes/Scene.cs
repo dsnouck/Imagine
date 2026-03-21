@@ -100,7 +100,7 @@ public static class Scene
 	public static IScene IntersectedWith(this IScene scene, IScene otherScene) =>
 		new Intersection(scene, otherScene);
 
-	public static IScene Intersection(params IScene[] scenes) =>
+	public static IScene Intersection(params List<IScene> scenes) =>
 		scenes.Aggregate(Full(), IntersectedWith);
 
 	public static IScene Inverted(this IScene scene) =>
@@ -137,11 +137,11 @@ public static class Scene
 	public static IScene PlaneThroughOrigin(Vector3 normal) =>
 		Plane(normal).Translated(-normal);
 
-	public static IScene Polyhedron(params Vector3[] normals) =>
-		Intersection(normals.Select(Plane).ToArray());
+	public static IScene Polyhedron(params List<Vector3> normals) =>
+		Intersection(normals.Select(Plane).ToList());
 
-	public static IScene Polyhedron(params Vector3Spherical[] normals) =>
-		Intersection(normals.Select(normal => (Vector3)normal).Select(Plane).ToArray());
+	public static IScene Polyhedron(params List<Vector3Spherical> normals) =>
+		Intersection(normals.Select(normal => (Vector3)normal).Select(Plane).ToList());
 
 	public static IScene Rotated(this IScene scene, double angle) =>
 		scene.Rotated(new(0D, 0D, 1D), angle);
@@ -185,7 +185,7 @@ public static class Scene
 	public static IScene Transparent(this IScene scene) =>
 		new Transparent(scene);
 
-	public static IScene Union(params IScene[] scenes) =>
+	public static IScene Union(params List<IScene> scenes) =>
 		scenes.Aggregate(Empty(), UnitedWith);
 
 	public static IScene UnitedWith(this IScene scene, IScene otherScene) =>
