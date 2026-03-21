@@ -7,7 +7,17 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Using Include="Imagine.Models" />
+		<Using Include="Imagine.Scenes" />
+		<Using Include="SixLabors.ImageSharp" />
 		<Using Include="SixLabors.ImageSharp.PixelFormats" />
+		<Using Include="System.Collections.Generic" />
+		<Using Include="System.Diagnostics" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="../Imagine.Models/Imagine.Models.csproj" />
+		<ProjectReference Include="../Imagine.Scenes/Imagine.Scenes.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,5 +1,6 @@
 <Solution>
-	<Project Path="Imagine.Components/Imagine.Components.csproj" />
 	<Project Path="Imagine.Models/Imagine.Models.csproj" />
+	<Project Path="Imagine.Scenes/Imagine.Scenes.csproj" />
 	<Project Path="Imagine.Tests/Imagine.Tests.csproj" />
+	<Project Path="Imagine.Tools/Imagine.Tools.csproj" />
 </Solution>

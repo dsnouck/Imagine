@@ -2,25 +2,8 @@ namespace Imagine.Tests;
 
 public class MovieTests
 {
-	private readonly IColorComponent colorComponent;
-	private readonly IFileComponent fileComponent;
-	private readonly ILineComponent lineComponent;
-	private readonly ISamplerComponent samplerComponent;
-	private readonly IVector2Component vector2Component;
-	private readonly IVector3Component vector3Component;
-
-	public MovieTests()
-	{
-		colorComponent = new ColorComponent();
-		fileComponent = new FileComponent(colorComponent);
-		lineComponent = new LineComponent();
-		samplerComponent = new SamplerComponent(colorComponent, lineComponent);
-		vector2Component = new Vector2Component();
-		vector3Component = new Vector3Component();
-	}
-
 	[Fact]
-	public void Hsv()
+	public void MovieHsv()
 	{
 		const string name = "hsv";
 
@@ -36,33 +19,35 @@ public class MovieTests
 			ZMin: 0D,
 			ZMax: 2D);
 
-		HsvColor Function(Vector3 point)
+		static ColorHsv Function(Vector3 point)
 		{
 			var z = point.Z < 1D ? point.Z : 2D - point.Z;
 			var center = new Vector2(z, z);
-			var point2 = vector3Component.ToVector2(point);
-			var r = vector2Component.Length(vector2Component.Subtract(point2, center));
+			var point2 = (Vector2)point;
+			var r = (point2 - center).Length();
 
 			var hue = (2D * point.X) - 1D;
 			var saturation = r < 0.25D ? 1D - (4D * r) : 0D;
 			var value = point.Y;
 
-			return new HsvColor(hue, saturation, value);
+			return new(hue, saturation, value);
 		}
 
-		var movie = samplerComponent.Sample(Function, settings);
-		fileComponent.Save(movie, name);
+		var movie = Sampler.Sample(Function, settings);
+		var file = Saver.Save(movie, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 
 	[Fact]
-	public void Red()
+	public void MovieRed()
 	{
 		const string name = "red";
 
 		const int frames = 256;
 		const int width = 256;
 		const int height = 256;
-		var red = new RgbColor(1D, 0D, 0D);
+		var red = new ColorRgb(1D, 0D, 0D);
 
 		var movie = Enumerable.Repeat(
 			Enumerable.Repeat(
@@ -72,11 +57,13 @@ public class MovieTests
 				height).ToList(),
 			frames).ToList();
 
-		fileComponent.Save(movie, name);
+		var file = Saver.Save(movie, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 
 	[Fact]
-	public void Rgb()
+	public void MovieRgb()
 	{
 		const string name = "rgb";
 
@@ -92,21 +79,23 @@ public class MovieTests
 			ZMin: 0D,
 			ZMax: 2D);
 
-		RgbColor Function(Vector3 point)
+		static ColorRgb Function(Vector3 point)
 		{
 			var z = point.Z < 1D ? point.Z : 2D - point.Z;
 			var center = new Vector2(z, z);
-			var point2 = vector3Component.ToVector2(point);
-			var r = vector2Component.Length(vector2Component.Subtract(point2, center));
+			var point2 = (Vector2)point;
+			var r = (point2 - center).Length();
 
 			var red = point.X;
 			var green = r < 0.25D ? 1D - (4D * r) : 0D;
 			var blue = point.Y;
 
-			return new RgbColor(red, green, blue);
+			return new(red, green, blue);
 		}
 
-		var movie = samplerComponent.Sample(Function, settings);
-		fileComponent.Save(movie, name);
+		var movie = Sampler.Sample(Function, settings);
+		var file = Saver.Save(movie, name);
+
+		File.Exists(file).Should().BeTrue();
 	}
 }
