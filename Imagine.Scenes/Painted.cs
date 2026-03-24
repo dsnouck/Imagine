@@ -6,11 +6,10 @@ internal class Painted(IScene scene, ColorRgb color) : IScene
 		scene.Contains(point);
 
 	public List<Intercept> Intercepts(Line3 ray) =>
-		scene.Intercepts(ray)
+		[.. scene.Intercepts(ray)
 			.Select(intercept =>
 				new Intercept(
 					Distance: intercept.Distance,
 					Normal: intercept.Normal,
-					Color: color))
-			.ToList();
+					Color: color))];
 }

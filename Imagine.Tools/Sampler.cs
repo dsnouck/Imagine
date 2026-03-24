@@ -25,13 +25,12 @@ public static class Sampler
 			.AsOrdered()
 			.Select(row => Enumerable.Range(0, settings.Width)
 				.Select(column => ColorRgb.Average(
-					Enumerable.Range(0, settings.Subsamples)
+					[.. Enumerable.Range(0, settings.Subsamples)
 						.Select(subrow => rowToY((row * settings.Subsamples) + subrow))
 						.SelectMany(y => Enumerable.Range(0, settings.Subsamples)
 							.Select(subcolumn => columnToX((column * settings.Subsamples) + subcolumn))
 							.Select(x => new Vector2(x, y))
-							.Select(function))
-						.ToList()))
+							.Select(function))]))
 				.ToList())
 			.ToList();
 	}

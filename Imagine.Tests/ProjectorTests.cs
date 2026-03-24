@@ -117,7 +117,7 @@ public class ProjectorTests
 
 	[ExcludeFromCodeCoverage]
 	public static TheoryData<string> Names =>
-		new(Scenes.Keys.ToList());
+		[.. Scenes.Keys.ToList()];
 
 	[Theory]
 	[MemberData(nameof(Names))]

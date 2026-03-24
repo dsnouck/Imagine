@@ -12,11 +12,10 @@ internal class Sphere(double radius) : IScene
 			ray.Direction.Dot(ray.Origin) * 2D,
 			ray.Origin.Dot(ray.Origin) - (radius * radius));
 
-		return distances.
+		return [.. distances.
 			Select(distance =>
 				new Intercept(
 					distance: distance,
-					normal: ray.At(distance).Normalized() * ray.Direction.Length()))
-			.ToList();
+					normal: ray.At(distance).Normalized() * ray.Direction.Length()))];
 	}
 }

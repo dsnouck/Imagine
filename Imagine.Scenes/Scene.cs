@@ -138,10 +138,10 @@ public static class Scene
 		Plane(normal).Translated(-normal);
 
 	public static IScene Polyhedron(params List<Vector3> normals) =>
-		Intersection(normals.Select(Plane).ToList());
+		Intersection([.. normals.Select(Plane)]);
 
 	public static IScene Polyhedron(params List<Vector3Spherical> normals) =>
-		Intersection(normals.Select(normal => (Vector3)normal).Select(Plane).ToList());
+		Intersection([.. normals.Select(normal => (Vector3)normal).Select(Plane)]);
 
 	public static IScene Rotated(this IScene scene, double angle) =>
 		scene.Rotated(new(0D, 0D, 1D), angle);

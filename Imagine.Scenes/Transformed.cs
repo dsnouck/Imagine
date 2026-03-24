@@ -11,13 +11,12 @@ internal class Transformed(IScene scene, Matrix4 forward, Matrix4 backward) : IS
 			Origin: BackwardPoint(ray.Origin),
 			Direction: BackwardDirection(ray.Direction));
 
-		return scene.Intercepts(backwardRay)
+		return [.. scene.Intercepts(backwardRay)
 			.Select(intercept =>
 				new Intercept(
 					Distance: intercept.Distance,
 					Normal: ForwardDirection(intercept.Normal),
-					Color: intercept.Color))
-			.ToList();
+					Color: intercept.Color))];
 	}
 
 	private Vector3 BackwardDirection(Vector3 direction) =>
