@@ -16,7 +16,7 @@ internal class Cone : IScene
 			ray.Direction.Dot(mirroredRay.Origin) * 2D,
 			ray.Origin.Dot(mirroredRay.Origin));
 
-		return distances.
+		return [.. distances.
 			Select(distance =>
 			{
 				var intercept = ray.At(distance);
@@ -25,8 +25,7 @@ internal class Cone : IScene
 				return new Intercept(
 					distance: distance,
 					normal: mirroredIntercept.Normalized() * ray.Direction.Length());
-			})
-			.ToList();
+			})];
 	}
 
 	private static Vector3 Mirrored(Vector3 point) =>

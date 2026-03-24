@@ -55,9 +55,6 @@ public static class Scene
 	public static IScene Empty() =>
 		new Empty();
 
-	public static IScene Except(this IScene scene, IScene otherScene) =>
-		Intersection(scene, otherScene.Inverted());
-
 	public static IScene Full() =>
 		new Full();
 
@@ -97,14 +94,8 @@ public static class Scene
 			new Vector3Spherical(inradius, 0D, 0D));
 	}
 
-	public static IScene IntersectedWith(this IScene scene, IScene otherScene) =>
-		new Intersection(scene, otherScene);
-
-	public static IScene Intersection(params IScene[] scenes) =>
+	public static IScene Intersection(params List<IScene> scenes) =>
 		scenes.Aggregate(Full(), IntersectedWith);
-
-	public static IScene Inverted(this IScene scene) =>
-		new Inverted(scene);
 
 	public static IScene Octahedron() =>
 		OctahedronWithCircumradius(1D);
@@ -128,29 +119,17 @@ public static class Scene
 			new Vector3Spherical(inradius, 0D, 0D));
 	}
 
-	public static IScene Painted(this IScene scene, ColorRgb color) =>
-		new Painted(scene, color);
-
 	public static IScene Plane(Vector3 normal) =>
 		new Plane(normal);
 
 	public static IScene PlaneThroughOrigin(Vector3 normal) =>
 		Plane(normal).Translated(-normal);
 
-	public static IScene Polyhedron(params Vector3[] normals) =>
-		Intersection(normals.Select(Plane).ToArray());
+	public static IScene Polyhedron(params List<Vector3> normals) =>
+		Intersection([.. normals.Select(Plane)]);
 
-	public static IScene Polyhedron(params Vector3Spherical[] normals) =>
-		Intersection(normals.Select(normal => (Vector3)normal).Select(Plane).ToArray());
-
-	public static IScene Rotated(this IScene scene, double angle) =>
-		scene.Rotated(new(0D, 0D, 1D), angle);
-
-	public static IScene Rotated(this IScene scene, Vector3 axis, double angle) =>
-		scene.Transformed(Matrix4.Rotation(axis, angle), Matrix4.Rotation(axis, -angle));
-
-	public static IScene Scaled(this IScene scene, double factor) =>
-		scene.Transformed(Matrix4.Scaling(factor), Matrix4.Scaling(1D / factor));
+	public static IScene Polyhedron(params List<Vector3Spherical> normals) =>
+		Intersection([.. normals.Select(normal => (Vector3)normal).Select(Plane)]);
 
 	public static IScene Sphere() =>
 		SphereWithRadius(1D);
@@ -176,18 +155,42 @@ public static class Scene
 			new Vector3Spherical(inradius, 2D * azimuthStep, dihedralAngle));
 	}
 
-	public static IScene Transformed(this IScene scene, Matrix4 forward, Matrix4 backward) =>
-		new Transformed(scene, forward, backward);
-
-	public static IScene Translated(this IScene scene, Vector3 translation) =>
-		scene.Transformed(Matrix4.Translation(translation), Matrix4.Translation(-translation));
-
-	public static IScene Transparent(this IScene scene) =>
-		new Transparent(scene);
-
-	public static IScene Union(params IScene[] scenes) =>
+	public static IScene Union(params List<IScene> scenes) =>
 		scenes.Aggregate(Empty(), UnitedWith);
 
-	public static IScene UnitedWith(this IScene scene, IScene otherScene) =>
-		new Union(scene, otherScene);
+	extension(IScene source)
+	{
+		public IScene Except(IScene scene) =>
+			Intersection(source, scene.Inverted());
+
+		public IScene IntersectedWith(IScene scene) =>
+			new Intersection(source, scene);
+
+		public IScene Inverted() =>
+			new Inverted(source);
+
+		public IScene Painted(ColorRgb color) =>
+			new Painted(source, color);
+
+		public IScene Rotated(double angle) =>
+			source.Rotated(new(0D, 0D, 1D), angle);
+
+		public IScene Rotated(Vector3 axis, double angle) =>
+			source.Transformed(Matrix4.Rotation(axis, angle), Matrix4.Rotation(axis, -angle));
+
+		public IScene Scaled(double factor) =>
+			source.Transformed(Matrix4.Scaling(factor), Matrix4.Scaling(1D / factor));
+
+		public IScene Transformed(Matrix4 forward, Matrix4 backward) =>
+			new Transformed(source, forward, backward);
+
+		public IScene Translated(Vector3 translation) =>
+			source.Transformed(Matrix4.Translation(translation), Matrix4.Translation(-translation));
+
+		public IScene Transparent() =>
+			new Transparent(source);
+
+		public IScene UnitedWith(IScene scene) =>
+			new Union(source, scene);
+	}
 }

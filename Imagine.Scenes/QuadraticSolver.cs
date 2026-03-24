@@ -8,15 +8,15 @@ public static class QuadraticSolver
 
 		if (d < 0D)
 		{
-			return new();
+			return [];
 		}
 
 		var sqrtD = double.Sqrt(d);
 
-		return new()
-		{
+		return
+		[
 			(-b - sqrtD) / (2D * a),
 			(-b + sqrtD) / (2D * a),
-		};
+		];
 	}
 }

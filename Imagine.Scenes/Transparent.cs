@@ -6,5 +6,5 @@ internal class Transparent(IScene scene) : IScene
 		scene.Contains(point);
 
 	public List<Intercept> Intercepts(Line3 ray) =>
-		new();
+		[];
 }

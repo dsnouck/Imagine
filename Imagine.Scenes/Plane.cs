@@ -13,16 +13,16 @@ internal class Plane(Vector3 normal) : IScene
 
 		if (double.Abs(normalDotRayDirection) < Epsilon)
 		{
-			return new();
+			return [];
 		}
 
 		var distance = normal.Dot(normal - ray.Origin) / normalDotRayDirection;
 
-		return new()
-		{
+		return
+		[
 			new(
 				distance: distance,
 				normal: normal.Normalized() * ray.Direction.Length()),
-		};
+		];
 	}
 }

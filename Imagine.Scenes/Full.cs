@@ -6,5 +6,5 @@ internal class Full : IScene
 		true;
 
 	public List<Intercept> Intercepts(Line3 ray) =>
-		new();
+		[];
 }

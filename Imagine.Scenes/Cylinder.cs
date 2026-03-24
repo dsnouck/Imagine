@@ -20,7 +20,7 @@ internal class Cylinder(double radius) : IScene
 			horizontalRay.Direction.Dot(horizontalRay.Origin) * 2D,
 			horizontalRay.Origin.Dot(horizontalRay.Origin) - (radius * radius));
 
-		return distances
+		return [.. distances
 			.Select(distance =>
 			{
 				var intercept = ray.At(distance);
@@ -29,8 +29,7 @@ internal class Cylinder(double radius) : IScene
 				return new Intercept(
 					distance: distance,
 					normal: horizontalIntercept.Normalized() * ray.Direction.Length());
-			})
-			.ToList();
+			})];
 	}
 
 	private static Vector3 Horizontal(Vector3 point) =>
