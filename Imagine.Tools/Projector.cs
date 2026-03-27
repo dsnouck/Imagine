@@ -4,15 +4,11 @@ public static class Projector
 {
 	public static Func<Vector2, ColorRgb> Project(IScene scene, ProjectorSettings settings)
 	{
-		var screen = Screen(settings);
+		var bundle = Bundle(settings);
 
 		return point =>
 		{
-			var direction = (screen(point) - settings.Eye).Normalized();
-
-			var ray = new Line3(
-				Origin: settings.Eye,
-				Direction: direction);
+			var ray = bundle(point);
 
 			var intercepts = scene.Intercepts(ray)
 				.Where(intercept => intercept.Distance > 0D)
@@ -25,9 +21,23 @@ public static class Projector
 			}
 
 			var intercept = intercepts.First();
-			var intensity = double.Abs(intercept.Normal.Dot(direction));
+			var intensity = double.Abs(intercept.Normal.Dot(ray.Direction));
 
 			return intercept.Color * intensity;
+		};
+	}
+
+	private static Func<Vector2, Line3> Bundle(ProjectorSettings settings)
+	{
+		var screen = Screen(settings);
+
+		return point =>
+		{
+			var direction = (screen(point) - settings.Eye).Normalized();
+
+			return new(
+				Origin: settings.Eye,
+				Direction: direction);
 		};
 	}
 
