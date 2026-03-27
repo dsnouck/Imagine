@@ -2,10 +2,13 @@ namespace Imagine.Tests;
 
 public class MovieTests
 {
+	private const string InputDirectory = "input";
+
 	[Fact]
 	public void MovieHsv()
 	{
 		const string name = "hsv";
+		const string inputFile = $"{InputDirectory}/{name}.mp4";
 
 		var settings = new MovieSettings(
 			Frames: 256,
@@ -34,15 +37,16 @@ public class MovieTests
 		}
 
 		var movie = Sampler.Sample(Function, settings);
-		var file = Saver.Save(movie, name);
+		var outputFile = Saver.Save(movie, name);
 
-		File.Exists(file).Should().BeTrue();
+		outputFile.ShouldHaveSameContentAs(inputFile);
 	}
 
 	[Fact]
 	public void MovieRed()
 	{
 		const string name = "red";
+		const string inputFile = $"{InputDirectory}/{name}.mp4";
 
 		const int frames = 256;
 		const int width = 256;
@@ -57,15 +61,16 @@ public class MovieTests
 				height).ToList(),
 			frames).ToList();
 
-		var file = Saver.Save(movie, name);
+		var outputFile = Saver.Save(movie, name);
 
-		File.Exists(file).Should().BeTrue();
+		outputFile.ShouldHaveSameContentAs(inputFile);
 	}
 
 	[Fact]
 	public void MovieRgb()
 	{
 		const string name = "rgb";
+		const string inputFile = $"{InputDirectory}/{name}.mp4";
 
 		var settings = new MovieSettings(
 			Frames: 256,
@@ -94,8 +99,8 @@ public class MovieTests
 		}
 
 		var movie = Sampler.Sample(Function, settings);
-		var file = Saver.Save(movie, name);
+		var outputFile = Saver.Save(movie, name);
 
-		File.Exists(file).Should().BeTrue();
+		outputFile.ShouldHaveSameContentAs(inputFile);
 	}
 }
