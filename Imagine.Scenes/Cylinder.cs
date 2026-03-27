@@ -28,7 +28,7 @@ internal class Cylinder(double radius) : IScene
 
 				return new Intercept(
 					distance: distance,
-					normal: horizontalIntercept.Normalized() * ray.Direction.Length());
+					normal: horizontalIntercept.Normalized());
 			})];
 	}
 

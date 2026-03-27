@@ -22,7 +22,7 @@ internal class Plane(Vector3 normal) : IScene
 		[
 			new(
 				distance: distance,
-				normal: normal.Normalized() * ray.Direction.Length()),
+				normal: normal.Normalized()),
 		];
 	}
 }

@@ -364,6 +364,9 @@ dotnet_naming_style.s_camelcase.capitalization = camel_case
 
 #### Suppressions ####
 
+# CA1860: Avoid using 'Enumerable.Any()' extension method
+dotnet_diagnostic.CA1860.severity = none
+
 # IDE0058: Expression value is never used
 dotnet_diagnostic.IDE0058.severity = none
 

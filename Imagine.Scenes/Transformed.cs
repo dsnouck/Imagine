@@ -15,7 +15,7 @@ internal class Transformed(IScene scene, Matrix4 forward, Matrix4 backward) : IS
 			.Select(intercept =>
 				new Intercept(
 					Distance: intercept.Distance,
-					Normal: ForwardDirection(intercept.Normal),
+					Normal: ForwardDirection(intercept.Normal).Normalized(),
 					Color: intercept.Color))];
 	}
 
