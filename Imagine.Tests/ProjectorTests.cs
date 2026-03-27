@@ -2,6 +2,7 @@ namespace Imagine.Tests;
 
 public class ProjectorTests
 {
+	private const string InputDirectory = "input";
 	private const double Narrow = 0.01D;
 	private static readonly double SphereRadius = double.Sqrt(2D / 3D) - Narrow;
 
@@ -124,11 +125,12 @@ public class ProjectorTests
 	public void Projection(string name)
 	{
 		var scene = Scenes[name];
+		var inputFile = $"{InputDirectory}/{name}.png";
 
 		var projection = Projector.Project(scene, ProjectorSettings);
 		var image = Sampler.Sample(projection, ImageSettings);
-		var file = Saver.Save(image, name);
+		var outputFile = Saver.Save(image, name);
 
-		File.Exists(file).Should().BeTrue();
+		outputFile.ShouldHaveSameContentAs(inputFile);
 	}
 }

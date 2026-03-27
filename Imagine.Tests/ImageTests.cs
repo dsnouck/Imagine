@@ -2,12 +2,10 @@ namespace Imagine.Tests;
 
 public class ImageTests
 {
-	[Fact]
-	public void ImageHsv()
-	{
-		const string name = "hsv";
+	private const string InputDirectory = "input";
 
-		var settings = new ImageSettings(
+	private static readonly ImageSettings ImageSettings =
+		new(
 			Width: 512,
 			Height: 512,
 			Subsamples: 2,
@@ -15,6 +13,12 @@ public class ImageTests
 			XMax: 1D,
 			YMin: 0D,
 			YMax: 1D);
+
+	[Fact]
+	public void ImageHsv()
+	{
+		const string name = "hsv";
+		const string inputFile = $"{InputDirectory}/{name}.png";
 
 		static ColorHsv Function(Vector2 point)
 		{
@@ -28,16 +32,17 @@ public class ImageTests
 			return new(hue, saturation, value);
 		}
 
-		var image = Sampler.Sample(Function, settings);
-		var file = Saver.Save(image, name);
+		var image = Sampler.Sample(Function, ImageSettings);
+		var outputFile = Saver.Save(image, name);
 
-		File.Exists(file).Should().BeTrue();
+		outputFile.ShouldHaveSameContentAs(inputFile);
 	}
 
 	[Fact]
 	public void ImageRed()
 	{
 		const string name = "red";
+		const string inputFile = $"{InputDirectory}/{name}.png";
 
 		const int width = 512;
 		const int height = 512;
@@ -49,24 +54,16 @@ public class ImageTests
 				width).ToList(),
 			height).ToList();
 
-		var file = Saver.Save(image, name);
+		var outputFile = Saver.Save(image, name);
 
-		File.Exists(file).Should().BeTrue();
+		outputFile.ShouldHaveSameContentAs(inputFile);
 	}
 
 	[Fact]
 	public void ImageRgb()
 	{
 		const string name = "rgb";
-
-		var settings = new ImageSettings(
-			Width: 512,
-			Height: 512,
-			Subsamples: 2,
-			XMin: 0D,
-			XMax: 1D,
-			YMin: 0D,
-			YMax: 1D);
+		const string inputFile = $"{InputDirectory}/{name}.png";
 
 		static ColorRgb Function(Vector2 point)
 		{
@@ -80,9 +77,9 @@ public class ImageTests
 			return new(red, green, blue);
 		}
 
-		var image = Sampler.Sample(Function, settings);
-		var file = Saver.Save(image, name);
+		var image = Sampler.Sample(Function, ImageSettings);
+		var outputFile = Saver.Save(image, name);
 
-		File.Exists(file).Should().BeTrue();
+		outputFile.ShouldHaveSameContentAs(inputFile);
 	}
 }

@@ -2,12 +2,10 @@ namespace Imagine.Tests;
 
 public class MovieTests
 {
-	[Fact]
-	public void MovieHsv()
-	{
-		const string name = "hsv";
+	private const string InputDirectory = "input";
 
-		var settings = new MovieSettings(
+	private static readonly MovieSettings MovieSettings =
+		new(
 			Frames: 256,
 			Width: 256,
 			Height: 256,
@@ -18,6 +16,12 @@ public class MovieTests
 			YMax: 1D,
 			ZMin: 0D,
 			ZMax: 2D);
+
+	[Fact]
+	public void MovieHsv()
+	{
+		const string name = "hsv";
+		const string inputFile = $"{InputDirectory}/{name}.mp4";
 
 		static ColorHsv Function(Vector3 point)
 		{
@@ -33,16 +37,17 @@ public class MovieTests
 			return new(hue, saturation, value);
 		}
 
-		var movie = Sampler.Sample(Function, settings);
-		var file = Saver.Save(movie, name);
+		var movie = Sampler.Sample(Function, MovieSettings);
+		var outputFile = Saver.Save(movie, name);
 
-		File.Exists(file).Should().BeTrue();
+		outputFile.ShouldHaveSameContentAs(inputFile);
 	}
 
 	[Fact]
 	public void MovieRed()
 	{
 		const string name = "red";
+		const string inputFile = $"{InputDirectory}/{name}.mp4";
 
 		const int frames = 256;
 		const int width = 256;
@@ -57,27 +62,16 @@ public class MovieTests
 				height).ToList(),
 			frames).ToList();
 
-		var file = Saver.Save(movie, name);
+		var outputFile = Saver.Save(movie, name);
 
-		File.Exists(file).Should().BeTrue();
+		outputFile.ShouldHaveSameContentAs(inputFile);
 	}
 
 	[Fact]
 	public void MovieRgb()
 	{
 		const string name = "rgb";
-
-		var settings = new MovieSettings(
-			Frames: 256,
-			Width: 256,
-			Height: 256,
-			Subsamples: 2,
-			XMin: 0D,
-			XMax: 1D,
-			YMin: 0D,
-			YMax: 1D,
-			ZMin: 0D,
-			ZMax: 2D);
+		const string inputFile = $"{InputDirectory}/{name}.mp4";
 
 		static ColorRgb Function(Vector3 point)
 		{
@@ -93,9 +87,9 @@ public class MovieTests
 			return new(red, green, blue);
 		}
 
-		var movie = Sampler.Sample(Function, settings);
-		var file = Saver.Save(movie, name);
+		var movie = Sampler.Sample(Function, MovieSettings);
+		var outputFile = Saver.Save(movie, name);
 
-		File.Exists(file).Should().BeTrue();
+		outputFile.ShouldHaveSameContentAs(inputFile);
 	}
 }
