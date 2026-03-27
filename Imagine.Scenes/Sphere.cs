@@ -16,6 +16,6 @@ internal class Sphere(double radius) : IScene
 			Select(distance =>
 				new Intercept(
 					distance: distance,
-					normal: ray.At(distance).Normalized() * ray.Direction.Length()))];
+					normal: ray.At(distance).Normalized()))];
 	}
 }

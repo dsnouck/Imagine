@@ -24,7 +24,7 @@ internal class Cone : IScene
 
 				return new Intercept(
 					distance: distance,
-					normal: mirroredIntercept.Normalized() * ray.Direction.Length());
+					normal: mirroredIntercept.Normalized());
 			})];
 	}
 
