@@ -4,13 +4,8 @@ public class MovieTests
 {
 	private const string InputDirectory = "input";
 
-	[Fact]
-	public void MovieHsv()
-	{
-		const string name = "hsv";
-		const string inputFile = $"{InputDirectory}/{name}.mp4";
-
-		var settings = new MovieSettings(
+	private static readonly MovieSettings MovieSettings =
+		new(
 			Frames: 256,
 			Width: 256,
 			Height: 256,
@@ -21,6 +16,12 @@ public class MovieTests
 			YMax: 1D,
 			ZMin: 0D,
 			ZMax: 2D);
+
+	[Fact]
+	public void MovieHsv()
+	{
+		const string name = "hsv";
+		const string inputFile = $"{InputDirectory}/{name}.mp4";
 
 		static ColorHsv Function(Vector3 point)
 		{
@@ -36,7 +37,7 @@ public class MovieTests
 			return new(hue, saturation, value);
 		}
 
-		var movie = Sampler.Sample(Function, settings);
+		var movie = Sampler.Sample(Function, MovieSettings);
 		var outputFile = Saver.Save(movie, name);
 
 		outputFile.ShouldHaveSameContentAs(inputFile);
@@ -72,18 +73,6 @@ public class MovieTests
 		const string name = "rgb";
 		const string inputFile = $"{InputDirectory}/{name}.mp4";
 
-		var settings = new MovieSettings(
-			Frames: 256,
-			Width: 256,
-			Height: 256,
-			Subsamples: 2,
-			XMin: 0D,
-			XMax: 1D,
-			YMin: 0D,
-			YMax: 1D,
-			ZMin: 0D,
-			ZMax: 2D);
-
 		static ColorRgb Function(Vector3 point)
 		{
 			var z = point.Z < 1D ? point.Z : 2D - point.Z;
@@ -98,7 +87,7 @@ public class MovieTests
 			return new(red, green, blue);
 		}
 
-		var movie = Sampler.Sample(Function, settings);
+		var movie = Sampler.Sample(Function, MovieSettings);
 		var outputFile = Saver.Save(movie, name);
 
 		outputFile.ShouldHaveSameContentAs(inputFile);

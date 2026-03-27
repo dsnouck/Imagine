@@ -4,13 +4,8 @@ public class ImageTests
 {
 	private const string InputDirectory = "input";
 
-	[Fact]
-	public void ImageHsv()
-	{
-		const string name = "hsv";
-		const string inputFile = $"{InputDirectory}/{name}.png";
-
-		var settings = new ImageSettings(
+	private static readonly ImageSettings ImageSettings =
+		new(
 			Width: 512,
 			Height: 512,
 			Subsamples: 2,
@@ -18,6 +13,12 @@ public class ImageTests
 			XMax: 1D,
 			YMin: 0D,
 			YMax: 1D);
+
+	[Fact]
+	public void ImageHsv()
+	{
+		const string name = "hsv";
+		const string inputFile = $"{InputDirectory}/{name}.png";
 
 		static ColorHsv Function(Vector2 point)
 		{
@@ -31,7 +32,7 @@ public class ImageTests
 			return new(hue, saturation, value);
 		}
 
-		var image = Sampler.Sample(Function, settings);
+		var image = Sampler.Sample(Function, ImageSettings);
 		var outputFile = Saver.Save(image, name);
 
 		outputFile.ShouldHaveSameContentAs(inputFile);
@@ -64,15 +65,6 @@ public class ImageTests
 		const string name = "rgb";
 		const string inputFile = $"{InputDirectory}/{name}.png";
 
-		var settings = new ImageSettings(
-			Width: 512,
-			Height: 512,
-			Subsamples: 2,
-			XMin: 0D,
-			XMax: 1D,
-			YMin: 0D,
-			YMax: 1D);
-
 		static ColorRgb Function(Vector2 point)
 		{
 			var center = new Vector2(0.5D, 0.5D);
@@ -85,7 +77,7 @@ public class ImageTests
 			return new(red, green, blue);
 		}
 
-		var image = Sampler.Sample(Function, settings);
+		var image = Sampler.Sample(Function, ImageSettings);
 		var outputFile = Saver.Save(image, name);
 
 		outputFile.ShouldHaveSameContentAs(inputFile);
