@@ -9,6 +9,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Content Include="input/**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
 		<Using Include="AwesomeAssertions" />
 		<Using Include="Imagine.Models" />
 		<Using Include="Imagine.Scenes" />

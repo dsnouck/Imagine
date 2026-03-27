@@ -2,10 +2,13 @@ namespace Imagine.Tests;
 
 public class ImageTests
 {
+	private const string InputDirectory = "input";
+
 	[Fact]
 	public void ImageHsv()
 	{
 		const string name = "hsv";
+		const string inputFile = $"{InputDirectory}/{name}.png";
 
 		var settings = new ImageSettings(
 			Width: 512,
@@ -29,15 +32,16 @@ public class ImageTests
 		}
 
 		var image = Sampler.Sample(Function, settings);
-		var file = Saver.Save(image, name);
+		var outputFile = Saver.Save(image, name);
 
-		File.Exists(file).Should().BeTrue();
+		outputFile.ShouldHaveSameContentAs(inputFile);
 	}
 
 	[Fact]
 	public void ImageRed()
 	{
 		const string name = "red";
+		const string inputFile = $"{InputDirectory}/{name}.png";
 
 		const int width = 512;
 		const int height = 512;
@@ -49,15 +53,16 @@ public class ImageTests
 				width).ToList(),
 			height).ToList();
 
-		var file = Saver.Save(image, name);
+		var outputFile = Saver.Save(image, name);
 
-		File.Exists(file).Should().BeTrue();
+		outputFile.ShouldHaveSameContentAs(inputFile);
 	}
 
 	[Fact]
 	public void ImageRgb()
 	{
 		const string name = "rgb";
+		const string inputFile = $"{InputDirectory}/{name}.png";
 
 		var settings = new ImageSettings(
 			Width: 512,
@@ -81,8 +86,8 @@ public class ImageTests
 		}
 
 		var image = Sampler.Sample(Function, settings);
-		var file = Saver.Save(image, name);
+		var outputFile = Saver.Save(image, name);
 
-		File.Exists(file).Should().BeTrue();
+		outputFile.ShouldHaveSameContentAs(inputFile);
 	}
 }
