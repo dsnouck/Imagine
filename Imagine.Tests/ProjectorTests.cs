@@ -19,7 +19,7 @@ public class ProjectorTests
 			subsamples: 2);
 
 	private static readonly IScene BoundingSphere = Scene.Sphere().Transparent();
-	private static readonly IScene Cylinder = Scene.CylinderWithRadius(0.5D);
+	private static readonly IScene Cylinder = Scene.Cylinder(new(0D, 0D, 1D), 0.5D);
 	private static readonly IScene Sphere = Scene.SphereWithRadius(SphereRadius);
 	private static readonly IScene Tetrahedron = Scene.Tetrahedron().Rotated(11D * Math.PI / 24D);
 
@@ -69,18 +69,16 @@ public class ProjectorTests
 			{
 				"cylinder-intersection",
 				Scene.Intersection(
-					Scene.Cylinder().Rotated(new(0D, 1D, 0D), Math.PI / 2D).Painted(new(1D, 0D, 0D)),
-					Scene.Cylinder().Rotated(new(1D, 0D, 0D), Math.PI / 2D).Painted(new(0D, 1D, 0D)),
-					Scene.Cylinder().Painted(new(0D, 0D, 1D)))
-					.Scaled(0.5D)
+					Scene.Cylinder(new(1D, 0D, 0D), 0.5D).Painted(new(1D, 0D, 0D)),
+					Scene.Cylinder(new(0D, 1D, 0D), 0.5D).Painted(new(0D, 1D, 0D)),
+					Scene.Cylinder(new(0D, 0D, 1D), 0.5D).Painted(new(0D, 0D, 1D)))
 			},
 			{
 				"cylinder-union",
 				Scene.Union(
-					Scene.Cylinder().Rotated(new(0D, 1D, 0D), Math.PI / 2D).Painted(new(1D, 0D, 0D)),
-					Scene.Cylinder().Rotated(new(1D, 0D, 0D), Math.PI / 2D).Painted(new(0D, 1D, 0D)),
-					Scene.Cylinder().Painted(new(0D, 0D, 1D)))
-					.Scaled(0.5D)
+					Scene.Cylinder(new(1D, 0D, 0D), 0.5D).Painted(new(1D, 0D, 0D)),
+					Scene.Cylinder(new(0D, 1D, 0D), 0.5D).Painted(new(0D, 1D, 0D)),
+					Scene.Cylinder(new(0D, 0D, 1D), 0.5D).Painted(new(0D, 0D, 1D)))
 			},
 			{
 				"dodecahedron",

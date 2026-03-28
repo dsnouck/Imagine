@@ -20,11 +20,8 @@ public static class Scene
 			new Vector3(0D, -inradius, 0D),
 			new Vector3(0D, 0D, inradius));
 
-	public static IScene Cylinder() =>
-		CylinderWithRadius(1D);
-
-	public static IScene CylinderWithRadius(double radius) =>
-		new Cylinder(radius);
+	public static IScene Cylinder(Vector3 axis, double radius) =>
+		new Cylinder(axis, radius);
 
 	public static IScene Dodecahedron() =>
 		DodecahedronWithCircumradius(1D);
