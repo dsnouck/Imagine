@@ -1,33 +1,24 @@
 namespace Imagine.Scenes;
 
-internal class Cone : IScene
+internal class Cone(Vector3 axis, double angle) : IScene
 {
+	private readonly Vector3 axisNormalized = axis.Normalized();
+	private readonly double k = (1D + double.Cos(angle)) / 2D;
+
 	public bool Contains(Vector3 point) =>
-		point.Dot(Mirrored(point)) < 0D;
+		k * point.Dot(point) <= point.Dot(axisNormalized) * point.Dot(axisNormalized);
 
 	public List<Intercept> Intercepts(Line3 ray)
 	{
-		var mirroredRay = new Line3(
-			Origin: Mirrored(ray.Origin),
-			Direction: Mirrored(ray.Direction));
-
 		var distances = QuadraticSolver.Solve(
-			ray.Direction.Dot(mirroredRay.Direction),
-			ray.Direction.Dot(mirroredRay.Origin) * 2D,
-			ray.Origin.Dot(mirroredRay.Origin));
+			(k * ray.Direction.Dot(ray.Direction)) - (ray.Direction.Dot(axisNormalized) * ray.Direction.Dot(axisNormalized)),
+			2D * ((k * ray.Origin.Dot(ray.Direction)) - (ray.Origin.Dot(axisNormalized) * ray.Direction.Dot(axisNormalized))),
+			(k * ray.Origin.Dot(ray.Origin)) - (ray.Origin.Dot(axisNormalized) * ray.Origin.Dot(axisNormalized)));
 
 		return [.. distances.
 			Select(distance =>
-			{
-				var intercept = ray.At(distance);
-				var mirroredIntercept = Mirrored(intercept);
-
-				return new Intercept(
+				new Intercept(
 					distance: distance,
-					normal: mirroredIntercept.Normalized());
-			})];
+					normal: ((ray.At(distance) * k) - (axisNormalized * ray.At(distance).Dot(axisNormalized))).Normalized()))];
 	}
-
-	private static Vector3 Mirrored(Vector3 point) =>
-		new(point.X, point.Y, -point.Z);
 }

@@ -2,6 +2,8 @@ namespace Imagine.Scenes;
 
 internal class Cylinder(Vector3 axis, double radius) : IScene
 {
+	private readonly Vector3 axisNormalized = axis.Normalized();
+
 	public bool Contains(Vector3 point)
 	{
 		var pointPerpendicular = Perpendicular(point);
@@ -30,10 +32,6 @@ internal class Cylinder(Vector3 axis, double radius) : IScene
 			})];
 	}
 
-	private Vector3 Perpendicular(Vector3 point)
-	{
-		var axisNormalized = axis.Normalized();
-
-		return point - (axisNormalized * point.Dot(axisNormalized));
-	}
+	private Vector3 Perpendicular(Vector3 point) =>
+		point - (axisNormalized * point.Dot(axisNormalized));
 }

@@ -8,9 +8,9 @@ public class ProjectorTests
 
 	private static readonly ProjectorSettings ProjectorSettings =
 		new(
-			eye: (Vector3)new Vector3Spherical(3D, Math.PI / 6D, Math.PI / 3D),
+			eye: (Vector3)new Vector3Spherical(3D, double.Pi / 6D, double.Pi / 3D),
 			focus: new(0D, 0D, 0D),
-			fieldOfView: Math.PI / 4D);
+			fieldOfView: double.Pi / 4D);
 
 	private static readonly ImageSettings ImageSettings =
 		new(
@@ -21,14 +21,21 @@ public class ProjectorTests
 	private static readonly IScene BoundingSphere = Scene.Sphere().Transparent();
 	private static readonly IScene Cylinder = Scene.Cylinder(new(0D, 0D, 1D), 0.5D);
 	private static readonly IScene Sphere = Scene.SphereWithRadius(SphereRadius);
-	private static readonly IScene Tetrahedron = Scene.Tetrahedron().Rotated(11D * Math.PI / 24D);
+	private static readonly IScene Tetrahedron = Scene.Tetrahedron().Rotated(11D * double.Pi / 24D);
 
 	private static readonly Dictionary<string, IScene> Scenes =
 		new()
 		{
 			{
 				"cone",
-				Scene.Intersection(Scene.Cone(), BoundingSphere)
+				Scene.Intersection(Scene.Cone(new(0D, 0D, 1D), double.Pi / 2D), BoundingSphere)
+			},
+			{
+				"cone-union",
+				Scene.Union(
+					Scene.Cone(new(1D, 0D, 0D), double.Pi / 16D).Painted(new(1D, 0D, 0D)),
+					Scene.Cone(new(0D, 1D, 0D), double.Pi / 16D).Painted(new(0D, 1D, 0D)),
+					Scene.Cone(new(0D, 0D, 1D), double.Pi / 16D).Painted(new(0D, 0D, 1D)))
 			},
 			{
 				 "cube-except-sphere",
@@ -40,7 +47,7 @@ public class ProjectorTests
 			},
 			{
 				"cube-rotated",
-				Scene.Cube().Rotated(Math.PI / 4D)
+				Scene.Cube().Rotated(double.Pi / 4D)
 			},
 			{
 				"cube-scaled",
@@ -76,9 +83,9 @@ public class ProjectorTests
 			{
 				"cylinder-union",
 				Scene.Union(
-					Scene.Cylinder(new(1D, 0D, 0D), 0.5D).Painted(new(1D, 0D, 0D)),
-					Scene.Cylinder(new(0D, 1D, 0D), 0.5D).Painted(new(0D, 1D, 0D)),
-					Scene.Cylinder(new(0D, 0D, 1D), 0.5D).Painted(new(0D, 0D, 1D)))
+					Scene.Cylinder(new(1D, 0D, 0D), 0.25D).Painted(new(1D, 0D, 0D)),
+					Scene.Cylinder(new(0D, 1D, 0D), 0.25D).Painted(new(0D, 1D, 0D)),
+					Scene.Cylinder(new(0D, 0D, 1D), 0.25D).Painted(new(0D, 0D, 1D)))
 			},
 			{
 				"dodecahedron",
@@ -98,7 +105,7 @@ public class ProjectorTests
 			},
 			{
 				"sphere-except-cone",
-				Sphere.Except(Scene.Cone())
+				Sphere.Except(Scene.Cone(new(0D, 0D, 1D), double.Pi / 2D))
 			},
 			{
 				"sphere-except-cube",

@@ -2,8 +2,8 @@ namespace Imagine.Scenes;
 
 public static class Scene
 {
-	public static IScene Cone() =>
-		new Cone();
+	public static IScene Cone(Vector3 axis, double angle) =>
+		new Cone(axis, angle);
 
 	public static IScene Cube() =>
 		CubeWithCircumradius(1D);
@@ -32,20 +32,20 @@ public static class Scene
 	public static IScene DodecahedronWithInradius(double inradius)
 	{
 		var dihedralAngle = double.Acos(-1D / double.Sqrt(5D));
-		var azimuthStep = Math.PI / 5D;
+		var azimuthStep = double.Pi / 5D;
 
 		return Polyhedron(
-			new Vector3Spherical(inradius, 0D, Math.PI),
+			new Vector3Spherical(inradius, 0D, double.Pi),
 			new Vector3Spherical(inradius, 0D * azimuthStep, dihedralAngle),
 			new Vector3Spherical(inradius, 2D * azimuthStep, dihedralAngle),
 			new Vector3Spherical(inradius, 4D * azimuthStep, dihedralAngle),
 			new Vector3Spherical(inradius, 6D * azimuthStep, dihedralAngle),
 			new Vector3Spherical(inradius, 8D * azimuthStep, dihedralAngle),
-			new Vector3Spherical(inradius, 1D * azimuthStep, Math.PI - dihedralAngle),
-			new Vector3Spherical(inradius, 3D * azimuthStep, Math.PI - dihedralAngle),
-			new Vector3Spherical(inradius, 5D * azimuthStep, Math.PI - dihedralAngle),
-			new Vector3Spherical(inradius, 7D * azimuthStep, Math.PI - dihedralAngle),
-			new Vector3Spherical(inradius, 9D * azimuthStep, Math.PI - dihedralAngle),
+			new Vector3Spherical(inradius, 1D * azimuthStep, double.Pi - dihedralAngle),
+			new Vector3Spherical(inradius, 3D * azimuthStep, double.Pi - dihedralAngle),
+			new Vector3Spherical(inradius, 5D * azimuthStep, double.Pi - dihedralAngle),
+			new Vector3Spherical(inradius, 7D * azimuthStep, double.Pi - dihedralAngle),
+			new Vector3Spherical(inradius, 9D * azimuthStep, double.Pi - dihedralAngle),
 			new Vector3Spherical(inradius, 0D, 0D));
 	}
 
@@ -65,11 +65,11 @@ public static class Scene
 	{
 		var dihedralAngle = double.Acos(-double.Sqrt(5D) / 3D);
 		var secondInclination = double.Acos(-1D / 3D);
-		var azimuthStep = Math.PI / 3D;
-		var azimuthOffset = (Math.PI / 3D) - double.Acos(double.Sqrt(5D / 8D));
+		var azimuthStep = double.Pi / 3D;
+		var azimuthOffset = (double.Pi / 3D) - double.Acos(double.Sqrt(5D / 8D));
 
 		return Polyhedron(
-			new Vector3Spherical(inradius, 0D, Math.PI),
+			new Vector3Spherical(inradius, 0D, double.Pi),
 			new Vector3Spherical(inradius, 0D * azimuthStep, dihedralAngle),
 			new Vector3Spherical(inradius, 2D * azimuthStep, dihedralAngle),
 			new Vector3Spherical(inradius, 4D * azimuthStep, dihedralAngle),
@@ -79,15 +79,15 @@ public static class Scene
 			new Vector3Spherical(inradius, (3D * azimuthStep) + azimuthOffset, secondInclination),
 			new Vector3Spherical(inradius, (5D * azimuthStep) - azimuthOffset, secondInclination),
 			new Vector3Spherical(inradius, (5D * azimuthStep) + azimuthOffset, secondInclination),
-			new Vector3Spherical(inradius, (0D * azimuthStep) - azimuthOffset, Math.PI - secondInclination),
-			new Vector3Spherical(inradius, (0D * azimuthStep) + azimuthOffset, Math.PI - secondInclination),
-			new Vector3Spherical(inradius, (2D * azimuthStep) - azimuthOffset, Math.PI - secondInclination),
-			new Vector3Spherical(inradius, (2D * azimuthStep) + azimuthOffset, Math.PI - secondInclination),
-			new Vector3Spherical(inradius, (4D * azimuthStep) - azimuthOffset, Math.PI - secondInclination),
-			new Vector3Spherical(inradius, (4D * azimuthStep) + azimuthOffset, Math.PI - secondInclination),
-			new Vector3Spherical(inradius, 1D * azimuthStep, Math.PI - dihedralAngle),
-			new Vector3Spherical(inradius, 3D * azimuthStep, Math.PI - dihedralAngle),
-			new Vector3Spherical(inradius, 5D * azimuthStep, Math.PI - dihedralAngle),
+			new Vector3Spherical(inradius, (0D * azimuthStep) - azimuthOffset, double.Pi - secondInclination),
+			new Vector3Spherical(inradius, (0D * azimuthStep) + azimuthOffset, double.Pi - secondInclination),
+			new Vector3Spherical(inradius, (2D * azimuthStep) - azimuthOffset, double.Pi - secondInclination),
+			new Vector3Spherical(inradius, (2D * azimuthStep) + azimuthOffset, double.Pi - secondInclination),
+			new Vector3Spherical(inradius, (4D * azimuthStep) - azimuthOffset, double.Pi - secondInclination),
+			new Vector3Spherical(inradius, (4D * azimuthStep) + azimuthOffset, double.Pi - secondInclination),
+			new Vector3Spherical(inradius, 1D * azimuthStep, double.Pi - dihedralAngle),
+			new Vector3Spherical(inradius, 3D * azimuthStep, double.Pi - dihedralAngle),
+			new Vector3Spherical(inradius, 5D * azimuthStep, double.Pi - dihedralAngle),
 			new Vector3Spherical(inradius, 0D, 0D));
 	}
 
@@ -103,16 +103,16 @@ public static class Scene
 	public static IScene OctahedronWithInradius(double inradius)
 	{
 		var dihedralAngle = double.Acos(-1D / 3D);
-		var azimuthStep = Math.PI / 3D;
+		var azimuthStep = double.Pi / 3D;
 
 		return Polyhedron(
-			new Vector3Spherical(inradius, 0D, Math.PI),
+			new Vector3Spherical(inradius, 0D, double.Pi),
 			new Vector3Spherical(inradius, 0D * azimuthStep, dihedralAngle),
 			new Vector3Spherical(inradius, 2D * azimuthStep, dihedralAngle),
 			new Vector3Spherical(inradius, 4D * azimuthStep, dihedralAngle),
-			new Vector3Spherical(inradius, 1D * azimuthStep, Math.PI - dihedralAngle),
-			new Vector3Spherical(inradius, 3D * azimuthStep, Math.PI - dihedralAngle),
-			new Vector3Spherical(inradius, 5D * azimuthStep, Math.PI - dihedralAngle),
+			new Vector3Spherical(inradius, 1D * azimuthStep, double.Pi - dihedralAngle),
+			new Vector3Spherical(inradius, 3D * azimuthStep, double.Pi - dihedralAngle),
+			new Vector3Spherical(inradius, 5D * azimuthStep, double.Pi - dihedralAngle),
 			new Vector3Spherical(inradius, 0D, 0D));
 	}
 
@@ -143,10 +143,10 @@ public static class Scene
 	public static IScene TetrahedronWithInradius(double inradius)
 	{
 		var dihedralAngle = double.Acos(1D / 3D);
-		var azimuthStep = 2D * Math.PI / 3D;
+		var azimuthStep = 2D * double.Pi / 3D;
 
 		return Polyhedron(
-			new Vector3Spherical(inradius, 0D, Math.PI),
+			new Vector3Spherical(inradius, 0D, double.Pi),
 			new Vector3Spherical(inradius, 0D * azimuthStep, dihedralAngle),
 			new Vector3Spherical(inradius, 1D * azimuthStep, dihedralAngle),
 			new Vector3Spherical(inradius, 2D * azimuthStep, dihedralAngle));
