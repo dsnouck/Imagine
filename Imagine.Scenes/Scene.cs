@@ -134,22 +134,36 @@ public static class Scene
 	public static IScene SphereWithRadius(double radius) =>
 		new Sphere(radius);
 
-	public static IScene Tetrahedron() =>
-		TetrahedronWithCircumradius(1D);
+	public static IScene TetrahedronFaceDownWithCircumradius(double circumradius) =>
+		TetrahedronFaceDownWithInradius(circumradius / 3D);
 
-	public static IScene TetrahedronWithCircumradius(double circumradius) =>
-		TetrahedronWithInradius(circumradius / 3D);
-
-	public static IScene TetrahedronWithInradius(double inradius)
+	public static IScene TetrahedronFaceDownWithInradius(double inradius)
 	{
-		var dihedralAngle = double.Acos(1D / 3D);
-		var azimuthStep = 2D * double.Pi / 3D;
+		var theta0 = double.Pi;
+		var theta1 = double.Acos(1D / 3D);
+		var deltaPhi = double.Pi / 3D;
 
 		return Polyhedron(
-			new Vector3Spherical(inradius, 0D, double.Pi),
-			new Vector3Spherical(inradius, 0D * azimuthStep, dihedralAngle),
-			new Vector3Spherical(inradius, 1D * azimuthStep, dihedralAngle),
-			new Vector3Spherical(inradius, 2D * azimuthStep, dihedralAngle));
+			new Vector3Spherical(inradius, 0D, theta0),
+			new Vector3Spherical(inradius, 0D * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 2D * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 4D * deltaPhi, theta1));
+	}
+
+	public static IScene TetrahedronVertexDownWithCircumradius(double circumradius) =>
+		TetrahedronVertexDownWithInradius(circumradius / 3D);
+
+	public static IScene TetrahedronVertexDownWithInradius(double inradius)
+	{
+		var theta0 = double.Acos(-1D / 3D);
+		var theta1 = 0D;
+		var deltaPhi = double.Pi / 3D;
+
+		return Polyhedron(
+			new Vector3Spherical(inradius, 1D * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 3D * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 5D * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 0D, theta1));
 	}
 
 	public static IScene Union(params List<IScene> scenes) =>

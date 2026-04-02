@@ -21,7 +21,6 @@ public class ProjectorTests
 	private static readonly IScene BoundingSphere = Scene.Sphere().Transparent();
 	private static readonly IScene Cylinder = Scene.Cylinder(new(0D, 0D, 1D), 0.5D);
 	private static readonly IScene Sphere = Scene.SphereWithRadius(SphereRadius);
-	private static readonly IScene Tetrahedron = Scene.Tetrahedron().Rotated(11D * double.Pi / 24D);
 
 	private static readonly Dictionary<string, IScene> Scenes =
 		new()
@@ -117,7 +116,13 @@ public class ProjectorTests
 			},
 			{
 				"tetrahedron",
-				Tetrahedron
+				Scene.TetrahedronFaceDownWithCircumradius(1D)
+			},
+			{
+				"tetrahedron-union",
+				Scene.Union(
+					Scene.TetrahedronFaceDownWithCircumradius(1D),
+					Scene.TetrahedronVertexDownWithCircumradius(1D))
 			},
 		};
 
