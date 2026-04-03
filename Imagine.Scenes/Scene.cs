@@ -5,20 +5,48 @@ public static class Scene
 	public static IScene Cone(Vector3 axis, double angle) =>
 		new Cone(axis, angle);
 
-	public static IScene Cube() =>
-		CubeWithCircumradius(1D);
+	public static IScene CubeFaceDownWithCircumradius(double circumradius) =>
+		CubeFaceDownWithInradius(circumradius / double.Sqrt(3D));
 
-	public static IScene CubeWithCircumradius(double circumradius) =>
-		CubeWithInradius(circumradius / double.Sqrt(3D));
+	public static IScene CubeFaceDownWithInradius(double inradius)
+	{
+		var theta0 = double.Pi;
+		var theta1 = double.Pi / 2D;
+		var theta2 = 0D;
+		var deltaPhi = double.Pi / 2D;
 
-	public static IScene CubeWithInradius(double inradius) =>
-		Polyhedron(
-			new Vector3(0D, 0D, -inradius),
-			new Vector3(inradius, 0D, 0D),
-			new Vector3(0D, inradius, 0D),
-			new Vector3(-inradius, 0D, 0D),
-			new Vector3(0D, -inradius, 0D),
-			new Vector3(0D, 0D, inradius));
+		return Polyhedron(
+			new Vector3Spherical(inradius, 0D, theta0),
+			new Vector3Spherical(inradius, 0D * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 1D * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 2D * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 3D * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 0D, theta2));
+	}
+
+	public static IScene CubeFaceDownWithMidradius(double midradius) =>
+		CubeFaceDownWithInradius(midradius / double.Sqrt(2D));
+
+	public static IScene CubeVertexDownWithCircumradius(double circumradius) =>
+		CubeVertexDownWithInradius(circumradius / double.Sqrt(3D));
+
+	public static IScene CubeVertexDownWithInradius(double inradius)
+	{
+		var theta0 = double.Acos(-1D / double.Sqrt(3D));
+		var theta1 = double.Acos(1D / double.Sqrt(3D));
+		var deltaPhi = double.Pi / 3D;
+
+		return Polyhedron(
+			new Vector3Spherical(inradius, 1D * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 3D * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 5D * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 0D * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 2D * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 4D * deltaPhi, theta1));
+	}
+
+	public static IScene CubeVertexDownWithMidradius(double midradius) =>
+		CubeVertexDownWithInradius(midradius / double.Sqrt(2D));
 
 	public static IScene Cylinder(Vector3 axis, double radius) =>
 		new Cylinder(axis, radius);
@@ -94,27 +122,53 @@ public static class Scene
 	public static IScene Intersection(params List<IScene> scenes) =>
 		scenes.Aggregate(Full(), IntersectedWith);
 
-	public static IScene Octahedron() =>
-		OctahedronWithCircumradius(1D);
+	public static IScene OctahedronFaceDownWithCircumradius(double circumradius) =>
+		OctahedronFaceDownWithInradius(circumradius / double.Sqrt(3D));
 
-	public static IScene OctahedronWithCircumradius(double circumradius) =>
-		OctahedronWithInradius(circumradius / double.Sqrt(3D));
-
-	public static IScene OctahedronWithInradius(double inradius)
+	public static IScene OctahedronFaceDownWithInradius(double inradius)
 	{
-		var dihedralAngle = double.Acos(-1D / 3D);
-		var azimuthStep = double.Pi / 3D;
+		var theta0 = double.Pi;
+		var theta1 = double.Acos(-1D / 3D);
+		var theta2 = double.Acos(1D / 3D);
+		var theta3 = 0D;
+		var deltaPhi = double.Pi / 3D;
 
 		return Polyhedron(
-			new Vector3Spherical(inradius, 0D, double.Pi),
-			new Vector3Spherical(inradius, 0D * azimuthStep, dihedralAngle),
-			new Vector3Spherical(inradius, 2D * azimuthStep, dihedralAngle),
-			new Vector3Spherical(inradius, 4D * azimuthStep, dihedralAngle),
-			new Vector3Spherical(inradius, 1D * azimuthStep, double.Pi - dihedralAngle),
-			new Vector3Spherical(inradius, 3D * azimuthStep, double.Pi - dihedralAngle),
-			new Vector3Spherical(inradius, 5D * azimuthStep, double.Pi - dihedralAngle),
-			new Vector3Spherical(inradius, 0D, 0D));
+			new Vector3Spherical(inradius, 0D, theta0),
+			new Vector3Spherical(inradius, 0D * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 2D * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 4D * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 1D * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 3D * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 5D * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 0D, theta3));
 	}
+
+	public static IScene OctahedronFaceDownWithMidradius(double midradius) =>
+		OctahedronFaceDownWithInradius(midradius * double.Sqrt(2D / 3D));
+
+	public static IScene OctahedronVertexDownWithCircumradius(double circumradius) =>
+		OctahedronVertexDownWithInradius(circumradius / double.Sqrt(3D));
+
+	public static IScene OctahedronVertexDownWithInradius(double inradius)
+	{
+		var theta0 = double.Pi - double.Atan(double.Sqrt(2D));
+		var theta1 = double.Atan(double.Sqrt(2D));
+		var deltaPhi = double.Pi / 4D;
+
+		return Polyhedron(
+			new Vector3Spherical(inradius, 1D * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 3D * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 5D * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 7D * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 1D * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 3D * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 5D * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 7D * deltaPhi, theta1));
+	}
+
+	public static IScene OctahedronVertexDownWithMidradius(double midradius) =>
+		OctahedronVertexDownWithInradius(midradius * double.Sqrt(2D / 3D));
 
 	public static IScene Plane(Vector3 normal) =>
 		new Plane(normal);
@@ -122,11 +176,11 @@ public static class Scene
 	public static IScene PlaneThroughOrigin(Vector3 normal) =>
 		Plane(normal).Translated(-normal);
 
-	public static IScene Polyhedron(params List<Vector3> normals) =>
-		Intersection([.. normals.Select(Plane)]);
+	public static IScene Polyhedron(params List<Vector3> faces) =>
+		Intersection([.. faces.Select(Plane)]);
 
-	public static IScene Polyhedron(params List<Vector3Spherical> normals) =>
-		Intersection([.. normals.Select(normal => (Vector3)normal).Select(Plane)]);
+	public static IScene Polyhedron(params List<Vector3Spherical> faces) =>
+		Polyhedron([.. faces.Select(face => (Vector3)face)]);
 
 	public static IScene Sphere() =>
 		SphereWithRadius(1D);
@@ -150,6 +204,9 @@ public static class Scene
 			new Vector3Spherical(inradius, 4D * deltaPhi, theta1));
 	}
 
+	public static IScene TetrahedronFaceDownWithMidradius(double midradius) =>
+		TetrahedronFaceDownWithInradius(midradius / double.Sqrt(3D));
+
 	public static IScene TetrahedronVertexDownWithCircumradius(double circumradius) =>
 		TetrahedronVertexDownWithInradius(circumradius / 3D);
 
@@ -165,6 +222,9 @@ public static class Scene
 			new Vector3Spherical(inradius, 5D * deltaPhi, theta0),
 			new Vector3Spherical(inradius, 0D, theta1));
 	}
+
+	public static IScene TetrahedronVertexDownWithMidradius(double midradius) =>
+		TetrahedronVertexDownWithInradius(midradius / double.Sqrt(3D));
 
 	public static IScene Union(params List<IScene> scenes) =>
 		scenes.Aggregate(Empty(), UnitedWith);

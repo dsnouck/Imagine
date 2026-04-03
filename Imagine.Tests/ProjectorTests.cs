@@ -38,35 +38,41 @@ public class ProjectorTests
 			},
 			{
 				 "cube-except-sphere",
-				 Scene.Cube().Except(Sphere)
+				 Scene.CubeFaceDownWithCircumradius(1D).Except(Sphere)
+			},
+			{
+				"cube-octahedron-union",
+				Scene.Union(
+					Scene.CubeFaceDownWithMidradius(1D / double.Sqrt(2D)),
+					Scene.OctahedronVertexDownWithMidradius(1D / double.Sqrt(2D)))
 			},
 			{
 				 "cube-painted",
-				 Scene.Cube().Painted(new(1D, 0D, 0D))
+				 Scene.CubeFaceDownWithCircumradius(1D).Painted(new(1D, 0D, 0D))
 			},
 			{
 				"cube-rotated",
-				Scene.Cube().Rotated(double.Pi / 4D)
+				Scene.CubeFaceDownWithCircumradius(1D).Rotated(double.Pi / 4D)
 			},
 			{
 				"cube-scaled",
-				Scene.Cube().Scaled(0.5D)
+				Scene.CubeFaceDownWithCircumradius(1D).Scaled(0.5D)
 			},
 			{
 				"cube-sphere-intersection",
-				Scene.Cube().IntersectedWith(Sphere)
+				Scene.CubeFaceDownWithCircumradius(1D).IntersectedWith(Sphere)
 			},
 			{
 				"cube-sphere-union",
-				Scene.Cube().UnitedWith(Sphere)
+				Scene.CubeFaceDownWithCircumradius(1D).UnitedWith(Sphere)
 			},
 			{
 				"cube-translated",
-				Scene.Cube().Translated(new(0D, 0.25D, 0D))
+				Scene.CubeFaceDownWithCircumradius(1D).Translated(new(0D, 0.25D, 0D))
 			},
 			{
 				"cube",
-				Scene.Cube()
+				Scene.CubeFaceDownWithCircumradius(1D)
 			},
 			{
 				"cylinder",
@@ -96,7 +102,13 @@ public class ProjectorTests
 			},
 			{
 				"octahedron",
-				Scene.Octahedron()
+				Scene.OctahedronFaceDownWithCircumradius(1D)
+			},
+			{
+				"octahedron-cube-union",
+				Scene.Union(
+					Scene.OctahedronFaceDownWithMidradius(1D / double.Sqrt(2D)),
+					Scene.CubeVertexDownWithMidradius(1D / double.Sqrt(2D)))
 			},
 			{
 				"plane",
@@ -108,7 +120,7 @@ public class ProjectorTests
 			},
 			{
 				"sphere-except-cube",
-				Sphere.Except(Scene.Cube())
+				Sphere.Except(Scene.CubeFaceDownWithCircumradius(1D))
 			},
 			{
 				"sphere",
