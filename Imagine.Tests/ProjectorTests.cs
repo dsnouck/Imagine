@@ -94,11 +94,23 @@ public class ProjectorTests
 			},
 			{
 				"dodecahedron",
-				Scene.Dodecahedron()
+				Scene.DodecahedronFaceDownWithCircumradius(1D)
+			},
+			{
+				"dodecahedron-icosahedron-union",
+				Scene.Union(
+					Scene.DodecahedronFaceDownWithMidradius(Scene.IcosahedronMidradius / Scene.IcosahedronCircumradius),
+					Scene.IcosahedronVertexDownWithCircumradius(1D))
 			},
 			{
 				"icosahedron",
-				Scene.Icosahedron()
+				Scene.IcosahedronFaceDownWithCircumradius(1D)
+			},
+			{
+				"icosahedron-dodecahedron-union",
+				Scene.Union(
+					Scene.IcosahedronFaceDownWithCircumradius(1D),
+					Scene.DodecahedronVertexDownWithMidradius(Scene.IcosahedronMidradius / Scene.IcosahedronCircumradius))
 			},
 			{
 				"octahedron",
