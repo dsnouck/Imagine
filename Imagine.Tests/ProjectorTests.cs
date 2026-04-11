@@ -11,7 +11,7 @@ public class ProjectorTests
 		new(
 			eye: (Vector3)new Vector3Spherical(3D, double.Pi / 6D, double.Pi / 3D),
 			focus: Vector3.Zero,
-			fieldOfView: double.Pi / 4D);
+			halfOpeningAngle: double.Pi / 8D);
 
 	private static readonly ImageSettings ImageSettings =
 		new(
