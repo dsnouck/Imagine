@@ -19,7 +19,7 @@ public readonly record struct ProjectorSettings(
 		new(
 			Eye: eye,
 			Focus: focus,
-			HalfOpeningAngle: Math.Atan2(openingRadius, (focus - eye).Length()),
+			HalfOpeningAngle: double.Atan2(openingRadius, (focus - eye).Length()),
 			BackgroundColor: backgroundColor);
 
 	public static ProjectorSettings WithOpeningRadius(Vector3 eye, Vector3 focus, double openingRadius) =>
