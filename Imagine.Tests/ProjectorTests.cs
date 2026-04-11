@@ -8,10 +8,10 @@ public class ProjectorTests
 	private static readonly double SphereRadius = (Circumradius * Scene.CubeMidradius / Scene.CubeCircumradius) - Narrow;
 
 	private static readonly ProjectorSettings ProjectorSettings =
-		new(
-			eye: (Vector3)new Vector3Spherical(3D, double.Pi / 6D, double.Pi / 3D),
+		ProjectorSettings.WithOpeningRadius(
+			eye: (Vector3)new Vector3Spherical(10D, double.Pi / 6D, double.Pi / 3D),
 			focus: Vector3.Zero,
-			halfOpeningAngle: double.Pi / 8D);
+			openingRadius: Circumradius * 5D / 4D);
 
 	private static readonly ImageSettings ImageSettings =
 		new(
