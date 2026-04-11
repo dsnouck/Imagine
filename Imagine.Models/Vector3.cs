@@ -2,6 +2,11 @@ namespace Imagine.Models;
 
 public readonly record struct Vector3(double X, double Y, double Z)
 {
+	public static readonly Vector3 Zero = new(0D, 0D, 0D);
+	public static readonly Vector3 UnitX = new(1D, 0D, 0D);
+	public static readonly Vector3 UnitY = new(0D, 1D, 0D);
+	public static readonly Vector3 UnitZ = new(0D, 0D, 1D);
+
 	public static explicit operator Vector2(Vector3 value) =>
 		new(value.X, value.Y);
 

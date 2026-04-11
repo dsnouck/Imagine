@@ -3,13 +3,14 @@ namespace Imagine.Tests;
 public class ProjectorTests
 {
 	private const string InputDirectory = "input";
+	private const double Circumradius = 1D;
 	private const double Narrow = 0.01D;
-	private static readonly double SphereRadius = double.Sqrt(2D / 3D) - Narrow;
+	private static readonly double SphereRadius = (Circumradius * Scene.CubeMidradius / Scene.CubeCircumradius) - Narrow;
 
 	private static readonly ProjectorSettings ProjectorSettings =
 		new(
 			eye: (Vector3)new Vector3Spherical(3D, double.Pi / 6D, double.Pi / 3D),
-			focus: new(0D, 0D, 0D),
+			focus: Vector3.Zero,
 			fieldOfView: double.Pi / 4D);
 
 	private static readonly ImageSettings ImageSettings =
@@ -18,136 +19,113 @@ public class ProjectorTests
 			height: 512,
 			subsamples: 2);
 
-	private static readonly IScene BoundingSphere = Scene.Sphere().Transparent();
-	private static readonly IScene Cylinder = Scene.Cylinder(new(0D, 0D, 1D), 0.5D);
+	private static readonly IScene BoundingSphere = Scene.SphereWithRadius(Circumradius).Transparent();
 	private static readonly IScene Sphere = Scene.SphereWithRadius(SphereRadius);
 
 	private static readonly Dictionary<string, IScene> Scenes =
 		new()
 		{
-			{
-				"cone",
-				Scene.Intersection(Scene.Cone(new(0D, 0D, 1D), double.Pi / 2D), BoundingSphere)
-			},
-			{
-				"cone-union",
-				Scene.Union(
-					Scene.Cone(new(1D, 0D, 0D), double.Pi / 16D).Painted(new(1D, 0D, 0D)),
-					Scene.Cone(new(0D, 1D, 0D), double.Pi / 16D).Painted(new(0D, 1D, 0D)),
-					Scene.Cone(new(0D, 0D, 1D), double.Pi / 16D).Painted(new(0D, 0D, 1D)))
-			},
-			{
-				 "cube-except-sphere",
-				 Scene.CubeFaceDownWithCircumradius(1D).Except(Sphere)
-			},
-			{
-				"cube-octahedron-union",
-				Scene.Union(
-					Scene.CubeFaceDownWithMidradius(1D / double.Sqrt(2D)),
-					Scene.OctahedronVertexDownWithMidradius(1D / double.Sqrt(2D)))
-			},
-			{
-				 "cube-painted",
-				 Scene.CubeFaceDownWithCircumradius(1D).Painted(new(1D, 0D, 0D))
-			},
-			{
-				"cube-rotated",
-				Scene.CubeFaceDownWithCircumradius(1D).Rotated(double.Pi / 4D)
-			},
-			{
-				"cube-scaled",
-				Scene.CubeFaceDownWithCircumradius(1D).Scaled(0.5D)
-			},
-			{
-				"cube-sphere-intersection",
-				Scene.CubeFaceDownWithCircumradius(1D).IntersectedWith(Sphere)
-			},
-			{
-				"cube-sphere-union",
-				Scene.CubeFaceDownWithCircumradius(1D).UnitedWith(Sphere)
-			},
-			{
-				"cube-translated",
-				Scene.CubeFaceDownWithCircumradius(1D).Translated(new(0D, 0.25D, 0D))
-			},
-			{
-				"cube",
-				Scene.CubeFaceDownWithCircumradius(1D)
-			},
-			{
-				"cylinder",
-				Scene.Intersection(Cylinder, BoundingSphere)
-			},
-			{
-				"cylinder-intersection",
+			["cone-bounded"] =
 				Scene.Intersection(
-					Scene.Cylinder(new(1D, 0D, 0D), 0.5D).Painted(new(1D, 0D, 0D)),
-					Scene.Cylinder(new(0D, 1D, 0D), 0.5D).Painted(new(0D, 1D, 0D)),
-					Scene.Cylinder(new(0D, 0D, 1D), 0.5D).Painted(new(0D, 0D, 1D)))
-			},
-			{
-				"cylinder-union",
+					Scene.Cone(Vector3.UnitZ, double.Pi / 2D),
+					BoundingSphere),
+			["cone-union"] =
 				Scene.Union(
-					Scene.Cylinder(new(1D, 0D, 0D), 0.25D).Painted(new(1D, 0D, 0D)),
-					Scene.Cylinder(new(0D, 1D, 0D), 0.25D).Painted(new(0D, 1D, 0D)),
-					Scene.Cylinder(new(0D, 0D, 1D), 0.25D).Painted(new(0D, 0D, 1D)))
-			},
-			{
-				"dodecahedron",
-				Scene.DodecahedronFaceDownWithCircumradius(1D)
-			},
-			{
-				"dodecahedron-icosahedron-union",
+					Scene.Cone(Vector3.UnitX, double.Pi / 16D).Painted(Color.Red),
+					Scene.Cone(Vector3.UnitY, double.Pi / 16D).Painted(Color.Green),
+					Scene.Cone(Vector3.UnitZ, double.Pi / 16D).Painted(Color.Blue)),
+			["cube-face-down"] =
+				Scene.CubeFaceDownWithCircumradius(Circumradius),
+			["cube-face-down-octahedron-vertex-down-union"] =
 				Scene.Union(
-					Scene.DodecahedronFaceDownWithMidradius(Scene.IcosahedronMidradius / Scene.IcosahedronCircumradius),
-					Scene.IcosahedronVertexDownWithCircumradius(1D))
-			},
-			{
-				"icosahedron",
-				Scene.IcosahedronFaceDownWithCircumradius(1D)
-			},
-			{
-				"icosahedron-dodecahedron-union",
+					Scene.CubeFaceDownWithMidradius(Circumradius * Scene.OctahedronMidradius / Scene.OctahedronCircumradius),
+					Scene.OctahedronVertexDownWithCircumradius(Circumradius)),
+			["cube-face-down-painted"] =
+				Scene.CubeFaceDownWithCircumradius(Circumradius)
+					.Painted(Color.Red),
+			["cube-face-down-rotated"] =
+				Scene.CubeFaceDownWithCircumradius(Circumradius)
+					.Rotated(double.Pi / 4D),
+			["cube-face-down-scaled"] =
+				Scene.CubeFaceDownWithCircumradius(Circumradius)
+					.Scaled(Circumradius / 2D),
+			["cube-face-down-sphere-intersection"] =
+				Scene.Intersection(
+					Scene.CubeFaceDownWithCircumradius(Circumradius),
+					Sphere),
+			["cube-face-down-sphere-inverted-union"] =
+				Scene.Intersection(
+					Scene.CubeFaceDownWithCircumradius(Circumradius),
+					Sphere.Inverted()),
+			["cube-face-down-sphere-union"] =
 				Scene.Union(
-					Scene.IcosahedronFaceDownWithCircumradius(1D),
-					Scene.DodecahedronVertexDownWithMidradius(Scene.IcosahedronMidradius / Scene.IcosahedronCircumradius))
-			},
-			{
-				"octahedron",
-				Scene.OctahedronFaceDownWithCircumradius(1D)
-			},
-			{
-				"octahedron-cube-union",
+					Scene.CubeFaceDownWithCircumradius(Circumradius),
+					Sphere),
+			["cube-face-down-translated"] =
+				Scene.CubeFaceDownWithCircumradius(Circumradius)
+					.Translated(new(0D, Circumradius / 4D, 0D)),
+			["cube-vertex-down"] =
+				Scene.CubeVertexDownWithCircumradius(Circumradius),
+			["cylinder-bounded"] =
+				Scene.Intersection(
+					Scene.Cylinder(Vector3.UnitZ, Circumradius / 2D),
+					BoundingSphere),
+			["cylinder-intersection"] =
+				Scene.Intersection(
+					Scene.Cylinder(Vector3.UnitX, Circumradius / 2D).Painted(Color.Red),
+					Scene.Cylinder(Vector3.UnitY, Circumradius / 2D).Painted(Color.Green),
+					Scene.Cylinder(Vector3.UnitZ, Circumradius / 2D).Painted(Color.Blue)),
+			["cylinder-union"] =
 				Scene.Union(
-					Scene.OctahedronFaceDownWithMidradius(1D / double.Sqrt(2D)),
-					Scene.CubeVertexDownWithMidradius(1D / double.Sqrt(2D)))
-			},
-			{
-				"plane",
-				Scene.Intersection(Scene.PlaneThroughOrigin(new(0D, 0D, 1D)), BoundingSphere)
-			},
-			{
-				"sphere-except-cone",
-				Sphere.Except(Scene.Cone(new(0D, 0D, 1D), double.Pi / 2D))
-			},
-			{
-				"sphere-except-cube",
-				Sphere.Except(Scene.CubeFaceDownWithCircumradius(1D))
-			},
-			{
-				"sphere",
-				Sphere
-			},
-			{
-				"tetrahedron",
-				Scene.TetrahedronFaceDownWithCircumradius(1D)
-			},
-			{
-				"tetrahedron-union",
+					Scene.Cylinder(Vector3.UnitX, Circumradius / 4D).Painted(Color.Red),
+					Scene.Cylinder(Vector3.UnitY, Circumradius / 4D).Painted(Color.Green),
+					Scene.Cylinder(Vector3.UnitZ, Circumradius / 4D).Painted(Color.Blue)),
+			["dodecahedron-face-down"] =
+				Scene.DodecahedronFaceDownWithCircumradius(Circumradius),
+			["dodecahedron-face-down-icosahedron-vertex-down-union"] =
 				Scene.Union(
-					Scene.TetrahedronFaceDownWithCircumradius(1D),
-					Scene.TetrahedronVertexDownWithCircumradius(1D))
-			},
+					Scene.DodecahedronFaceDownWithMidradius(Circumradius * Scene.IcosahedronMidradius / Scene.IcosahedronCircumradius),
+					Scene.IcosahedronVertexDownWithCircumradius(Circumradius)),
+			["dodecahedron-vertex-down"] =
+				Scene.DodecahedronVertexDownWithCircumradius(Circumradius),
+			["icosahedron-face-down"] =
+				Scene.IcosahedronFaceDownWithCircumradius(Circumradius),
+			["icosahedron-face-down-dodecahedron-vertex-down-union"] =
+				Scene.Union(
+					Scene.IcosahedronFaceDownWithCircumradius(Circumradius),
+					Scene.DodecahedronVertexDownWithMidradius(Circumradius * Scene.IcosahedronMidradius / Scene.IcosahedronCircumradius)),
+			["icosahedron-vertex-down"] =
+				Scene.IcosahedronVertexDownWithCircumradius(Circumradius),
+			["octahedron-face-down"] =
+				Scene.OctahedronFaceDownWithCircumradius(Circumradius),
+			["octahedron-face-down-cube-vertex-down-union"] =
+				Scene.Union(
+					Scene.OctahedronFaceDownWithCircumradius(Circumradius),
+					Scene.CubeVertexDownWithMidradius(Circumradius * Scene.OctahedronMidradius / Scene.OctahedronCircumradius)),
+			["octahedron-vertex-down"] =
+				Scene.OctahedronVertexDownWithCircumradius(Circumradius),
+			["plane-horizontal-bounded"] =
+				Scene.Intersection(
+					Scene.PlaneThroughOrigin(Vector3.UnitZ),
+					BoundingSphere),
+			["sphere"] =
+				Sphere,
+			["sphere-cone-inverted-intersection"] =
+				Scene.Intersection(
+					Sphere,
+					Scene.Cone(Vector3.UnitZ, double.Pi / 2D).Inverted()),
+			["sphere-cube-face-down-inverted-intersection"] =
+				Scene.Intersection(
+					Sphere,
+					Scene.CubeFaceDownWithCircumradius(Circumradius)),
+			["tetrahedron-face-down"] =
+				Scene.TetrahedronFaceDownWithCircumradius(Circumradius),
+			["tetrahedron-union"] =
+				Scene.Union(
+					Scene.TetrahedronFaceDownWithCircumradius(Circumradius),
+					Scene.TetrahedronVertexDownWithCircumradius(Circumradius)),
+			["tetrahedron-vertex-down"] =
+				Scene.TetrahedronVertexDownWithCircumradius(Circumradius),
 		};
 
 	[ExcludeFromCodeCoverage]

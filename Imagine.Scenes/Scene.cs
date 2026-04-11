@@ -281,9 +281,6 @@ public static class Scene
 	public static IScene Polyhedron(params List<Vector3Spherical> faces) =>
 		Polyhedron([.. faces.Select(face => (Vector3)face)]);
 
-	public static IScene Sphere() =>
-		SphereWithRadius(1D);
-
 	public static IScene SphereWithRadius(double radius) =>
 		new Sphere(radius);
 
@@ -332,20 +329,17 @@ public static class Scene
 
 	extension(IScene source)
 	{
-		public IScene Except(IScene scene) =>
-			Intersection(source, scene.Inverted());
-
 		public IScene IntersectedWith(IScene scene) =>
 			new Intersection(source, scene);
 
 		public IScene Inverted() =>
 			new Inverted(source);
 
-		public IScene Painted(ColorRgb color) =>
+		public IScene Painted(Color color) =>
 			new Painted(source, color);
 
 		public IScene Rotated(double angle) =>
-			source.Rotated(new(0D, 0D, 1D), angle);
+			source.Rotated(Vector3.UnitZ, angle);
 
 		public IScene Rotated(Vector3 axis, double angle) =>
 			source.Transformed(Matrix4.Rotation(axis, angle), Matrix4.Rotation(axis, -angle));

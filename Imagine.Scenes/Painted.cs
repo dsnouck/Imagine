@@ -1,6 +1,6 @@
 namespace Imagine.Scenes;
 
-internal class Painted(IScene scene, ColorRgb color) : IScene
+internal class Painted(IScene scene, Color color) : IScene
 {
 	public bool Contains(Vector3 point) =>
 		scene.Contains(point);

@@ -1,15 +1,21 @@
 namespace Imagine.Models;
 
-public readonly record struct ColorRgb(double Red, double Green, double Blue)
+public readonly record struct Color(double R, double G, double B)
 {
-	public static explicit operator Rgba32(ColorRgb value) =>
-		new(ToByte(value.Red), ToByte(value.Green), ToByte(value.Blue));
+	public static readonly Color Black = new(0D, 0D, 0D);
+	public static readonly Color Blue = new(0D, 0D, 1D);
+	public static readonly Color Green = new(0D, 1D, 0D);
+	public static readonly Color Red = new(1D, 0D, 0D);
+	public static readonly Color White = new(1D, 1D, 1D);
 
-	public static ColorRgb Average(List<ColorRgb> colors) =>
-		new(colors.Average(color => color.Red), colors.Average(color => color.Green), colors.Average(color => color.Blue));
+	public static explicit operator Rgba32(Color value) =>
+		new(ToByte(value.R), ToByte(value.G), ToByte(value.B));
 
-	public static ColorRgb operator *(ColorRgb left, double right) =>
-		new(left.Red * right, left.Green * right, left.Blue * right);
+	public static Color Average(List<Color> colors) =>
+		new(colors.Average(color => color.R), colors.Average(color => color.G), colors.Average(color => color.B));
+
+	public static Color operator *(Color left, double right) =>
+		new(left.R * right, left.G * right, left.B * right);
 
 	private static byte ToByte(double value)
 	{

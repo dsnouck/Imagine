@@ -1,16 +1,18 @@
 namespace Imagine.Tools;
 
+using Color = Models.Color;
+
 public static class Sampler
 {
-	public static List<List<ColorRgb>> Sample(Func<Vector2, ColorHsv> function, ImageSettings settings)
+	public static List<List<Color>> Sample(Func<Vector2, ColorHsv> function, ImageSettings settings)
 	{
-		ColorRgb RgbFunction(Vector2 point) =>
-			(ColorRgb)function(point);
+		Color RgbFunction(Vector2 point) =>
+			(Color)function(point);
 
 		return Sample(RgbFunction, settings);
 	}
 
-	public static List<List<ColorRgb>> Sample(Func<Vector2, ColorRgb> function, ImageSettings settings)
+	public static List<List<Color>> Sample(Func<Vector2, Color> function, ImageSettings settings)
 	{
 		var rowToY = Line(
 			from: new(-0.5D, settings.YMax),
@@ -24,7 +26,7 @@ public static class Sampler
 			.AsParallel()
 			.AsOrdered()
 			.Select(row => Enumerable.Range(0, settings.Width)
-				.Select(column => ColorRgb.Average(
+				.Select(column => Color.Average(
 					[.. Enumerable.Range(0, settings.Subsamples)
 						.Select(subrow => rowToY((row * settings.Subsamples) + subrow))
 						.SelectMany(y => Enumerable.Range(0, settings.Subsamples)
@@ -35,26 +37,26 @@ public static class Sampler
 			.ToList();
 	}
 
-	public static List<List<List<ColorRgb>>> Sample(Func<Vector3, ColorHsv> function, MovieSettings settings)
+	public static List<List<List<Color>>> Sample(Func<Vector3, ColorHsv> function, MovieSettings settings)
 	{
-		ColorRgb RgbFunction(Vector3 point) =>
-			(ColorRgb)function(point);
+		Color RgbFunction(Vector3 point) =>
+			(Color)function(point);
 
 		return Sample(RgbFunction, settings);
 	}
 
-	public static List<List<List<ColorRgb>>> Sample(Func<Vector3, ColorRgb> function, MovieSettings settings)
+	public static List<List<List<Color>>> Sample(Func<Vector3, Color> function, MovieSettings settings)
 	{
 		var frameToZ = Line(
 			from: new(-0.5D, settings.ZMin),
 			to: new(settings.Frames - 0.5D, settings.ZMax));
 
-		var movie = new List<List<List<ColorRgb>>>();
+		var movie = new List<List<List<Color>>>();
 		for (var frame = 0; frame < settings.Frames; frame++)
 		{
 			var z = frameToZ(frame);
 
-			ColorRgb FrameFunction(Vector2 point) =>
+			Color FrameFunction(Vector2 point) =>
 				function(new Vector3(point.X, point.Y, z));
 
 			movie.Add(Sample(FrameFunction, (ImageSettings)settings));
