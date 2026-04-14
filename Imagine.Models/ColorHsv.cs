@@ -11,14 +11,7 @@ public readonly record struct ColorHsv(double H, double S, double V)
 		const double magenta = 5D;
 		const double red = 6D;
 
-		var h = value.H % 1D;
-		if (h < 0D)
-		{
-			h++;
-		}
-
-		h *= red;
-
+		var h = red * value.H.Modulo(1D);
 		var s = double.Clamp(value.S, 0D, 1D);
 		var v = double.Clamp(value.V, 0D, 1D);
 

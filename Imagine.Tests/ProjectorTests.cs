@@ -118,6 +118,24 @@ public class ProjectorTests
 				Scene.Intersection(
 					Sphere,
 					Scene.CubeFaceDownWithCircumradius(Circumradius)),
+			["sphere-painted-hsv"] =
+				Scene.SphereWithRadius(1D)
+					.Painted(new ColorHsv(0.1D, 0.9D, 1D)),
+			["sphere-painted-hsv-cartesian"] =
+				Scene.SphereWithRadius(1D)
+					.Painted(point => new ColorHsv((2D * point.X).Modulo(1D), (1D - point.Z) / 2D, 1D)),
+			["sphere-painted-hsv-spherical"] =
+				Scene.SphereWithRadius(1D)
+					.Painted(point => new ColorHsv((2D * point.Phi / double.Pi).Modulo(1D), point.Theta / double.Pi, 1D)),
+			["sphere-painted-rgb"] =
+				Scene.SphereWithRadius(1D)
+					.Painted(Color.Red),
+			["sphere-painted-rgb-cartesian"] =
+				Scene.SphereWithRadius(1D)
+					.Painted(point => new Color(double.Abs(point.X), double.Abs(point.Y), double.Abs(point.Z))),
+			["sphere-painted-rgb-spherical"] =
+				Scene.SphereWithRadius(1D)
+					.Painted(point => new Color((1D + double.Cos(16D * point.Phi)) / 2D, 0D, (1D + double.Cos(16D * point.Theta)) / 2D)),
 			["tetrahedron-face-down"] =
 				Scene.TetrahedronFaceDownWithCircumradius(Circumradius),
 			["tetrahedron-union"] =

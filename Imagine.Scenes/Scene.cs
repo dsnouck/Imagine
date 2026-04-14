@@ -335,7 +335,22 @@ public static class Scene
 		public IScene Inverted() =>
 			new Inverted(source);
 
+		public IScene Painted(Func<Vector3, Color> colors) =>
+			new Painted(source, colors);
+
+		public IScene Painted(Func<Vector3Spherical, Color> colors) =>
+			new Painted(source, colors);
+
 		public IScene Painted(Color color) =>
+			new Painted(source, color);
+
+		public IScene Painted(Func<Vector3, ColorHsv> colors) =>
+			new Painted(source, colors);
+
+		public IScene Painted(Func<Vector3Spherical, ColorHsv> colors) =>
+			new Painted(source, colors);
+
+		public IScene Painted(ColorHsv color) =>
 			new Painted(source, color);
 
 		public IScene Rotated(double angle) =>
