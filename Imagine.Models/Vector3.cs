@@ -9,9 +9,9 @@ public readonly record struct Vector3(double X, double Y, double Z)
 
 	public static explicit operator Vector3Spherical(Vector3 value) =>
 		new(
-			R: value.Length(),
-			Phi: double.Atan2(value.Y, value.X).Modulo(2D * double.Pi),
-			Theta: double.Acos(value.Z / value.Length()));
+			value.Length(),
+			double.Atan2(value.Y, value.X).Modulo(2D * double.Pi),
+			double.Acos(value.Z / value.Length()));
 
 	public static explicit operator Vector2(Vector3 value) =>
 		new(value.X, value.Y);
