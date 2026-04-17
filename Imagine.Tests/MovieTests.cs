@@ -30,11 +30,10 @@ public class MovieTests
 			var point2 = (Vector2)point;
 			var r = (point2 - center).Length();
 
-			var hue = (2D * point.X) - 1D;
-			var saturation = r < 0.25D ? 1D - (4D * r) : 0D;
-			var value = point.Y;
-
-			return new(hue, saturation, value);
+			return new(
+				(2D * point.X) - 1D,
+				r < 0.25D ? 1D - (4D * r) : 0D,
+				point.Y);
 		}
 
 		var movie = Sampler.Sample(Function, MovieSettings);
@@ -52,12 +51,11 @@ public class MovieTests
 		const int frames = 256;
 		const int width = 256;
 		const int height = 256;
-		var red = new ColorRgb(1D, 0D, 0D);
 
 		var movie = Enumerable.Repeat(
 			Enumerable.Repeat(
 				Enumerable.Repeat(
-					red,
+					Color.Red,
 					width).ToList(),
 				height).ToList(),
 			frames).ToList();
@@ -73,18 +71,17 @@ public class MovieTests
 		const string name = "rgb";
 		const string inputFile = $"{InputDirectory}/{name}.mp4";
 
-		static ColorRgb Function(Vector3 point)
+		static Color Function(Vector3 point)
 		{
 			var z = point.Z < 1D ? point.Z : 2D - point.Z;
 			var center = new Vector2(z, z);
 			var point2 = (Vector2)point;
 			var r = (point2 - center).Length();
 
-			var red = point.X;
-			var green = r < 0.25D ? 1D - (4D * r) : 0D;
-			var blue = point.Y;
-
-			return new(red, green, blue);
+			return new(
+				point.X,
+				r < 0.25D ? 1D - (4D * r) : 0D,
+				point.Y);
 		}
 
 		var movie = Sampler.Sample(Function, MovieSettings);

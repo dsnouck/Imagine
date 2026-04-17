@@ -1,17 +1,19 @@
 namespace Imagine.Tools;
 
+using Color = Models.Color;
+
 public static class Saver
 {
 	private const string OutputDirectory = "output";
 	private const string FramesDirectory = $"{OutputDirectory}/frames";
 
-	public static string Save(List<List<ColorRgb>> image, string name) =>
+	public static string Save(List<List<Color>> image, string name) =>
 		Save(image, OutputDirectory, name);
 
-	public static string Save(List<List<List<ColorRgb>>> movie, string name) =>
+	public static string Save(List<List<List<Color>>> movie, string name) =>
 		Save(movie, OutputDirectory, name);
 
-	private static string Save(List<List<ColorRgb>> image, string directory, string name)
+	private static string Save(List<List<Color>> image, string directory, string name)
 	{
 		Directory.CreateDirectory(directory);
 		var file = $"{directory}/{name}.png";
@@ -33,7 +35,7 @@ public static class Saver
 		return file;
 	}
 
-	private static string Save(List<List<List<ColorRgb>>> movie, string directory, string name)
+	private static string Save(List<List<List<Color>>> movie, string directory, string name)
 	{
 		Directory.CreateDirectory(directory);
 		var file = $"{directory}/{name}.mp4";

@@ -1,8 +1,8 @@
 namespace Imagine.Models;
 
-public readonly record struct ColorHsv(double Hue, double Saturation, double Value)
+public readonly record struct ColorHsv(double H, double S, double V)
 {
-	public static explicit operator ColorRgb(ColorHsv value)
+	public static explicit operator Color(ColorHsv value)
 	{
 		const double yellow = 1D;
 		const double green = 2D;
@@ -11,22 +11,15 @@ public readonly record struct ColorHsv(double Hue, double Saturation, double Val
 		const double magenta = 5D;
 		const double red = 6D;
 
-		var hue = value.Hue % 1D;
-		if (hue < 0D)
-		{
-			hue++;
-		}
+		var h = red * value.H.Modulo(1D);
+		var s = double.Clamp(value.S, 0D, 1D);
+		var v = double.Clamp(value.V, 0D, 1D);
 
-		hue *= red;
+		var min = v * (1D - s);
+		var between = v * (1D - (s * double.Abs((h % 2D) - 1D)));
+		var max = v;
 
-		var saturation = double.Clamp(value.Saturation, 0D, 1D);
-		var hsvValue = double.Clamp(value.Value, 0D, 1D);
-
-		var min = hsvValue * (1D - saturation);
-		var between = hsvValue * (1D - (saturation * double.Abs((hue % 2D) - 1D)));
-		var max = hsvValue;
-
-		return hue switch
+		return h switch
 		{
 			< yellow => new(max, between, min),
 			< green => new(between, max, min),

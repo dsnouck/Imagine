@@ -1,37 +1,37 @@
 namespace Imagine.Scenes;
 
-internal class Cylinder(double radius) : IScene
+internal class Cylinder(Vector3 axis, double radius) : IScene
 {
+	private readonly Vector3 axisNormalized = axis.Normalized();
+
 	public bool Contains(Vector3 point)
 	{
-		var horizontalPoint = Horizontal(point);
+		var pointPerpendicular = Perpendicular(point);
 
-		return horizontalPoint.Dot(horizontalPoint) <= radius * radius;
+		return pointPerpendicular.Dot(pointPerpendicular) <= radius * radius;
 	}
 
 	public List<Intercept> Intercepts(Line3 ray)
 	{
-		var horizontalRay = new Line3(
-			Origin: Horizontal(ray.Origin),
-			Direction: Horizontal(ray.Direction));
+		var originPerpendicular = Perpendicular(ray.Origin);
+		var directionPerpendicular = Perpendicular(ray.Direction);
 
 		var distances = QuadraticSolver.Solve(
-			horizontalRay.Direction.Dot(horizontalRay.Direction),
-			horizontalRay.Direction.Dot(horizontalRay.Origin) * 2D,
-			horizontalRay.Origin.Dot(horizontalRay.Origin) - (radius * radius));
+			directionPerpendicular.Dot(directionPerpendicular),
+			directionPerpendicular.Dot(originPerpendicular) * 2D,
+			originPerpendicular.Dot(originPerpendicular) - (radius * radius));
 
 		return [.. distances
 			.Select(distance =>
 			{
-				var intercept = ray.At(distance);
-				var horizontalIntercept = Horizontal(intercept);
+				var pointPerpendicular = Perpendicular(ray.At(distance));
 
 				return new Intercept(
 					distance: distance,
-					normal: horizontalIntercept.Normalized());
+					normal: pointPerpendicular.Normalized());
 			})];
 	}
 
-	private static Vector3 Horizontal(Vector3 point) =>
-		new(point.X, point.Y, 0D);
+	private Vector3 Perpendicular(Vector3 point) =>
+		point - (axisNormalized * point.Dot(axisNormalized));
 }

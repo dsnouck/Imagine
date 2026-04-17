@@ -25,11 +25,10 @@ public class ImageTests
 			var center = new Vector2(0.5D, 0.5D);
 			var r = (point - center).Length();
 
-			var hue = (2D * point.X) - 1D;
-			var saturation = r < 0.5D ? 1D - (2D * r) : 0D;
-			var value = point.Y;
-
-			return new(hue, saturation, value);
+			return new(
+				(2D * point.X) - 1D,
+				r < 0.5D ? 1D - (2D * r) : 0D,
+				point.Y);
 		}
 
 		var image = Sampler.Sample(Function, ImageSettings);
@@ -46,11 +45,10 @@ public class ImageTests
 
 		const int width = 512;
 		const int height = 512;
-		var red = new ColorRgb(1D, 0D, 0D);
 
 		var image = Enumerable.Repeat(
 			Enumerable.Repeat(
-				red,
+				Color.Red,
 				width).ToList(),
 			height).ToList();
 
@@ -65,16 +63,15 @@ public class ImageTests
 		const string name = "rgb";
 		const string inputFile = $"{InputDirectory}/{name}.png";
 
-		static ColorRgb Function(Vector2 point)
+		static Color Function(Vector2 point)
 		{
 			var center = new Vector2(0.5D, 0.5D);
 			var r = (point - center).Length();
 
-			var red = point.X;
-			var green = r < 0.5D ? 1D - (2D * r) : 0D;
-			var blue = point.Y;
-
-			return new(red, green, blue);
+			return new(
+				point.X,
+				r < 0.5D ? 1D - (2D * r) : 0D,
+				point.Y);
 		}
 
 		var image = Sampler.Sample(Function, ImageSettings);

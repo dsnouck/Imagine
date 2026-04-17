@@ -1,8 +1,10 @@
 namespace Imagine.Tools;
 
+using Color = Models.Color;
+
 public static class Projector
 {
-	public static Func<Vector2, ColorRgb> Project(IScene scene, ProjectorSettings settings)
+	public static Func<Vector2, Color> Project(IScene scene, ProjectorSettings settings)
 	{
 		var bundle = Bundle(settings);
 
@@ -32,23 +34,18 @@ public static class Projector
 		var screen = Screen(settings);
 
 		return point =>
-		{
-			var direction = (screen(point) - settings.Eye).Normalized();
-
-			return new(
+			new(
 				Origin: settings.Eye,
-				Direction: direction);
-		};
+				Direction: (screen(point) - settings.Eye).Normalized());
 	}
 
 	private static Func<Vector2, Vector3> Screen(ProjectorSettings settings)
 	{
 		var viewingDirection = (settings.Focus - settings.Eye).Normalized();
 		var centerScreen = settings.Eye + viewingDirection;
-		var vertical = new Vector3(0D, 0D, 1D);
-		var xVector = viewingDirection.Cross(vertical).Normalized();
+		var xVector = viewingDirection.Cross(Vector3.UnitZ).Normalized();
 		var yVector = xVector.Cross(viewingDirection).Normalized();
-		var halfScreenExtent = double.Tan(settings.FieldOfView * 0.5D);
+		var halfScreenExtent = double.Tan(settings.HalfOpeningAngle);
 		xVector *= halfScreenExtent;
 		yVector *= halfScreenExtent;
 
