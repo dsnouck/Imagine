@@ -6,15 +6,6 @@ public readonly record struct ProjectorSettings(
 	double HalfOpeningAngle,
 	Color BackgroundColor)
 {
-	public ProjectorSettings(Vector3 eye, Vector3 focus, double halfOpeningAngle)
-		: this(
-			  Eye: eye,
-			  Focus: focus,
-			  HalfOpeningAngle: halfOpeningAngle,
-			  BackgroundColor: Color.Black)
-	{
-	}
-
 	public static ProjectorSettings WithOpeningRadius(Vector3 eye, Vector3 focus, double openingRadius, Color backgroundColor) =>
 		new(
 			Eye: eye,

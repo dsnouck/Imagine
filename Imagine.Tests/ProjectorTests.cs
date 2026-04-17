@@ -5,7 +5,22 @@ public class ProjectorTests
 	private const string InputDirectory = "input";
 	private const double Circumradius = 1D;
 	private const double Narrow = 0.01D;
-	private static readonly double SphereRadius = (Circumradius * Scene.CubeMidradius / Scene.CubeCircumradius) - Narrow;
+
+	private static readonly double CubeOctahedronMidradius =
+		Circumradius * double.Min(
+			Scene.CubeMidradius / Scene.CubeCircumradius,
+			Scene.OctahedronMidradius / Scene.OctahedronCircumradius);
+
+	private static readonly double DodecahedronIcosahedronMidradius =
+		Circumradius * double.Min(
+			Scene.DodecahedronMidradius / Scene.DodecahedronCircumradius,
+			Scene.IcosahedronMidradius / Scene.IcosahedronCircumradius);
+
+	private static readonly double SphereRadius =
+		(Circumradius * Scene.CubeMidradius / Scene.CubeCircumradius) - Narrow;
+
+	private static readonly double TetrahedronMidradius =
+		Circumradius * Scene.TetrahedronMidradius / Scene.TetrahedronCircumradius;
 
 	private static readonly ProjectorSettings ProjectorSettings =
 		ProjectorSettings.WithOpeningRadius(
@@ -38,8 +53,8 @@ public class ProjectorTests
 				Scene.CubeFaceDownWithCircumradius(Circumradius),
 			["cube-face-down-octahedron-vertex-down-union"] =
 				Scene.Union(
-					Scene.CubeFaceDownWithMidradius(Circumradius * Scene.OctahedronMidradius / Scene.OctahedronCircumradius),
-					Scene.OctahedronVertexDownWithCircumradius(Circumradius)),
+					Scene.CubeFaceDownWithMidradius(CubeOctahedronMidradius),
+					Scene.OctahedronVertexDownWithMidradius(CubeOctahedronMidradius)),
 			["cube-face-down-painted"] =
 				Scene.CubeFaceDownWithCircumradius(Circumradius)
 					.Painted(Color.Red),
@@ -52,7 +67,8 @@ public class ProjectorTests
 			["cube-face-down-sphere-intersection"] =
 				Scene.Intersection(
 					Scene.CubeFaceDownWithCircumradius(Circumradius),
-					Sphere),
+					Scene.SphereWithRadius(1D).
+						Scaled(SphereRadius)),
 			["cube-face-down-sphere-inverted-union"] =
 				Scene.Intersection(
 					Scene.CubeFaceDownWithCircumradius(Circumradius),
@@ -84,24 +100,24 @@ public class ProjectorTests
 				Scene.DodecahedronFaceDownWithCircumradius(Circumradius),
 			["dodecahedron-face-down-icosahedron-vertex-down-union"] =
 				Scene.Union(
-					Scene.DodecahedronFaceDownWithMidradius(Circumradius * Scene.IcosahedronMidradius / Scene.IcosahedronCircumradius),
-					Scene.IcosahedronVertexDownWithCircumradius(Circumradius)),
+					Scene.DodecahedronFaceDownWithMidradius(DodecahedronIcosahedronMidradius),
+					Scene.IcosahedronVertexDownWithMidradius(DodecahedronIcosahedronMidradius)),
 			["dodecahedron-vertex-down"] =
 				Scene.DodecahedronVertexDownWithCircumradius(Circumradius),
 			["icosahedron-face-down"] =
 				Scene.IcosahedronFaceDownWithCircumradius(Circumradius),
 			["icosahedron-face-down-dodecahedron-vertex-down-union"] =
 				Scene.Union(
-					Scene.IcosahedronFaceDownWithCircumradius(Circumradius),
-					Scene.DodecahedronVertexDownWithMidradius(Circumradius * Scene.IcosahedronMidradius / Scene.IcosahedronCircumradius)),
+					Scene.IcosahedronFaceDownWithMidradius(DodecahedronIcosahedronMidradius),
+					Scene.DodecahedronVertexDownWithMidradius(DodecahedronIcosahedronMidradius)),
 			["icosahedron-vertex-down"] =
 				Scene.IcosahedronVertexDownWithCircumradius(Circumradius),
 			["octahedron-face-down"] =
 				Scene.OctahedronFaceDownWithCircumradius(Circumradius),
 			["octahedron-face-down-cube-vertex-down-union"] =
 				Scene.Union(
-					Scene.OctahedronFaceDownWithCircumradius(Circumradius),
-					Scene.CubeVertexDownWithMidradius(Circumradius * Scene.OctahedronMidradius / Scene.OctahedronCircumradius)),
+					Scene.OctahedronFaceDownWithMidradius(CubeOctahedronMidradius),
+					Scene.CubeVertexDownWithMidradius(CubeOctahedronMidradius)),
 			["octahedron-vertex-down"] =
 				Scene.OctahedronVertexDownWithCircumradius(Circumradius),
 			["plane-horizontal-bounded"] =
@@ -123,25 +139,41 @@ public class ProjectorTests
 					.Painted(new ColorHsv(0.1D, 0.9D, 1D)),
 			["sphere-painted-hsv-cartesian"] =
 				Scene.SphereWithRadius(1D)
-					.Painted(point => new ColorHsv((2D * point.X).Modulo(1D), (1D - point.Z) / 2D, 1D)),
+					.Painted(point =>
+						new ColorHsv(
+							(2D * point.X).Modulo(1D),
+							(1D - point.Z) / 2D,
+							1D)),
 			["sphere-painted-hsv-spherical"] =
 				Scene.SphereWithRadius(1D)
-					.Painted(point => new ColorHsv((2D * point.Phi / double.Pi).Modulo(1D), point.Theta / double.Pi, 1D)),
+					.Painted(point =>
+						new ColorHsv(
+							(2D * point.Phi / double.Pi).Modulo(1D),
+							point.Theta / double.Pi,
+							1D)),
 			["sphere-painted-rgb"] =
 				Scene.SphereWithRadius(1D)
 					.Painted(Color.Red),
 			["sphere-painted-rgb-cartesian"] =
 				Scene.SphereWithRadius(1D)
-					.Painted(point => new Color(double.Abs(point.X), double.Abs(point.Y), double.Abs(point.Z))),
+					.Painted(point =>
+						new Color(
+							double.Abs(point.X),
+							double.Abs(point.Y),
+							double.Abs(point.Z))),
 			["sphere-painted-rgb-spherical"] =
 				Scene.SphereWithRadius(1D)
-					.Painted(point => new Color((1D + double.Cos(16D * point.Phi)) / 2D, 0D, (1D + double.Cos(16D * point.Theta)) / 2D)),
+					.Painted(point =>
+						new Color(
+							(1D + double.Cos(16D * point.Phi)) / 2D,
+							0D,
+							(1D + double.Cos(16D * point.Theta)) / 2D)),
 			["tetrahedron-face-down"] =
 				Scene.TetrahedronFaceDownWithCircumradius(Circumradius),
 			["tetrahedron-union"] =
 				Scene.Union(
-					Scene.TetrahedronFaceDownWithCircumradius(Circumradius),
-					Scene.TetrahedronVertexDownWithCircumradius(Circumradius)),
+					Scene.TetrahedronFaceDownWithMidradius(TetrahedronMidradius),
+					Scene.TetrahedronVertexDownWithMidradius(TetrahedronMidradius)),
 			["tetrahedron-vertex-down"] =
 				Scene.TetrahedronVertexDownWithCircumradius(Circumradius),
 		};
