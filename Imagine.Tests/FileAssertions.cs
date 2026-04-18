@@ -1,6 +1,6 @@
 namespace Imagine.Tests;
 
-public static class FileAssertions
+internal static class FileAssertions
 {
 	extension(string source)
 	{

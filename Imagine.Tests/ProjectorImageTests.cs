@@ -1,8 +1,7 @@
 namespace Imagine.Tests;
 
-public class ProjectorTests
+public class ProjectorImageTests
 {
-	private const string InputDirectory = "input";
 	private const double Circumradius = 1D;
 	private const double Narrow = 0.01D;
 
@@ -180,14 +179,14 @@ public class ProjectorTests
 
 	[ExcludeFromCodeCoverage]
 	public static TheoryData<string> Names =>
-		[.. Scenes.Keys.ToList()];
+		[.. Scenes.Keys];
 
 	[Theory]
 	[MemberData(nameof(Names))]
 	public void Projection(string name)
 	{
 		var scene = Scenes[name];
-		var inputFile = $"{InputDirectory}/{name}.png";
+		var inputFile = $"{TestConstants.InputDirectory}/{name}.png";
 
 		var projection = Projector.Project(scene, ProjectorSettings);
 		var image = Sampler.Sample(projection, ImageSettings);
