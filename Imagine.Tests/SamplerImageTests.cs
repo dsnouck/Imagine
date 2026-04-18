@@ -1,9 +1,7 @@
 namespace Imagine.Tests;
 
-public class ImageTests
+public class SamplerImageTests
 {
-	private const string InputDirectory = "input";
-
 	private static readonly ImageSettings ImageSettings =
 		new(
 			Width: 512,
@@ -15,10 +13,10 @@ public class ImageTests
 			YMax: 1D);
 
 	[Fact]
-	public void ImageHsv()
+	public void SamplerImageHsv()
 	{
 		const string name = "hsv";
-		const string inputFile = $"{InputDirectory}/{name}.png";
+		const string inputFile = $"{Constants.InputDirectory}/{name}.png";
 
 		static ColorHsv Function(Vector2 point)
 		{
@@ -38,30 +36,10 @@ public class ImageTests
 	}
 
 	[Fact]
-	public void ImageRed()
-	{
-		const string name = "red";
-		const string inputFile = $"{InputDirectory}/{name}.png";
-
-		const int width = 512;
-		const int height = 512;
-
-		var image = Enumerable.Repeat(
-			Enumerable.Repeat(
-				Color.Red,
-				width).ToList(),
-			height).ToList();
-
-		var outputFile = Saver.Save(image, name);
-
-		outputFile.ShouldHaveSameContentAs(inputFile);
-	}
-
-	[Fact]
-	public void ImageRgb()
+	public void SamplerImageRgb()
 	{
 		const string name = "rgb";
-		const string inputFile = $"{InputDirectory}/{name}.png";
+		const string inputFile = $"{Constants.InputDirectory}/{name}.png";
 
 		static Color Function(Vector2 point)
 		{

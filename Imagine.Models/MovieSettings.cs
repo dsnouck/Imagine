@@ -12,6 +12,21 @@ public readonly record struct MovieSettings(
 	double ZMin,
 	double ZMax)
 {
+	public MovieSettings(int frames, int width, int height, int subsamples)
+		: this(
+			  Frames: frames,
+			  Width: width,
+			  Height: height,
+			  Subsamples: subsamples,
+			  XMin: -1D,
+			  XMax: 1D,
+			  YMin: -((double)height / width),
+			  YMax: (double)height / width,
+			  ZMin: 0D,
+			  ZMax: 1D)
+	{
+	}
+
 	public static explicit operator ImageSettings(MovieSettings movieSettings) =>
 		new(
 			  Width: movieSettings.Width,

@@ -1,9 +1,7 @@
 namespace Imagine.Tests;
 
-public class MovieTests
+public class SamplerMovieTests
 {
-	private const string InputDirectory = "input";
-
 	private static readonly MovieSettings MovieSettings =
 		new(
 			Frames: 256,
@@ -18,15 +16,15 @@ public class MovieTests
 			ZMax: 2D);
 
 	[Fact]
-	public void MovieHsv()
+	public void SamplerMovieHsv()
 	{
 		const string name = "hsv";
-		const string inputFile = $"{InputDirectory}/{name}.mp4";
+		const string inputFile = $"{Constants.InputDirectory}/{name}.mp4";
 
 		static ColorHsv Function(Vector3 point)
 		{
-			var z = point.Z < 1D ? point.Z : 2D - point.Z;
-			var center = new Vector2(z, z);
+			var t = point.Z < 1D ? point.Z : 2D - point.Z;
+			var center = new Vector2(t, t);
 			var point2 = (Vector2)point;
 			var r = (point2 - center).Length();
 
@@ -43,38 +41,15 @@ public class MovieTests
 	}
 
 	[Fact]
-	public void MovieRed()
-	{
-		const string name = "red";
-		const string inputFile = $"{InputDirectory}/{name}.mp4";
-
-		const int frames = 256;
-		const int width = 256;
-		const int height = 256;
-
-		var movie = Enumerable.Repeat(
-			Enumerable.Repeat(
-				Enumerable.Repeat(
-					Color.Red,
-					width).ToList(),
-				height).ToList(),
-			frames).ToList();
-
-		var outputFile = Saver.Save(movie, name);
-
-		outputFile.ShouldHaveSameContentAs(inputFile);
-	}
-
-	[Fact]
-	public void MovieRgb()
+	public void SamplerMovieRgb()
 	{
 		const string name = "rgb";
-		const string inputFile = $"{InputDirectory}/{name}.mp4";
+		const string inputFile = $"{Constants.InputDirectory}/{name}.mp4";
 
 		static Color Function(Vector3 point)
 		{
-			var z = point.Z < 1D ? point.Z : 2D - point.Z;
-			var center = new Vector2(z, z);
+			var t = point.Z < 1D ? point.Z : 2D - point.Z;
+			var center = new Vector2(t, t);
 			var point2 = (Vector2)point;
 			var r = (point2 - center).Length();
 
