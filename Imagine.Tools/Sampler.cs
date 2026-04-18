@@ -45,21 +45,22 @@ public static class Sampler
 		return Sample(RgbFunction, settings);
 	}
 
-	public static List<List<List<Color>>> Sample(Func<Vector3, Color> function, MovieSettings settings)
+	public static List<List<List<Color>>> Sample(Func<Vector3, Color> function, MovieSettings settings) =>
+		Sample(t => point => function(new(point.X, point.Y, t)), settings);
+
+	public static List<List<List<Color>>> Sample(Func<double, Func<Vector2, Color>> function, MovieSettings settings)
 	{
-		var frameToZ = Line(
+		var frameToT = Line(
 			from: new(-0.5D, settings.ZMin),
 			to: new(settings.Frames - 0.5D, settings.ZMax));
 
 		var movie = new List<List<List<Color>>>();
 		for (var frame = 0; frame < settings.Frames; frame++)
 		{
-			var z = frameToZ(frame);
+			var t = frameToT(frame);
+			var frameFunction = function(t);
 
-			Color FrameFunction(Vector2 point) =>
-				function(new Vector3(point.X, point.Y, z));
-
-			movie.Add(Sample(FrameFunction, (ImageSettings)settings));
+			movie.Add(Sample(frameFunction, (ImageSettings)settings));
 		}
 
 		return movie;

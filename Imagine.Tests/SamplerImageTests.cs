@@ -13,10 +13,10 @@ public class SamplerImageTests
 			YMax: 1D);
 
 	[Fact]
-	public void ImageHsv()
+	public void SamplerImageHsv()
 	{
 		const string name = "hsv";
-		const string inputFile = $"{TestConstants.InputDirectory}/{name}.png";
+		const string inputFile = $"{Constants.InputDirectory}/{name}.png";
 
 		static ColorHsv Function(Vector2 point)
 		{
@@ -36,10 +36,10 @@ public class SamplerImageTests
 	}
 
 	[Fact]
-	public void ImageRgb()
+	public void SamplerImageRgb()
 	{
 		const string name = "rgb";
-		const string inputFile = $"{TestConstants.InputDirectory}/{name}.png";
+		const string inputFile = $"{Constants.InputDirectory}/{name}.png";
 
 		static Color Function(Vector2 point)
 		{

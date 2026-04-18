@@ -16,10 +16,10 @@ public class SamplerMovieTests
 			ZMax: 2D);
 
 	[Fact]
-	public void MovieHsv()
+	public void SamplerMovieHsv()
 	{
 		const string name = "hsv";
-		const string inputFile = $"{TestConstants.InputDirectory}/{name}.mp4";
+		const string inputFile = $"{Constants.InputDirectory}/{name}.mp4";
 
 		static ColorHsv Function(Vector3 point)
 		{
@@ -41,10 +41,10 @@ public class SamplerMovieTests
 	}
 
 	[Fact]
-	public void MovieRgb()
+	public void SamplerMovieRgb()
 	{
 		const string name = "rgb";
-		const string inputFile = $"{TestConstants.InputDirectory}/{name}.mp4";
+		const string inputFile = $"{Constants.InputDirectory}/{name}.mp4";
 
 		static Color Function(Vector3 point)
 		{
