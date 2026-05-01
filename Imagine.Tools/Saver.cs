@@ -52,6 +52,7 @@ public static class Saver
 				FileName = "ffmpeg",
 				Arguments = $"-y -framerate 30 -i {FramesDirectory}/{name}-%04d.png -c:v libx264 -pix_fmt yuv420p {file}",
 				RedirectStandardOutput = true,
+				RedirectStandardError = true,
 				UseShellExecute = false,
 				CreateNoWindow = true,
 			},
