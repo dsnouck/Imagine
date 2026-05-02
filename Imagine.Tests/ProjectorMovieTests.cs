@@ -10,9 +10,9 @@ public class ProjectorMovieTests
 			subsamples: 2);
 
 	[Fact]
-	public void ProjectorMovieCubeRotating()
+	public void ProjectorMovieCubeFaceDownRotating()
 	{
-		const string name = "cube-rotating";
+		const string name = "cube-face-down-rotating";
 
 		var scene = Scene.CubeFaceDownWithCircumradius(Constants.Circumradius);
 

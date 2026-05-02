@@ -123,12 +123,12 @@ public class ProjectorImageTests
 				Scene.SphereWithRadius(Constants.Circumradius),
 			["sphere-cone-inverted-intersection"] =
 				Scene.Intersection(
-					SphereAlmostTouchingCubeEdge,
+					Scene.SphereWithRadius(1F),
 					Scene.Cone(Vector3.UnitZ, float.Pi / 2F).Inverted()),
 			["sphere-cube-face-down-inverted-intersection"] =
 				Scene.Intersection(
 					SphereAlmostTouchingCubeEdge,
-					Scene.CubeFaceDownWithCircumradius(Constants.Circumradius)),
+					Scene.CubeFaceDownWithCircumradius(Constants.Circumradius).Inverted()),
 			["sphere-painted-hsv"] =
 				Scene.SphereWithRadius(1F)
 					.Painted(new ColorHsv(0.1F, 0.9F, 1F)),
