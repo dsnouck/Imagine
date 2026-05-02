@@ -8,12 +8,12 @@ public class SamplerMovieTests
 			Width: 256,
 			Height: 256,
 			Subsamples: 2,
-			XMin: 0D,
-			XMax: 1D,
-			YMin: 0D,
-			YMax: 1D,
-			ZMin: 0D,
-			ZMax: 2D);
+			XMin: 0F,
+			XMax: 1F,
+			YMin: 0F,
+			YMax: 1F,
+			ZMin: 0F,
+			ZMax: 2F);
 
 	[Fact]
 	public void SamplerMovieHsv()
@@ -22,14 +22,14 @@ public class SamplerMovieTests
 
 		static ColorHsv Function(Vector3 point)
 		{
-			var t = point.Z < 1D ? point.Z : 2D - point.Z;
+			var t = point.Z < 1F ? point.Z : 2F - point.Z;
 			var center = new Vector2(t, t);
 			var point2 = (Vector2)point;
 			var r = (point2 - center).Length();
 
 			return new(
-				(2D * point.X) - 1D,
-				r < 0.25D ? 1D - (4D * r) : 0D,
+				(2F * point.X) - 1F,
+				r < 0.25F ? 1F - (4F * r) : 0F,
 				point.Y);
 		}
 
@@ -46,14 +46,14 @@ public class SamplerMovieTests
 
 		static Color Function(Vector3 point)
 		{
-			var t = point.Z < 1D ? point.Z : 2D - point.Z;
+			var t = point.Z < 1F ? point.Z : 2F - point.Z;
 			var center = new Vector2(t, t);
 			var point2 = (Vector2)point;
 			var r = (point2 - center).Length();
 
 			return new(
 				point.X,
-				r < 0.25D ? 1D - (4D * r) : 0D,
+				r < 0.25F ? 1F - (4F * r) : 0F,
 				point.Y);
 		}
 

@@ -15,12 +15,12 @@ public static class Sampler
 	public static List<List<Color>> Sample(Func<Vector2, Color> function, ImageSettings settings)
 	{
 		var rowToY = Line(
-			from: new(-0.5D, settings.YMax),
-			to: new((settings.Height * settings.Subsamples) - 0.5D, settings.YMin));
+			from: new(-0.5F, settings.YMax),
+			to: new((settings.Height * settings.Subsamples) - 0.5F, settings.YMin));
 
 		var columnToX = Line(
-			from: new(-0.5D, settings.XMin),
-			to: new((settings.Width * settings.Subsamples) - 0.5D, settings.XMax));
+			from: new(-0.5F, settings.XMin),
+			to: new((settings.Width * settings.Subsamples) - 0.5F, settings.XMax));
 
 		return Enumerable.Range(0, settings.Height)
 			.AsParallel()
@@ -48,11 +48,11 @@ public static class Sampler
 	public static List<List<List<Color>>> Sample(Func<Vector3, Color> function, MovieSettings settings) =>
 		Sample(t => point => function(new(point.X, point.Y, t)), settings);
 
-	public static List<List<List<Color>>> Sample(Func<double, Func<Vector2, Color>> function, MovieSettings settings)
+	public static List<List<List<Color>>> Sample(Func<float, Func<Vector2, Color>> function, MovieSettings settings)
 	{
 		var frameToT = Line(
-			from: new(-0.5D, settings.ZMin),
-			to: new(settings.Frames - 0.5D, settings.ZMax));
+			from: new(-0.5F, settings.ZMin),
+			to: new(settings.Frames - 0.5F, settings.ZMax));
 
 		var movie = new List<List<List<Color>>>();
 		for (var frame = 0; frame < settings.Frames; frame++)
@@ -66,7 +66,7 @@ public static class Sampler
 		return movie;
 	}
 
-	private static Func<double, double> Line(Vector2 from, Vector2 to)
+	private static Func<float, float> Line(Vector2 from, Vector2 to)
 	{
 		var slope = (to.Y - from.Y) / (to.X - from.X);
 		var intercept = ((from.Y * to.X) - (from.X * to.Y)) / (to.X - from.X);

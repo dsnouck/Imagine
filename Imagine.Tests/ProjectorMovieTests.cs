@@ -10,19 +10,19 @@ public class ProjectorMovieTests
 			subsamples: 2);
 
 	[Fact]
-	public void ProjectorMovieCubeRotating()
+	public void ProjectorMovieCubeFaceDownRotating()
 	{
-		const string name = "cube-rotating";
+		const string name = "cube-face-down-rotating";
 
 		var scene = Scene.CubeFaceDownWithCircumradius(Constants.Circumradius);
 
-		Func<Vector2, Color> Function(double t)
+		Func<Vector2, Color> Function(float t)
 		{
 			var projectorSettings =
 				ProjectorSettings.WithOpeningRadius(
-					eye: (Vector3)new Vector3Spherical(10D, (double.Pi / 6D) + (double.Pi * t / 2D), double.Pi / 3D),
+					eye: (Vector3)new Vector3Spherical(10F, (float.Pi / 6F) + (float.Pi * t / 2F), float.Pi / 3F),
 					focus: Vector3.Zero,
-					openingRadius: Constants.Circumradius * 5D / 4D);
+					openingRadius: Constants.Circumradius * 5F / 4F);
 
 			return Projector.Project(scene, projectorSettings);
 		}

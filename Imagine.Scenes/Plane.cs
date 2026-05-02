@@ -2,7 +2,7 @@ namespace Imagine.Scenes;
 
 internal class Plane(Vector3 normal) : IScene
 {
-	private const double Epsilon = 0.001D;
+	private const float Epsilon = 0.001F;
 
 	public bool Contains(Vector3 point) =>
 		point.Dot(normal) <= normal.Dot(normal);
@@ -11,7 +11,7 @@ internal class Plane(Vector3 normal) : IScene
 	{
 		var normalDotRayDirection = normal.Dot(ray.Direction);
 
-		if (double.Abs(normalDotRayDirection) < Epsilon)
+		if (float.Abs(normalDotRayDirection) < Epsilon)
 		{
 			return [];
 		}

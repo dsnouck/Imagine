@@ -2,152 +2,152 @@ namespace Imagine.Scenes;
 
 public static class Scene
 {
-	public static readonly double Phi = (1D + double.Sqrt(5D)) / 2D;
-	public static readonly double Xi = double.Sqrt(3D - Phi);
-	public static readonly double CubeCircumradius = double.Sqrt(3D);
-	public static readonly double CubeInradius = 1D;
-	public static readonly double CubeMidradius = double.Sqrt(2D);
-	public static readonly double DodecahedronCircumradius = double.Sqrt(3D) * Phi;
-	public static readonly double DodecahedronInradius = Phi * Phi / Xi;
-	public static readonly double DodecahedronMidradius = Phi * Phi;
-	public static readonly double IcosahedronCircumradius = Xi * Phi;
-	public static readonly double IcosahedronInradius = Phi * Phi / double.Sqrt(3D);
-	public static readonly double IcosahedronMidradius = Phi;
-	public static readonly double OctahedronCircumradius = double.Sqrt(2D);
-	public static readonly double OctahedronInradius = double.Sqrt(2D / 3D);
-	public static readonly double OctahedronMidradius = 1D;
-	public static readonly double TetrahedronCircumradius = double.Sqrt(3D / 2D);
-	public static readonly double TetrahedronInradius = 1D / double.Sqrt(6D);
-	public static readonly double TetrahedronMidradius = 1D / double.Sqrt(2D);
+	public static readonly float Phi = (1F + float.Sqrt(5F)) / 2F;
+	public static readonly float Xi = float.Sqrt(3F - Phi);
+	public static readonly float CubeCircumradius = float.Sqrt(3F);
+	public static readonly float CubeInradius = 1F;
+	public static readonly float CubeMidradius = float.Sqrt(2F);
+	public static readonly float DodecahedronCircumradius = float.Sqrt(3F) * Phi;
+	public static readonly float DodecahedronInradius = Phi * Phi / Xi;
+	public static readonly float DodecahedronMidradius = Phi * Phi;
+	public static readonly float IcosahedronCircumradius = Xi * Phi;
+	public static readonly float IcosahedronInradius = Phi * Phi / float.Sqrt(3F);
+	public static readonly float IcosahedronMidradius = Phi;
+	public static readonly float OctahedronCircumradius = float.Sqrt(2F);
+	public static readonly float OctahedronInradius = float.Sqrt(2F / 3F);
+	public static readonly float OctahedronMidradius = 1F;
+	public static readonly float TetrahedronCircumradius = float.Sqrt(3F / 2F);
+	public static readonly float TetrahedronInradius = 1F / float.Sqrt(6F);
+	public static readonly float TetrahedronMidradius = 1F / float.Sqrt(2F);
 
-	private static readonly ColorHsv ConeColor = new(11D / 12D, 1D, 1D);
-	private static readonly ColorHsv CubeFaceDownColor = new(2D / 12D, 1D, 1D);
-	private static readonly ColorHsv CubeVertexDownColor = new(4D / 12D, 1D, 1D);
-	private static readonly ColorHsv CylinderColor = new(10D / 12D, 1D, 1D);
-	private static readonly ColorHsv DodecahedronFaceDownColor = new(6D / 12D, 1D, 1D);
-	private static readonly ColorHsv DodecahedronVertexDownColor = new(8D / 12D, 1D, 1D);
-	private static readonly ColorHsv IcosahedronFaceDownColor = new(9D / 12D, 1D, 1D);
-	private static readonly ColorHsv IcosahedronVertexDownColor = new(7D / 12D, 1D, 1D);
-	private static readonly ColorHsv OctahedronFaceDownColor = new(5D / 12D, 1D, 1D);
-	private static readonly ColorHsv OctahedronVertexDownColor = new(3D / 12D, 1D, 1D);
-	private static readonly ColorHsv TetrahedronFaceDownColor = new(0D / 12D, 1D, 1D);
-	private static readonly ColorHsv TetrahedronVertexDownColor = new(1D / 12D, 1D, 1D);
+	private static readonly ColorHsv ConeColor = new(11F / 12F, 1F, 1F);
+	private static readonly ColorHsv CubeFaceDownColor = new(2F / 12F, 1F, 1F);
+	private static readonly ColorHsv CubeVertexDownColor = new(4F / 12F, 1F, 1F);
+	private static readonly ColorHsv CylinderColor = new(10F / 12F, 1F, 1F);
+	private static readonly ColorHsv DodecahedronFaceDownColor = new(6F / 12F, 1F, 1F);
+	private static readonly ColorHsv DodecahedronVertexDownColor = new(8F / 12F, 1F, 1F);
+	private static readonly ColorHsv IcosahedronFaceDownColor = new(9F / 12F, 1F, 1F);
+	private static readonly ColorHsv IcosahedronVertexDownColor = new(7F / 12F, 1F, 1F);
+	private static readonly ColorHsv OctahedronFaceDownColor = new(5F / 12F, 1F, 1F);
+	private static readonly ColorHsv OctahedronVertexDownColor = new(3F / 12F, 1F, 1F);
+	private static readonly ColorHsv TetrahedronFaceDownColor = new(0F / 12F, 1F, 1F);
+	private static readonly ColorHsv TetrahedronVertexDownColor = new(1F / 12F, 1F, 1F);
 
-	public static IScene Cone(Vector3 axis, double angle) =>
+	public static IScene Cone(Vector3 axis, float angle) =>
 		new Cone(axis, angle)
 			.Painted(ConeColor);
 
-	public static IScene CubeFaceDownWithCircumradius(double circumradius) =>
+	public static IScene CubeFaceDownWithCircumradius(float circumradius) =>
 		CubeFaceDownWithInradius(circumradius * CubeInradius / CubeCircumradius);
 
-	public static IScene CubeFaceDownWithInradius(double inradius)
+	public static IScene CubeFaceDownWithInradius(float inradius)
 	{
-		var theta0 = 0D;
-		var theta1 = double.Pi / 2D;
-		var theta2 = double.Pi;
+		var theta0 = 0F;
+		var theta1 = float.Pi / 2F;
+		var theta2 = float.Pi;
 
-		var deltaPhi = double.Pi / 2D;
+		var deltaPhi = float.Pi / 2F;
 
 		return Polyhedron(
-			new Vector3Spherical(inradius, 0D, theta0),
-			new Vector3Spherical(inradius, 0D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 1D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 2D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 3D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 0D, theta2))
+			new Vector3Spherical(inradius, 0F, theta0),
+			new Vector3Spherical(inradius, 0F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 1F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 2F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 3F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 0F, theta2))
 			.Painted(CubeFaceDownColor);
 	}
 
-	public static IScene CubeFaceDownWithMidradius(double midradius) =>
+	public static IScene CubeFaceDownWithMidradius(float midradius) =>
 		CubeFaceDownWithInradius(midradius * CubeInradius / CubeMidradius);
 
-	public static IScene CubeVertexDownWithCircumradius(double circumradius) =>
+	public static IScene CubeVertexDownWithCircumradius(float circumradius) =>
 		CubeVertexDownWithInradius(circumradius * CubeInradius / CubeCircumradius);
 
-	public static IScene CubeVertexDownWithInradius(double inradius)
+	public static IScene CubeVertexDownWithInradius(float inradius)
 	{
-		var theta0 = double.Acos(1D / double.Sqrt(3D));
-		var theta1 = double.Pi - theta0;
+		var theta0 = float.Acos(1F / float.Sqrt(3F));
+		var theta1 = float.Pi - theta0;
 
-		var deltaPhi = double.Pi / 3D;
+		var deltaPhi = float.Pi / 3F;
 
 		return Polyhedron(
-			new Vector3Spherical(inradius, 0D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 2D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 4D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 1D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 3D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 5D * deltaPhi, theta1))
+			new Vector3Spherical(inradius, 0F * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 2F * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 4F * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 1F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 3F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 5F * deltaPhi, theta1))
 			.Painted(CubeVertexDownColor);
 	}
 
-	public static IScene CubeVertexDownWithMidradius(double midradius) =>
+	public static IScene CubeVertexDownWithMidradius(float midradius) =>
 		CubeVertexDownWithInradius(midradius * CubeInradius / CubeMidradius);
 
-	public static IScene Cylinder(Vector3 axis, double radius) =>
+	public static IScene Cylinder(Vector3 axis, float radius) =>
 		new Cylinder(axis, radius)
 			.Painted(CylinderColor);
 
-	public static IScene DodecahedronFaceDownWithCircumradius(double circumradius) =>
+	public static IScene DodecahedronFaceDownWithCircumradius(float circumradius) =>
 		DodecahedronFaceDownWithInradius(circumradius * DodecahedronInradius / DodecahedronCircumradius);
 
-	public static IScene DodecahedronFaceDownWithInradius(double inradius)
+	public static IScene DodecahedronFaceDownWithInradius(float inradius)
 	{
-		var theta0 = 0D;
-		var theta1 = double.Acos(1D / double.Sqrt(5D));
-		var theta2 = double.Pi - theta1;
-		var theta3 = double.Pi;
+		var theta0 = 0F;
+		var theta1 = float.Acos(1F / float.Sqrt(5F));
+		var theta2 = float.Pi - theta1;
+		var theta3 = float.Pi;
 
-		var deltaPhi = double.Pi / 5D;
+		var deltaPhi = float.Pi / 5F;
 
 		return Polyhedron(
-			new Vector3Spherical(inradius, 0D, theta0),
-			new Vector3Spherical(inradius, 1D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 3D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 5D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 7D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 9D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 0D * deltaPhi, theta2),
-			new Vector3Spherical(inradius, 2D * deltaPhi, theta2),
-			new Vector3Spherical(inradius, 4D * deltaPhi, theta2),
-			new Vector3Spherical(inradius, 6D * deltaPhi, theta2),
-			new Vector3Spherical(inradius, 8D * deltaPhi, theta2),
-			new Vector3Spherical(inradius, 0D, theta3))
+			new Vector3Spherical(inradius, 0F, theta0),
+			new Vector3Spherical(inradius, 1F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 3F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 5F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 7F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 9F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 0F * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 2F * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 4F * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 6F * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 8F * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 0F, theta3))
 			.Painted(DodecahedronFaceDownColor);
 	}
 
-	public static IScene DodecahedronFaceDownWithMidradius(double midradius) =>
+	public static IScene DodecahedronFaceDownWithMidradius(float midradius) =>
 		DodecahedronFaceDownWithInradius(midradius * DodecahedronInradius / DodecahedronMidradius);
 
-	public static IScene DodecahedronVertexDownWithCircumradius(double circumradius) =>
+	public static IScene DodecahedronVertexDownWithCircumradius(float circumradius) =>
 		DodecahedronVertexDownWithInradius(circumradius * DodecahedronInradius / DodecahedronCircumradius);
 
-	public static IScene DodecahedronVertexDownWithInradius(double inradius)
+	public static IScene DodecahedronVertexDownWithInradius(float inradius)
 	{
-		var theta0 = double.Acos(double.Sqrt((5D + (2D * double.Sqrt(5D))) / 15D));
-		var theta1 = double.Acos(double.Sqrt((5D - (2D * double.Sqrt(5D))) / 15D));
-		var theta2 = double.Pi - theta1;
-		var theta3 = double.Pi - theta0;
+		var theta0 = float.Acos(float.Sqrt((5F + (2F * float.Sqrt(5F))) / 15F));
+		var theta1 = float.Acos(float.Sqrt((5F - (2F * float.Sqrt(5F))) / 15F));
+		var theta2 = float.Pi - theta1;
+		var theta3 = float.Pi - theta0;
 
-		var deltaPhi = double.Pi / 3D;
+		var deltaPhi = float.Pi / 3F;
 
 		return Polyhedron(
-			new Vector3Spherical(inradius, 0D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 2D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 4D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 1D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 3D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 5D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 0D * deltaPhi, theta2),
-			new Vector3Spherical(inradius, 2D * deltaPhi, theta2),
-			new Vector3Spherical(inradius, 4D * deltaPhi, theta2),
-			new Vector3Spherical(inradius, 1D * deltaPhi, theta3),
-			new Vector3Spherical(inradius, 3D * deltaPhi, theta3),
-			new Vector3Spherical(inradius, 5D * deltaPhi, theta3))
+			new Vector3Spherical(inradius, 0F * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 2F * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 4F * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 1F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 3F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 5F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 0F * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 2F * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 4F * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 1F * deltaPhi, theta3),
+			new Vector3Spherical(inradius, 3F * deltaPhi, theta3),
+			new Vector3Spherical(inradius, 5F * deltaPhi, theta3))
 			.Painted(DodecahedronVertexDownColor);
 	}
 
-	public static IScene DodecahedronVertexDownWithMidradius(double midradius) =>
+	public static IScene DodecahedronVertexDownWithMidradius(float midradius) =>
 		DodecahedronVertexDownWithInradius(midradius * DodecahedronInradius / DodecahedronMidradius);
 
 	public static IScene Empty() =>
@@ -156,140 +156,140 @@ public static class Scene
 	public static IScene Full() =>
 		new Full();
 
-	public static IScene IcosahedronFaceDownWithCircumradius(double circumradius) =>
+	public static IScene IcosahedronFaceDownWithCircumradius(float circumradius) =>
 		IcosahedronFaceDownWithInradius(circumradius * IcosahedronInradius / IcosahedronCircumradius);
 
-	public static IScene IcosahedronFaceDownWithInradius(double inradius)
+	public static IScene IcosahedronFaceDownWithInradius(float inradius)
 	{
-		var theta0 = 0D;
-		var theta1 = double.Acos(double.Sqrt(5D) / 3D);
-		var theta2 = double.Acos(1D / 3D);
-		var theta3 = double.Pi - theta2;
-		var theta4 = double.Pi - theta1;
-		var theta5 = double.Pi;
+		var theta0 = 0F;
+		var theta1 = float.Acos(float.Sqrt(5F) / 3F);
+		var theta2 = float.Acos(1F / 3F);
+		var theta3 = float.Pi - theta2;
+		var theta4 = float.Pi - theta1;
+		var theta5 = float.Pi;
 
-		var deltaPhi = double.Pi / 3D;
-		var phiOffset = double.Acos(double.Sqrt(7D + (3D * double.Sqrt(5D))) / 4D);
+		var deltaPhi = float.Pi / 3F;
+		var phiOffset = float.Acos(float.Sqrt(7F + (3F * float.Sqrt(5F))) / 4F);
 
 		return Polyhedron(
-			new Vector3Spherical(inradius, 0D, theta0),
-			new Vector3Spherical(inradius, 1D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 3D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 5D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, (0D * deltaPhi) - phiOffset, theta2),
-			new Vector3Spherical(inradius, (0D * deltaPhi) + phiOffset, theta2),
-			new Vector3Spherical(inradius, (2D * deltaPhi) - phiOffset, theta2),
-			new Vector3Spherical(inradius, (2D * deltaPhi) + phiOffset, theta2),
-			new Vector3Spherical(inradius, (4D * deltaPhi) - phiOffset, theta2),
-			new Vector3Spherical(inradius, (4D * deltaPhi) + phiOffset, theta2),
-			new Vector3Spherical(inradius, (1D * deltaPhi) - phiOffset, theta3),
-			new Vector3Spherical(inradius, (1D * deltaPhi) + phiOffset, theta3),
-			new Vector3Spherical(inradius, (3D * deltaPhi) - phiOffset, theta3),
-			new Vector3Spherical(inradius, (3D * deltaPhi) + phiOffset, theta3),
-			new Vector3Spherical(inradius, (5D * deltaPhi) - phiOffset, theta3),
-			new Vector3Spherical(inradius, (5D * deltaPhi) + phiOffset, theta3),
-			new Vector3Spherical(inradius, 0D * deltaPhi, theta4),
-			new Vector3Spherical(inradius, 2D * deltaPhi, theta4),
-			new Vector3Spherical(inradius, 4D * deltaPhi, theta4),
-			new Vector3Spherical(inradius, 0D, theta5))
+			new Vector3Spherical(inradius, 0F, theta0),
+			new Vector3Spherical(inradius, 1F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 3F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 5F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, (0F * deltaPhi) - phiOffset, theta2),
+			new Vector3Spherical(inradius, (0F * deltaPhi) + phiOffset, theta2),
+			new Vector3Spherical(inradius, (2F * deltaPhi) - phiOffset, theta2),
+			new Vector3Spherical(inradius, (2F * deltaPhi) + phiOffset, theta2),
+			new Vector3Spherical(inradius, (4F * deltaPhi) - phiOffset, theta2),
+			new Vector3Spherical(inradius, (4F * deltaPhi) + phiOffset, theta2),
+			new Vector3Spherical(inradius, (1F * deltaPhi) - phiOffset, theta3),
+			new Vector3Spherical(inradius, (1F * deltaPhi) + phiOffset, theta3),
+			new Vector3Spherical(inradius, (3F * deltaPhi) - phiOffset, theta3),
+			new Vector3Spherical(inradius, (3F * deltaPhi) + phiOffset, theta3),
+			new Vector3Spherical(inradius, (5F * deltaPhi) - phiOffset, theta3),
+			new Vector3Spherical(inradius, (5F * deltaPhi) + phiOffset, theta3),
+			new Vector3Spherical(inradius, 0F * deltaPhi, theta4),
+			new Vector3Spherical(inradius, 2F * deltaPhi, theta4),
+			new Vector3Spherical(inradius, 4F * deltaPhi, theta4),
+			new Vector3Spherical(inradius, 0F, theta5))
 			.Painted(IcosahedronFaceDownColor);
 	}
 
-	public static IScene IcosahedronFaceDownWithMidradius(double midradius) =>
+	public static IScene IcosahedronFaceDownWithMidradius(float midradius) =>
 		IcosahedronFaceDownWithInradius(midradius * IcosahedronInradius / IcosahedronMidradius);
 
-	public static IScene IcosahedronVertexDownWithCircumradius(double circumradius) =>
+	public static IScene IcosahedronVertexDownWithCircumradius(float circumradius) =>
 		IcosahedronVertexDownWithInradius(circumradius * IcosahedronInradius / IcosahedronCircumradius);
 
-	public static IScene IcosahedronVertexDownWithInradius(double inradius)
+	public static IScene IcosahedronVertexDownWithInradius(float inradius)
 	{
-		var theta0 = double.Acos(double.Sqrt((5D + (2D * double.Sqrt(5D))) / 15D));
-		var theta1 = double.Acos(double.Sqrt((5D - (2D * double.Sqrt(5D))) / 15D));
-		var theta2 = double.Pi - theta1;
-		var theta3 = double.Pi - theta0;
+		var theta0 = float.Acos(float.Sqrt((5F + (2F * float.Sqrt(5F))) / 15F));
+		var theta1 = float.Acos(float.Sqrt((5F - (2F * float.Sqrt(5F))) / 15F));
+		var theta2 = float.Pi - theta1;
+		var theta3 = float.Pi - theta0;
 
-		var deltaPhi = double.Pi / 5D;
+		var deltaPhi = float.Pi / 5F;
 
 		return Polyhedron(
-			new Vector3Spherical(inradius, 0D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 2D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 4D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 6D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 8D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 0D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 2D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 4D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 6D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 8D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 1D * deltaPhi, theta2),
-			new Vector3Spherical(inradius, 3D * deltaPhi, theta2),
-			new Vector3Spherical(inradius, 5D * deltaPhi, theta2),
-			new Vector3Spherical(inradius, 7D * deltaPhi, theta2),
-			new Vector3Spherical(inradius, 9D * deltaPhi, theta2),
-			new Vector3Spherical(inradius, 1D * deltaPhi, theta3),
-			new Vector3Spherical(inradius, 3D * deltaPhi, theta3),
-			new Vector3Spherical(inradius, 5D * deltaPhi, theta3),
-			new Vector3Spherical(inradius, 7D * deltaPhi, theta3),
-			new Vector3Spherical(inradius, 9D * deltaPhi, theta3))
+			new Vector3Spherical(inradius, 0F * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 2F * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 4F * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 6F * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 8F * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 0F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 2F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 4F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 6F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 8F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 1F * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 3F * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 5F * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 7F * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 9F * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 1F * deltaPhi, theta3),
+			new Vector3Spherical(inradius, 3F * deltaPhi, theta3),
+			new Vector3Spherical(inradius, 5F * deltaPhi, theta3),
+			new Vector3Spherical(inradius, 7F * deltaPhi, theta3),
+			new Vector3Spherical(inradius, 9F * deltaPhi, theta3))
 			.Painted(IcosahedronVertexDownColor);
 	}
 
-	public static IScene IcosahedronVertexDownWithMidradius(double midradius) =>
+	public static IScene IcosahedronVertexDownWithMidradius(float midradius) =>
 		IcosahedronVertexDownWithInradius(midradius * IcosahedronInradius / IcosahedronMidradius);
 
 	public static IScene Intersection(params List<IScene> scenes) =>
 		scenes.Aggregate(Full(), IntersectedWith);
 
-	public static IScene OctahedronFaceDownWithCircumradius(double circumradius) =>
+	public static IScene OctahedronFaceDownWithCircumradius(float circumradius) =>
 		OctahedronFaceDownWithInradius(circumradius * OctahedronInradius / OctahedronCircumradius);
 
-	public static IScene OctahedronFaceDownWithInradius(double inradius)
+	public static IScene OctahedronFaceDownWithInradius(float inradius)
 	{
-		var theta0 = 0D;
-		var theta1 = double.Acos(1D / 3D);
-		var theta2 = double.Pi - theta1;
-		var theta3 = double.Pi;
+		var theta0 = 0F;
+		var theta1 = float.Acos(1F / 3F);
+		var theta2 = float.Pi - theta1;
+		var theta3 = float.Pi;
 
-		var deltaPhi = double.Pi / 3D;
+		var deltaPhi = float.Pi / 3F;
 
 		return Polyhedron(
-			new Vector3Spherical(inradius, 0D, theta0),
-			new Vector3Spherical(inradius, 1D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 3D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 5D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 0D * deltaPhi, theta2),
-			new Vector3Spherical(inradius, 2D * deltaPhi, theta2),
-			new Vector3Spherical(inradius, 4D * deltaPhi, theta2),
-			new Vector3Spherical(inradius, 0D, theta3))
+			new Vector3Spherical(inradius, 0F, theta0),
+			new Vector3Spherical(inradius, 1F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 3F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 5F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 0F * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 2F * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 4F * deltaPhi, theta2),
+			new Vector3Spherical(inradius, 0F, theta3))
 			.Painted(OctahedronFaceDownColor);
 	}
 
-	public static IScene OctahedronFaceDownWithMidradius(double midradius) =>
+	public static IScene OctahedronFaceDownWithMidradius(float midradius) =>
 		OctahedronFaceDownWithInradius(midradius * OctahedronInradius / OctahedronMidradius);
 
-	public static IScene OctahedronVertexDownWithCircumradius(double circumradius) =>
+	public static IScene OctahedronVertexDownWithCircumradius(float circumradius) =>
 		OctahedronVertexDownWithInradius(circumradius * OctahedronInradius / OctahedronCircumradius);
 
-	public static IScene OctahedronVertexDownWithInradius(double inradius)
+	public static IScene OctahedronVertexDownWithInradius(float inradius)
 	{
-		var theta0 = double.Acos(1D / double.Sqrt(3D));
-		var theta1 = double.Pi - theta0;
+		var theta0 = float.Acos(1F / float.Sqrt(3F));
+		var theta1 = float.Pi - theta0;
 
-		var deltaPhi = double.Pi / 4D;
+		var deltaPhi = float.Pi / 4F;
 
 		return Polyhedron(
-			new Vector3Spherical(inradius, 1D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 3D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 5D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 7D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 1D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 3D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 5D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 7D * deltaPhi, theta1))
+			new Vector3Spherical(inradius, 1F * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 3F * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 5F * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 7F * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 1F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 3F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 5F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 7F * deltaPhi, theta1))
 			.Painted(OctahedronVertexDownColor);
 	}
 
-	public static IScene OctahedronVertexDownWithMidradius(double midradius) =>
+	public static IScene OctahedronVertexDownWithMidradius(float midradius) =>
 		OctahedronVertexDownWithInradius(midradius * OctahedronInradius / OctahedronMidradius);
 
 	public static IScene Plane(Vector3 normal) =>
@@ -304,49 +304,49 @@ public static class Scene
 	public static IScene Polyhedron(params List<Vector3Spherical> faces) =>
 		Polyhedron([.. faces.Select(face => (Vector3)face)]);
 
-	public static IScene SphereWithRadius(double radius) =>
+	public static IScene SphereWithRadius(float radius) =>
 		new Sphere(radius);
 
-	public static IScene TetrahedronFaceDownWithCircumradius(double circumradius) =>
+	public static IScene TetrahedronFaceDownWithCircumradius(float circumradius) =>
 		TetrahedronFaceDownWithInradius(circumradius * TetrahedronInradius / TetrahedronCircumradius);
 
-	public static IScene TetrahedronFaceDownWithInradius(double inradius)
+	public static IScene TetrahedronFaceDownWithInradius(float inradius)
 	{
-		var theta0 = double.Acos(1D / 3D);
-		var theta1 = double.Pi;
+		var theta0 = float.Acos(1F / 3F);
+		var theta1 = float.Pi;
 
-		var deltaPhi = double.Pi / 3D;
+		var deltaPhi = float.Pi / 3F;
 
 		return Polyhedron(
-			new Vector3Spherical(inradius, 0D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 2D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 4D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 0D, theta1))
+			new Vector3Spherical(inradius, 0F * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 2F * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 4F * deltaPhi, theta0),
+			new Vector3Spherical(inradius, 0F, theta1))
 			.Painted(TetrahedronFaceDownColor);
 	}
 
-	public static IScene TetrahedronFaceDownWithMidradius(double midradius) =>
+	public static IScene TetrahedronFaceDownWithMidradius(float midradius) =>
 		TetrahedronFaceDownWithInradius(midradius * TetrahedronInradius / TetrahedronMidradius);
 
-	public static IScene TetrahedronVertexDownWithCircumradius(double circumradius) =>
+	public static IScene TetrahedronVertexDownWithCircumradius(float circumradius) =>
 		TetrahedronVertexDownWithInradius(circumradius * TetrahedronInradius / TetrahedronCircumradius);
 
-	public static IScene TetrahedronVertexDownWithInradius(double inradius)
+	public static IScene TetrahedronVertexDownWithInradius(float inradius)
 	{
-		var theta0 = 0D;
-		var theta1 = double.Pi - double.Acos(1D / 3D);
+		var theta0 = 0F;
+		var theta1 = float.Pi - float.Acos(1F / 3F);
 
-		var deltaPhi = double.Pi / 3D;
+		var deltaPhi = float.Pi / 3F;
 
 		return Polyhedron(
-			new Vector3Spherical(inradius, 0D, theta0),
-			new Vector3Spherical(inradius, 1D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 3D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 5D * deltaPhi, theta1))
+			new Vector3Spherical(inradius, 0F, theta0),
+			new Vector3Spherical(inradius, 1F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 3F * deltaPhi, theta1),
+			new Vector3Spherical(inradius, 5F * deltaPhi, theta1))
 			.Painted(TetrahedronVertexDownColor);
 	}
 
-	public static IScene TetrahedronVertexDownWithMidradius(double midradius) =>
+	public static IScene TetrahedronVertexDownWithMidradius(float midradius) =>
 		TetrahedronVertexDownWithInradius(midradius * TetrahedronInradius / TetrahedronMidradius);
 
 	public static IScene Union(params List<IScene> scenes) =>
@@ -378,14 +378,14 @@ public static class Scene
 		public IScene Painted(ColorHsv color) =>
 			new Painted(source, color);
 
-		public IScene Rotated(double angle) =>
+		public IScene Rotated(float angle) =>
 			source.Rotated(Vector3.UnitZ, angle);
 
-		public IScene Rotated(Vector3 axis, double angle) =>
+		public IScene Rotated(Vector3 axis, float angle) =>
 			source.Transformed(Matrix4.Rotation(axis, angle), Matrix4.Rotation(axis, -angle));
 
-		public IScene Scaled(double factor) =>
-			source.Transformed(Matrix4.Scaling(factor), Matrix4.Scaling(1D / factor));
+		public IScene Scaled(float factor) =>
+			source.Transformed(Matrix4.Scaling(factor), Matrix4.Scaling(1F / factor));
 
 		public IScene Transformed(Matrix4 forward, Matrix4 backward) =>
 			new Transformed(source, forward, backward);

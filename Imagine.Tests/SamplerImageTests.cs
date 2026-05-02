@@ -7,10 +7,10 @@ public class SamplerImageTests
 			Width: 512,
 			Height: 512,
 			Subsamples: 2,
-			XMin: 0D,
-			XMax: 1D,
-			YMin: 0D,
-			YMax: 1D);
+			XMin: 0F,
+			XMax: 1F,
+			YMin: 0F,
+			YMax: 1F);
 
 	[Fact]
 	public void SamplerImageHsv()
@@ -20,12 +20,12 @@ public class SamplerImageTests
 
 		static ColorHsv Function(Vector2 point)
 		{
-			var center = new Vector2(0.5D, 0.5D);
+			var center = new Vector2(0.5F, 0.5F);
 			var r = (point - center).Length();
 
 			return new(
-				(2D * point.X) - 1D,
-				r < 0.5D ? 1D - (2D * r) : 0D,
+				(2F * point.X) - 1F,
+				r < 0.5F ? 1F - (2F * r) : 0F,
 				point.Y);
 		}
 
@@ -43,12 +43,12 @@ public class SamplerImageTests
 
 		static Color Function(Vector2 point)
 		{
-			var center = new Vector2(0.5D, 0.5D);
+			var center = new Vector2(0.5F, 0.5F);
 			var r = (point - center).Length();
 
 			return new(
 				point.X,
-				r < 0.5D ? 1D - (2D * r) : 0D,
+				r < 0.5F ? 1F - (2F * r) : 0F,
 				point.Y);
 		}
 

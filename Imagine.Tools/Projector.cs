@@ -13,7 +13,7 @@ public static class Projector
 			var ray = bundle(point);
 
 			var intercepts = scene.Intercepts(ray)
-				.Where(intercept => intercept.Distance > 0D)
+				.Where(intercept => intercept.Distance > 0F)
 				.OrderBy(intercept => intercept.Distance)
 				.ToList();
 
@@ -23,7 +23,7 @@ public static class Projector
 			}
 
 			var intercept = intercepts.First();
-			var intensity = double.Abs(intercept.Normal.Dot(ray.Direction));
+			var intensity = float.Abs(intercept.Normal.Dot(ray.Direction));
 
 			return intercept.Color * intensity;
 		};
@@ -45,7 +45,7 @@ public static class Projector
 		var centerScreen = settings.Eye + viewingDirection;
 		var xVector = viewingDirection.Cross(Vector3.UnitZ).Normalized();
 		var yVector = xVector.Cross(viewingDirection).Normalized();
-		var halfScreenExtent = double.Tan(settings.HalfOpeningAngle);
+		var halfScreenExtent = float.Tan(settings.HalfOpeningAngle);
 		xVector *= halfScreenExtent;
 		yVector *= halfScreenExtent;
 

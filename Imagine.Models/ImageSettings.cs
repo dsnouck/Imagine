@@ -4,20 +4,20 @@ public readonly record struct ImageSettings(
 	int Width,
 	int Height,
 	int Subsamples,
-	double XMin,
-	double XMax,
-	double YMin,
-	double YMax)
+	float XMin,
+	float XMax,
+	float YMin,
+	float YMax)
 {
 	public ImageSettings(int width, int height, int subsamples)
 		: this(
 			  Width: width,
 			  Height: height,
 			  Subsamples: subsamples,
-			  XMin: -1D,
-			  XMax: 1D,
-			  YMin: -((double)height / width),
-			  YMax: (double)height / width)
+			  XMin: -1F,
+			  XMax: 1F,
+			  YMin: -((float)height / width),
+			  YMax: (float)height / width)
 	{
 	}
 }
