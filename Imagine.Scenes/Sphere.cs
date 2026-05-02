@@ -1,6 +1,6 @@
 namespace Imagine.Scenes;
 
-internal class Sphere(double radius) : IScene
+internal class Sphere(float radius) : IScene
 {
 	public bool Contains(Vector3 point) =>
 		point.Dot(point) <= radius * radius;
@@ -9,7 +9,7 @@ internal class Sphere(double radius) : IScene
 	{
 		var distances = QuadraticSolver.Solve(
 			ray.Direction.Dot(ray.Direction),
-			ray.Direction.Dot(ray.Origin) * 2D,
+			ray.Direction.Dot(ray.Origin) * 2F,
 			ray.Origin.Dot(ray.Origin) - (radius * radius));
 
 		return [.. distances.

@@ -2,6 +2,6 @@ namespace Imagine.Tests;
 
 internal static class Constants
 {
-	public const double Circumradius = 1D;
+	public const float Circumradius = 1F;
 	public const string InputDirectory = "input";
 }

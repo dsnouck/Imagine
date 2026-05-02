@@ -1,6 +1,6 @@
 namespace Imagine.Scenes;
 
-internal class Cylinder(Vector3 axis, double radius) : IScene
+internal class Cylinder(Vector3 axis, float radius) : IScene
 {
 	private readonly Vector3 axisNormalized = axis.Normalized();
 
@@ -18,7 +18,7 @@ internal class Cylinder(Vector3 axis, double radius) : IScene
 
 		var distances = QuadraticSolver.Solve(
 			directionPerpendicular.Dot(directionPerpendicular),
-			directionPerpendicular.Dot(originPerpendicular) * 2D,
+			directionPerpendicular.Dot(originPerpendicular) * 2F,
 			originPerpendicular.Dot(originPerpendicular) - (radius * radius));
 
 		return [.. distances

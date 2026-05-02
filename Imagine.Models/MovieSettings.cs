@@ -5,12 +5,12 @@ public readonly record struct MovieSettings(
 	int Width,
 	int Height,
 	int Subsamples,
-	double XMin,
-	double XMax,
-	double YMin,
-	double YMax,
-	double ZMin,
-	double ZMax)
+	float XMin,
+	float XMax,
+	float YMin,
+	float YMax,
+	float ZMin,
+	float ZMax)
 {
 	public MovieSettings(int frames, int width, int height, int subsamples)
 		: this(
@@ -18,12 +18,12 @@ public readonly record struct MovieSettings(
 			  Width: width,
 			  Height: height,
 			  Subsamples: subsamples,
-			  XMin: -1D,
-			  XMax: 1D,
-			  YMin: -((double)height / width),
-			  YMax: (double)height / width,
-			  ZMin: 0D,
-			  ZMax: 1D)
+			  XMin: -1F,
+			  XMax: 1F,
+			  YMin: -((float)height / width),
+			  YMax: (float)height / width,
+			  ZMin: 0F,
+			  ZMax: 1F)
 	{
 	}
 

@@ -2,29 +2,29 @@ namespace Imagine.Tests;
 
 public class ProjectorImageTests
 {
-	private const double Narrow = 0.01D;
+	private const float Narrow = 0.01F;
 
-	private static readonly double CubeOctahedronMidradius =
-		Constants.Circumradius * double.Min(
+	private static readonly float CubeOctahedronMidradius =
+		Constants.Circumradius * float.Min(
 			Scene.CubeMidradius / Scene.CubeCircumradius,
 			Scene.OctahedronMidradius / Scene.OctahedronCircumradius);
 
-	private static readonly double DodecahedronIcosahedronMidradius =
-		Constants.Circumradius * double.Min(
+	private static readonly float DodecahedronIcosahedronMidradius =
+		Constants.Circumradius * float.Min(
 			Scene.DodecahedronMidradius / Scene.DodecahedronCircumradius,
 			Scene.IcosahedronMidradius / Scene.IcosahedronCircumradius);
 
-	private static readonly double SphereAlmostTouchingCubeEdgeRadius =
+	private static readonly float SphereAlmostTouchingCubeEdgeRadius =
 		(Constants.Circumradius * Scene.CubeMidradius / Scene.CubeCircumradius) - Narrow;
 
-	private static readonly double TetrahedronMidradius =
+	private static readonly float TetrahedronMidradius =
 		Constants.Circumradius * Scene.TetrahedronMidradius / Scene.TetrahedronCircumradius;
 
 	private static readonly ProjectorSettings ProjectorSettings =
 		ProjectorSettings.WithOpeningRadius(
-			eye: (Vector3)new Vector3Spherical(10D, double.Pi / 6D, double.Pi / 3D),
+			eye: (Vector3)new Vector3Spherical(10F, float.Pi / 6F, float.Pi / 3F),
 			focus: Vector3.Zero,
-			openingRadius: Constants.Circumradius * 5D / 4D);
+			openingRadius: Constants.Circumradius * 5F / 4F);
 
 	private static readonly ImageSettings ImageSettings =
 		new(
@@ -40,13 +40,13 @@ public class ProjectorImageTests
 		{
 			["cone-bounded"] =
 				Scene.Intersection(
-					Scene.Cone(Vector3.UnitZ, double.Pi / 2D),
+					Scene.Cone(Vector3.UnitZ, float.Pi / 2F),
 					BoundingSphere),
 			["cone-union"] =
 				Scene.Union(
-					Scene.Cone(Vector3.UnitX, double.Pi / 16D).Painted(Color.Red),
-					Scene.Cone(Vector3.UnitY, double.Pi / 16D).Painted(Color.Green),
-					Scene.Cone(Vector3.UnitZ, double.Pi / 16D).Painted(Color.Blue)),
+					Scene.Cone(Vector3.UnitX, float.Pi / 16F).Painted(Color.Red),
+					Scene.Cone(Vector3.UnitY, float.Pi / 16F).Painted(Color.Green),
+					Scene.Cone(Vector3.UnitZ, float.Pi / 16F).Painted(Color.Blue)),
 			["cube-face-down"] =
 				Scene.CubeFaceDownWithCircumradius(Constants.Circumradius),
 			["cube-face-down-octahedron-vertex-down-union"] =
@@ -55,14 +55,14 @@ public class ProjectorImageTests
 					Scene.OctahedronVertexDownWithMidradius(CubeOctahedronMidradius)),
 			["cube-face-down-rotated"] =
 				Scene.CubeFaceDownWithCircumradius(Constants.Circumradius)
-					.Rotated(double.Pi / 4D),
+					.Rotated(float.Pi / 4F),
 			["cube-face-down-scaled"] =
 				Scene.CubeFaceDownWithCircumradius(Constants.Circumradius)
-					.Scaled(Constants.Circumradius / 2D),
+					.Scaled(Constants.Circumradius / 2F),
 			["cube-face-down-sphere-intersection"] =
 				Scene.Intersection(
 					Scene.CubeFaceDownWithCircumradius(Constants.Circumradius),
-					Scene.SphereWithRadius(1D).
+					Scene.SphereWithRadius(1F).
 						Scaled(SphereAlmostTouchingCubeEdgeRadius)),
 			["cube-face-down-sphere-inverted-union"] =
 				Scene.Intersection(
@@ -74,23 +74,23 @@ public class ProjectorImageTests
 					SphereAlmostTouchingCubeEdge),
 			["cube-face-down-translated"] =
 				Scene.CubeFaceDownWithCircumradius(Constants.Circumradius)
-					.Translated(new(0D, Constants.Circumradius / 4D, 0D)),
+					.Translated(new(0F, Constants.Circumradius / 4F, 0F)),
 			["cube-vertex-down"] =
 				Scene.CubeVertexDownWithCircumradius(Constants.Circumradius),
 			["cylinder-bounded"] =
 				Scene.Intersection(
-					Scene.Cylinder(Vector3.UnitZ, Constants.Circumradius / 2D),
+					Scene.Cylinder(Vector3.UnitZ, Constants.Circumradius / 2F),
 					BoundingSphere),
 			["cylinder-intersection"] =
 				Scene.Intersection(
-					Scene.Cylinder(Vector3.UnitX, Constants.Circumradius / 2D).Painted(Color.Red),
-					Scene.Cylinder(Vector3.UnitY, Constants.Circumradius / 2D).Painted(Color.Green),
-					Scene.Cylinder(Vector3.UnitZ, Constants.Circumradius / 2D).Painted(Color.Blue)),
+					Scene.Cylinder(Vector3.UnitX, Constants.Circumradius / 2F).Painted(Color.Red),
+					Scene.Cylinder(Vector3.UnitY, Constants.Circumradius / 2F).Painted(Color.Green),
+					Scene.Cylinder(Vector3.UnitZ, Constants.Circumradius / 2F).Painted(Color.Blue)),
 			["cylinder-union"] =
 				Scene.Union(
-					Scene.Cylinder(Vector3.UnitX, Constants.Circumradius / 4D).Painted(Color.Red),
-					Scene.Cylinder(Vector3.UnitY, Constants.Circumradius / 4D).Painted(Color.Green),
-					Scene.Cylinder(Vector3.UnitZ, Constants.Circumradius / 4D).Painted(Color.Blue)),
+					Scene.Cylinder(Vector3.UnitX, Constants.Circumradius / 4F).Painted(Color.Red),
+					Scene.Cylinder(Vector3.UnitY, Constants.Circumradius / 4F).Painted(Color.Green),
+					Scene.Cylinder(Vector3.UnitZ, Constants.Circumradius / 4F).Painted(Color.Blue)),
 			["dodecahedron-face-down"] =
 				Scene.DodecahedronFaceDownWithCircumradius(Constants.Circumradius),
 			["dodecahedron-face-down-icosahedron-vertex-down-union"] =
@@ -124,45 +124,45 @@ public class ProjectorImageTests
 			["sphere-cone-inverted-intersection"] =
 				Scene.Intersection(
 					SphereAlmostTouchingCubeEdge,
-					Scene.Cone(Vector3.UnitZ, double.Pi / 2D).Inverted()),
+					Scene.Cone(Vector3.UnitZ, float.Pi / 2F).Inverted()),
 			["sphere-cube-face-down-inverted-intersection"] =
 				Scene.Intersection(
 					SphereAlmostTouchingCubeEdge,
 					Scene.CubeFaceDownWithCircumradius(Constants.Circumradius)),
 			["sphere-painted-hsv"] =
-				Scene.SphereWithRadius(1D)
-					.Painted(new ColorHsv(0.1D, 0.9D, 1D)),
+				Scene.SphereWithRadius(1F)
+					.Painted(new ColorHsv(0.1F, 0.9F, 1F)),
 			["sphere-painted-hsv-cartesian"] =
-				Scene.SphereWithRadius(1D)
+				Scene.SphereWithRadius(1F)
 					.Painted(point =>
 						new ColorHsv(
-							(2D * point.X).Modulo(1D),
-							(1D - point.Z) / 2D,
-							1D)),
+							(2F * point.X).Modulo(1F),
+							(1F - point.Z) / 2F,
+							1F)),
 			["sphere-painted-hsv-spherical"] =
-				Scene.SphereWithRadius(1D)
+				Scene.SphereWithRadius(1F)
 					.Painted(point =>
 						new ColorHsv(
-							(2D * point.Phi / double.Pi).Modulo(1D),
-							point.Theta / double.Pi,
-							1D)),
+							(2F * point.Phi / float.Pi).Modulo(1F),
+							point.Theta / float.Pi,
+							1F)),
 			["sphere-painted-rgb"] =
-				Scene.SphereWithRadius(1D)
+				Scene.SphereWithRadius(1F)
 					.Painted(Color.Red),
 			["sphere-painted-rgb-cartesian"] =
-				Scene.SphereWithRadius(1D)
+				Scene.SphereWithRadius(1F)
 					.Painted(point =>
 						new Color(
-							double.Abs(point.X),
-							double.Abs(point.Y),
-							double.Abs(point.Z))),
+							float.Abs(point.X),
+							float.Abs(point.Y),
+							float.Abs(point.Z))),
 			["sphere-painted-rgb-spherical"] =
-				Scene.SphereWithRadius(1D)
+				Scene.SphereWithRadius(1F)
 					.Painted(point =>
 						new Color(
-							(1D + double.Cos(16D * point.Phi)) / 2D,
-							0D,
-							(1D + double.Cos(16D * point.Theta)) / 2D)),
+							(1F + float.Cos(16F * point.Phi)) / 2F,
+							0F,
+							(1F + float.Cos(16F * point.Theta)) / 2F)),
 			["tetrahedron-face-down"] =
 				Scene.TetrahedronFaceDownWithCircumradius(Constants.Circumradius),
 			["tetrahedron-union"] =
