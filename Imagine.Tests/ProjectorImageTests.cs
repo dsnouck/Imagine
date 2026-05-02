@@ -14,7 +14,7 @@ public class ProjectorImageTests
 			Scene.DodecahedronMidradius / Scene.DodecahedronCircumradius,
 			Scene.IcosahedronMidradius / Scene.IcosahedronCircumradius);
 
-	private static readonly double SphereRadius =
+	private static readonly double SphereAlmostTouchingCubeEdgeRadius =
 		(Constants.Circumradius * Scene.CubeMidradius / Scene.CubeCircumradius) - Narrow;
 
 	private static readonly double TetrahedronMidradius =
@@ -33,7 +33,7 @@ public class ProjectorImageTests
 			subsamples: 2);
 
 	private static readonly IScene BoundingSphere = Scene.SphereWithRadius(Constants.Circumradius).Transparent();
-	private static readonly IScene Sphere = Scene.SphereWithRadius(SphereRadius);
+	private static readonly IScene SphereAlmostTouchingCubeEdge = Scene.SphereWithRadius(SphereAlmostTouchingCubeEdgeRadius);
 
 	private static readonly Dictionary<string, IScene> Scenes =
 		new()
@@ -53,9 +53,6 @@ public class ProjectorImageTests
 				Scene.Union(
 					Scene.CubeFaceDownWithMidradius(CubeOctahedronMidradius),
 					Scene.OctahedronVertexDownWithMidradius(CubeOctahedronMidradius)),
-			["cube-face-down-painted"] =
-				Scene.CubeFaceDownWithCircumradius(Constants.Circumradius)
-					.Painted(Color.Red),
 			["cube-face-down-rotated"] =
 				Scene.CubeFaceDownWithCircumradius(Constants.Circumradius)
 					.Rotated(double.Pi / 4D),
@@ -66,15 +63,15 @@ public class ProjectorImageTests
 				Scene.Intersection(
 					Scene.CubeFaceDownWithCircumradius(Constants.Circumradius),
 					Scene.SphereWithRadius(1D).
-						Scaled(SphereRadius)),
+						Scaled(SphereAlmostTouchingCubeEdgeRadius)),
 			["cube-face-down-sphere-inverted-union"] =
 				Scene.Intersection(
 					Scene.CubeFaceDownWithCircumradius(Constants.Circumradius),
-					Sphere.Inverted()),
+					SphereAlmostTouchingCubeEdge.Inverted()),
 			["cube-face-down-sphere-union"] =
 				Scene.Union(
 					Scene.CubeFaceDownWithCircumradius(Constants.Circumradius),
-					Sphere),
+					SphereAlmostTouchingCubeEdge),
 			["cube-face-down-translated"] =
 				Scene.CubeFaceDownWithCircumradius(Constants.Circumradius)
 					.Translated(new(0D, Constants.Circumradius / 4D, 0D)),
@@ -123,14 +120,14 @@ public class ProjectorImageTests
 					Scene.PlaneThroughOrigin(Vector3.UnitZ),
 					BoundingSphere),
 			["sphere"] =
-				Sphere,
+				Scene.SphereWithRadius(Constants.Circumradius),
 			["sphere-cone-inverted-intersection"] =
 				Scene.Intersection(
-					Sphere,
+					SphereAlmostTouchingCubeEdge,
 					Scene.Cone(Vector3.UnitZ, double.Pi / 2D).Inverted()),
 			["sphere-cube-face-down-inverted-intersection"] =
 				Scene.Intersection(
-					Sphere,
+					SphereAlmostTouchingCubeEdge,
 					Scene.CubeFaceDownWithCircumradius(Constants.Circumradius)),
 			["sphere-painted-hsv"] =
 				Scene.SphereWithRadius(1D)

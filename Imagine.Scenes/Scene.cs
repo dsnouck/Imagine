@@ -20,8 +20,22 @@ public static class Scene
 	public static readonly double TetrahedronInradius = 1D / double.Sqrt(6D);
 	public static readonly double TetrahedronMidradius = 1D / double.Sqrt(2D);
 
+	private static readonly ColorHsv ConeColor = new(11D / 12D, 1D, 1D);
+	private static readonly ColorHsv CubeFaceDownColor = new(2D / 12D, 1D, 1D);
+	private static readonly ColorHsv CubeVertexDownColor = new(4D / 12D, 1D, 1D);
+	private static readonly ColorHsv CylinderColor = new(10D / 12D, 1D, 1D);
+	private static readonly ColorHsv DodecahedronFaceDownColor = new(6D / 12D, 1D, 1D);
+	private static readonly ColorHsv DodecahedronVertexDownColor = new(8D / 12D, 1D, 1D);
+	private static readonly ColorHsv IcosahedronFaceDownColor = new(9D / 12D, 1D, 1D);
+	private static readonly ColorHsv IcosahedronVertexDownColor = new(7D / 12D, 1D, 1D);
+	private static readonly ColorHsv OctahedronFaceDownColor = new(5D / 12D, 1D, 1D);
+	private static readonly ColorHsv OctahedronVertexDownColor = new(3D / 12D, 1D, 1D);
+	private static readonly ColorHsv TetrahedronFaceDownColor = new(0D / 12D, 1D, 1D);
+	private static readonly ColorHsv TetrahedronVertexDownColor = new(1D / 12D, 1D, 1D);
+
 	public static IScene Cone(Vector3 axis, double angle) =>
-		new Cone(axis, angle);
+		new Cone(axis, angle)
+			.Painted(ConeColor);
 
 	public static IScene CubeFaceDownWithCircumradius(double circumradius) =>
 		CubeFaceDownWithInradius(circumradius * CubeInradius / CubeCircumradius);
@@ -40,7 +54,8 @@ public static class Scene
 			new Vector3Spherical(inradius, 1D * deltaPhi, theta1),
 			new Vector3Spherical(inradius, 2D * deltaPhi, theta1),
 			new Vector3Spherical(inradius, 3D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 0D, theta2));
+			new Vector3Spherical(inradius, 0D, theta2))
+			.Painted(CubeFaceDownColor);
 	}
 
 	public static IScene CubeFaceDownWithMidradius(double midradius) =>
@@ -62,14 +77,16 @@ public static class Scene
 			new Vector3Spherical(inradius, 4D * deltaPhi, theta0),
 			new Vector3Spherical(inradius, 1D * deltaPhi, theta1),
 			new Vector3Spherical(inradius, 3D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 5D * deltaPhi, theta1));
+			new Vector3Spherical(inradius, 5D * deltaPhi, theta1))
+			.Painted(CubeVertexDownColor);
 	}
 
 	public static IScene CubeVertexDownWithMidradius(double midradius) =>
 		CubeVertexDownWithInradius(midradius * CubeInradius / CubeMidradius);
 
 	public static IScene Cylinder(Vector3 axis, double radius) =>
-		new Cylinder(axis, radius);
+		new Cylinder(axis, radius)
+			.Painted(CylinderColor);
 
 	public static IScene DodecahedronFaceDownWithCircumradius(double circumradius) =>
 		DodecahedronFaceDownWithInradius(circumradius * DodecahedronInradius / DodecahedronCircumradius);
@@ -95,7 +112,8 @@ public static class Scene
 			new Vector3Spherical(inradius, 4D * deltaPhi, theta2),
 			new Vector3Spherical(inradius, 6D * deltaPhi, theta2),
 			new Vector3Spherical(inradius, 8D * deltaPhi, theta2),
-			new Vector3Spherical(inradius, 0D, theta3));
+			new Vector3Spherical(inradius, 0D, theta3))
+			.Painted(DodecahedronFaceDownColor);
 	}
 
 	public static IScene DodecahedronFaceDownWithMidradius(double midradius) =>
@@ -125,7 +143,8 @@ public static class Scene
 			new Vector3Spherical(inradius, 4D * deltaPhi, theta2),
 			new Vector3Spherical(inradius, 1D * deltaPhi, theta3),
 			new Vector3Spherical(inradius, 3D * deltaPhi, theta3),
-			new Vector3Spherical(inradius, 5D * deltaPhi, theta3));
+			new Vector3Spherical(inradius, 5D * deltaPhi, theta3))
+			.Painted(DodecahedronVertexDownColor);
 	}
 
 	public static IScene DodecahedronVertexDownWithMidradius(double midradius) =>
@@ -172,7 +191,8 @@ public static class Scene
 			new Vector3Spherical(inradius, 0D * deltaPhi, theta4),
 			new Vector3Spherical(inradius, 2D * deltaPhi, theta4),
 			new Vector3Spherical(inradius, 4D * deltaPhi, theta4),
-			new Vector3Spherical(inradius, 0D, theta5));
+			new Vector3Spherical(inradius, 0D, theta5))
+			.Painted(IcosahedronFaceDownColor);
 	}
 
 	public static IScene IcosahedronFaceDownWithMidradius(double midradius) =>
@@ -210,7 +230,8 @@ public static class Scene
 			new Vector3Spherical(inradius, 3D * deltaPhi, theta3),
 			new Vector3Spherical(inradius, 5D * deltaPhi, theta3),
 			new Vector3Spherical(inradius, 7D * deltaPhi, theta3),
-			new Vector3Spherical(inradius, 9D * deltaPhi, theta3));
+			new Vector3Spherical(inradius, 9D * deltaPhi, theta3))
+			.Painted(IcosahedronVertexDownColor);
 	}
 
 	public static IScene IcosahedronVertexDownWithMidradius(double midradius) =>
@@ -239,7 +260,8 @@ public static class Scene
 			new Vector3Spherical(inradius, 0D * deltaPhi, theta2),
 			new Vector3Spherical(inradius, 2D * deltaPhi, theta2),
 			new Vector3Spherical(inradius, 4D * deltaPhi, theta2),
-			new Vector3Spherical(inradius, 0D, theta3));
+			new Vector3Spherical(inradius, 0D, theta3))
+			.Painted(OctahedronFaceDownColor);
 	}
 
 	public static IScene OctahedronFaceDownWithMidradius(double midradius) =>
@@ -263,7 +285,8 @@ public static class Scene
 			new Vector3Spherical(inradius, 1D * deltaPhi, theta1),
 			new Vector3Spherical(inradius, 3D * deltaPhi, theta1),
 			new Vector3Spherical(inradius, 5D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 7D * deltaPhi, theta1));
+			new Vector3Spherical(inradius, 7D * deltaPhi, theta1))
+			.Painted(OctahedronVertexDownColor);
 	}
 
 	public static IScene OctahedronVertexDownWithMidradius(double midradius) =>
@@ -298,7 +321,8 @@ public static class Scene
 			new Vector3Spherical(inradius, 0D * deltaPhi, theta0),
 			new Vector3Spherical(inradius, 2D * deltaPhi, theta0),
 			new Vector3Spherical(inradius, 4D * deltaPhi, theta0),
-			new Vector3Spherical(inradius, 0D, theta1));
+			new Vector3Spherical(inradius, 0D, theta1))
+			.Painted(TetrahedronFaceDownColor);
 	}
 
 	public static IScene TetrahedronFaceDownWithMidradius(double midradius) =>
@@ -318,7 +342,8 @@ public static class Scene
 			new Vector3Spherical(inradius, 0D, theta0),
 			new Vector3Spherical(inradius, 1D * deltaPhi, theta1),
 			new Vector3Spherical(inradius, 3D * deltaPhi, theta1),
-			new Vector3Spherical(inradius, 5D * deltaPhi, theta1));
+			new Vector3Spherical(inradius, 5D * deltaPhi, theta1))
+			.Painted(TetrahedronVertexDownColor);
 	}
 
 	public static IScene TetrahedronVertexDownWithMidradius(double midradius) =>

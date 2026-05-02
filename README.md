@@ -1,4 +1,91 @@
 # Imagine
-- Images
-- Movies
-- Ray tracing
+
+Renders images and movies
+
+## Examples
+
+### Images
+
+<a href="Imagine.Tests/input/cone-bounded.png"><img src="Imagine.Tests/input/cone-bounded.png" width="128" height="128" alt="cone-bounded"><br>cone-bounded</a>
+
+<a href="Imagine.Tests/input/cone-union.png"><img src="Imagine.Tests/input/cone-union.png" width="128" height="128" alt="cone-union"><br>cone-union</a>
+
+<a href="Imagine.Tests/input/cube-face-down.png"><img src="Imagine.Tests/input/cube-face-down.png" width="128" height="128" alt="cube-face-down"><br>cube-face-down</a>
+
+<a href="Imagine.Tests/input/cube-face-down-octahedron-vertex-down-union.png"><img src="Imagine.Tests/input/cube-face-down-octahedron-vertex-down-union.png" width="128" height="128" alt="cube-face-down-octahedron-vertex-down-union"><br>cube-face-down-octahedron-vertex-down-union</a>
+
+<a href="Imagine.Tests/input/cube-face-down-rotated.png"><img src="Imagine.Tests/input/cube-face-down-rotated.png" width="128" height="128" alt="cube-face-down-rotated"><br>cube-face-down-rotated</a>
+
+<a href="Imagine.Tests/input/cube-face-down-scaled.png"><img src="Imagine.Tests/input/cube-face-down-scaled.png" width="128" height="128" alt="cube-face-down-scaled"><br>cube-face-down-scaled</a>
+
+<a href="Imagine.Tests/input/cube-face-down-sphere-intersection.png"><img src="Imagine.Tests/input/cube-face-down-sphere-intersection.png" width="128" height="128" alt="cube-face-down-sphere-intersection"><br>cube-face-down-sphere-intersection</a>
+
+<a href="Imagine.Tests/input/cube-face-down-sphere-inverted-union.png"><img src="Imagine.Tests/input/cube-face-down-sphere-inverted-union.png" width="128" height="128" alt="cube-face-down-sphere-inverted-union"><br>cube-face-down-sphere-inverted-union</a>
+
+<a href="Imagine.Tests/input/cube-face-down-sphere-union.png"><img src="Imagine.Tests/input/cube-face-down-sphere-union.png" width="128" height="128" alt="cube-face-down-sphere-union"><br>cube-face-down-sphere-union</a>
+
+<a href="Imagine.Tests/input/cube-face-down-translated.png"><img src="Imagine.Tests/input/cube-face-down-translated.png" width="128" height="128" alt="cube-face-down-translated"><br>cube-face-down-translated</a>
+
+<a href="Imagine.Tests/input/cube-vertex-down.png"><img src="Imagine.Tests/input/cube-vertex-down.png" width="128" height="128" alt="cube-vertex-down"><br>cube-vertex-down</a>
+
+<a href="Imagine.Tests/input/cylinder-bounded.png"><img src="Imagine.Tests/input/cylinder-bounded.png" width="128" height="128" alt="cylinder-bounded"><br>cylinder-bounded</a>
+
+<a href="Imagine.Tests/input/cylinder-intersection.png"><img src="Imagine.Tests/input/cylinder-intersection.png" width="128" height="128" alt="cylinder-intersection"><br>cylinder-intersection</a>
+
+<a href="Imagine.Tests/input/cylinder-union.png"><img src="Imagine.Tests/input/cylinder-union.png" width="128" height="128" alt="cylinder-union"><br>cylinder-union</a>
+
+<a href="Imagine.Tests/input/dodecahedron-face-down.png"><img src="Imagine.Tests/input/dodecahedron-face-down.png" width="128" height="128" alt="dodecahedron-face-down"><br>dodecahedron-face-down</a>
+
+<a href="Imagine.Tests/input/dodecahedron-face-down-icosahedron-vertex-down-union.png"><img src="Imagine.Tests/input/dodecahedron-face-down-icosahedron-vertex-down-union.png" width="128" height="128" alt="dodecahedron-face-down-icosahedron-vertex-down-union"><br>dodecahedron-face-down-icosahedron-vertex-down-union</a>
+
+<a href="Imagine.Tests/input/dodecahedron-vertex-down.png"><img src="Imagine.Tests/input/dodecahedron-vertex-down.png" width="128" height="128" alt="dodecahedron-vertex-down"><br>dodecahedron-vertex-down</a>
+
+<a href="Imagine.Tests/input/hsv.png"><img src="Imagine.Tests/input/hsv.png" width="128" height="128" alt="hsv"><br>hsv</a>
+
+<a href="Imagine.Tests/input/icosahedron-face-down.png"><img src="Imagine.Tests/input/icosahedron-face-down.png" width="128" height="128" alt="icosahedron-face-down"><br>icosahedron-face-down</a>
+
+<a href="Imagine.Tests/input/icosahedron-face-down-dodecahedron-vertex-down-union.png"><img src="Imagine.Tests/input/icosahedron-face-down-dodecahedron-vertex-down-union.png" width="128" height="128" alt="icosahedron-face-down-dodecahedron-vertex-down-union"><br>icosahedron-face-down-dodecahedron-vertex-down-union</a>
+
+<a href="Imagine.Tests/input/icosahedron-vertex-down.png"><img src="Imagine.Tests/input/icosahedron-vertex-down.png" width="128" height="128" alt="icosahedron-vertex-down"><br>icosahedron-vertex-down</a>
+
+<a href="Imagine.Tests/input/octahedron-face-down.png"><img src="Imagine.Tests/input/octahedron-face-down.png" width="128" height="128" alt="octahedron-face-down"><br>octahedron-face-down</a>
+
+<a href="Imagine.Tests/input/octahedron-face-down-cube-vertex-down-union.png"><img src="Imagine.Tests/input/octahedron-face-down-cube-vertex-down-union.png" width="128" height="128" alt="octahedron-face-down-cube-vertex-down-union"><br>octahedron-face-down-cube-vertex-down-union</a>
+
+<a href="Imagine.Tests/input/octahedron-vertex-down.png"><img src="Imagine.Tests/input/octahedron-vertex-down.png" width="128" height="128" alt="octahedron-vertex-down"><br>octahedron-vertex-down</a>
+
+<a href="Imagine.Tests/input/plane-horizontal-bounded.png"><img src="Imagine.Tests/input/plane-horizontal-bounded.png" width="128" height="128" alt="plane-horizontal-bounded"><br>plane-horizontal-bounded</a>
+
+<a href="Imagine.Tests/input/rgb.png"><img src="Imagine.Tests/input/rgb.png" width="128" height="128" alt="rgb"><br>rgb</a>
+
+<a href="Imagine.Tests/input/sphere.png"><img src="Imagine.Tests/input/sphere.png" width="128" height="128" alt="sphere"><br>sphere</a>
+
+<a href="Imagine.Tests/input/sphere-cone-inverted-intersection.png"><img src="Imagine.Tests/input/sphere-cone-inverted-intersection.png" width="128" height="128" alt="sphere-cone-inverted-intersection"><br>sphere-cone-inverted-intersection</a>
+
+<a href="Imagine.Tests/input/sphere-cube-face-down-inverted-intersection.png"><img src="Imagine.Tests/input/sphere-cube-face-down-inverted-intersection.png" width="128" height="128" alt="sphere-cube-face-down-inverted-intersection"><br>sphere-cube-face-down-inverted-intersection</a>
+
+<a href="Imagine.Tests/input/sphere-painted-hsv.png"><img src="Imagine.Tests/input/sphere-painted-hsv.png" width="128" height="128" alt="sphere-painted-hsv"><br>sphere-painted-hsv</a>
+
+<a href="Imagine.Tests/input/sphere-painted-hsv-cartesian.png"><img src="Imagine.Tests/input/sphere-painted-hsv-cartesian.png" width="128" height="128" alt="sphere-painted-hsv-cartesian"><br>sphere-painted-hsv-cartesian</a>
+
+<a href="Imagine.Tests/input/sphere-painted-hsv-spherical.png"><img src="Imagine.Tests/input/sphere-painted-hsv-spherical.png" width="128" height="128" alt="sphere-painted-hsv-spherical"><br>sphere-painted-hsv-spherical</a>
+
+<a href="Imagine.Tests/input/sphere-painted-rgb.png"><img src="Imagine.Tests/input/sphere-painted-rgb.png" width="128" height="128" alt="sphere-painted-rgb"><br>sphere-painted-rgb</a>
+
+<a href="Imagine.Tests/input/sphere-painted-rgb-cartesian.png"><img src="Imagine.Tests/input/sphere-painted-rgb-cartesian.png" width="128" height="128" alt="sphere-painted-rgb-cartesian"><br>sphere-painted-rgb-cartesian</a>
+
+<a href="Imagine.Tests/input/sphere-painted-rgb-spherical.png"><img src="Imagine.Tests/input/sphere-painted-rgb-spherical.png" width="128" height="128" alt="sphere-painted-rgb-spherical"><br>sphere-painted-rgb-spherical</a>
+
+<a href="Imagine.Tests/input/tetrahedron-face-down.png"><img src="Imagine.Tests/input/tetrahedron-face-down.png" width="128" height="128" alt="tetrahedron-face-down"><br>tetrahedron-face-down</a>
+
+<a href="Imagine.Tests/input/tetrahedron-union.png"><img src="Imagine.Tests/input/tetrahedron-union.png" width="128" height="128" alt="tetrahedron-union"><br>tetrahedron-union</a>
+
+<a href="Imagine.Tests/input/tetrahedron-vertex-down.png"><img src="Imagine.Tests/input/tetrahedron-vertex-down.png" width="128" height="128" alt="tetrahedron-vertex-down"><br>tetrahedron-vertex-down</a>
+
+### Movies
+
+<a href="Imagine.Tests/input/cube-rotating.mp4"><img src="Imagine.Tests/input/cube-face-down.png" width="128" height="128" alt="cube-rotating"></a><br>cube-rotating
+
+<a href="Imagine.Tests/input/hsv.mp4"><img src="Imagine.Tests/input/hsv.png" width="128" height="128" alt="hsv"></a><br>hsv
+
+<a href="Imagine.Tests/input/rgb.mp4"><img src="Imagine.Tests/input/rgb.png" width="128" height="128" alt="rgb"></a><br>rgb
