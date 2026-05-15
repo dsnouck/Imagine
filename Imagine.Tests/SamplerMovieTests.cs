@@ -1,5 +1,6 @@
 namespace Imagine.Tests;
 
+[Collection(Constants.EmptyOutput)]
 public class SamplerMovieTests
 {
 	private static readonly MovieSettings MovieSettings =

@@ -89,3 +89,8 @@ Renders images and movies
 <a href="Imagine.Tests/input/hsv.mp4"><img src="Imagine.Tests/input/hsv.png" width="128" height="128" alt="hsv" align="middle">&nbsp;&nbsp;hsv</a>
 
 <a href="Imagine.Tests/input/cube-face-down-rotating.mp4"><img src="Imagine.Tests/input/cube-face-down.png" width="128" height="128" alt="cube-face-down-rotating" align="middle">&nbsp;&nbsp;cube-face-down-rotating</a>
+
+<a href="Imagine.Tests/input/icosahedron-face-down-fade-to-octahedron-vertex-down.mp4"><img src="Imagine.Tests/input/icosahedron-face-down.png" width="128" height="128" alt="icosahedron-face-down-fade-to-octahedron-vertex-down" align="middle">&nbsp;&nbsp;icosahedron-face-down-fade-to-octahedron-vertex-down</a>
+
+<a href="Imagine.Tests/input/icosahedron-face-down-with-octahedron-vertex-down-appearing.mp4"><img src="Imagine.Tests/input/icosahedron-face-down.png" width="128" height="128" alt="icosahedron-face-down-with-octahedron-vertex-down-appearing" align="middle">&nbsp;&nbsp;icosahedron-face-down-with-octahedron-vertex-down-appearing</a>
+
