@@ -1,5 +1,6 @@
 namespace Imagine.Tests;
 
+[Collection(Constants.EmptyOutput)]
 public class SamplerImageTests
 {
 	private static readonly ImageSettings ImageSettings =
