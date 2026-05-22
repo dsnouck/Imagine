@@ -14,6 +14,7 @@ public readonly record struct Color(float R, float G, float B)
 	public static Color Average(List<Color> colors) =>
 		new(colors.Average(color => color.R), colors.Average(color => color.G), colors.Average(color => color.B));
 
+	[ExcludeFromCodeCoverage]
 	public static Color operator +(Color left, Color right) =>
 		new(left.R + right.R, left.G + right.G, left.B + right.B);
 

@@ -1,6 +1,7 @@
 namespace Imagine.Tests;
 
 [Collection(Constants.EmptyOutput)]
+[ExcludeFromCodeCoverage]
 public class ProjectorMovieTests()
 {
 	[Fact(Skip = Constants.LongDuration)]
