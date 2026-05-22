@@ -26,7 +26,8 @@ public static class Saver
 		{
 			for (var column = 0; column < width; column++)
 			{
-				outputImage[column, row] = (Rgba32)image[row][column];
+				var color = (ColorBytes)image[row][column];
+				outputImage[column, row] = new Rgba32(color.R, color.G, color.B);
 			}
 		}
 
