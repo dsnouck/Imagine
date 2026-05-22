@@ -1,7 +1,5 @@
 namespace Imagine.Tools;
 
-using Color = Models.Color;
-
 public static class Saver
 {
 	private const string OutputDirectory = "output";
