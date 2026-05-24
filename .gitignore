@@ -483,3 +483,6 @@ $RECYCLE.BIN/
 
 # C# Dev Kit language service data cache
 *.lscache
+
+# Six Labors license file
+sixlabors.lic
