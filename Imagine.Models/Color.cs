@@ -8,19 +8,20 @@ public readonly record struct Color(float R, float G, float B)
 	public static readonly Color Red = new(1F, 0F, 0F);
 	public static readonly Color White = new(1F, 1F, 1F);
 
-	public static explicit operator Rgba32(Color value) =>
-		new(ToByte(value.R), ToByte(value.G), ToByte(value.B));
+	public static explicit operator ColorBytes(Color value) =>
+		new(AsByte(value.R), AsByte(value.G), AsByte(value.B));
 
 	public static Color Average(List<Color> colors) =>
 		new(colors.Average(color => color.R), colors.Average(color => color.G), colors.Average(color => color.B));
 
+	[ExcludeFromCodeCoverage]
 	public static Color operator +(Color left, Color right) =>
 		new(left.R + right.R, left.G + right.G, left.B + right.B);
 
 	public static Color operator *(Color left, float right) =>
 		new(left.R * right, left.G * right, left.B * right);
 
-	private static byte ToByte(float value)
+	private static byte AsByte(float value)
 	{
 		value = float.Clamp(value, 0F, 1F);
 

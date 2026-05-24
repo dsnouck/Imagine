@@ -1,7 +1,5 @@
 namespace Imagine.Tools;
 
-using Color = Models.Color;
-
 public static class Projector
 {
 	public static Func<Vector2, Color> Project(IScene scene, ProjectorSettings settings)

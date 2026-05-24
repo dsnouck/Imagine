@@ -12,6 +12,7 @@ public readonly record struct MovieSettings(
 	float ZMin,
 	float ZMax)
 {
+	[ExcludeFromCodeCoverage]
 	public MovieSettings(int frames, int width, int height, int subsamples, float zMin, float zMax)
 		: this(
 			  Frames: frames,
@@ -27,6 +28,7 @@ public readonly record struct MovieSettings(
 	{
 	}
 
+	[ExcludeFromCodeCoverage]
 	public MovieSettings(int frames, int width, int height, int subsamples)
 		: this(
 			  frames: frames,

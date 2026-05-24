@@ -1,7 +1,5 @@
 namespace Imagine.Tools;
 
-using Color = Models.Color;
-
 public static class Sampler
 {
 	public static List<List<Color>> Sample(Func<Vector2, ColorHsv> function, ImageSettings settings)
