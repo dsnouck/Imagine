@@ -2,16 +2,16 @@ namespace Imagine.Tests;
 
 public class EmptyOutputFixture : IAsyncLifetime
 {
-	public Task InitializeAsync()
+	public ValueTask InitializeAsync()
 	{
 		if (Directory.Exists(Constants.OutputDirectory))
 		{
 			Directory.Delete(Constants.OutputDirectory, recursive: true);
 		}
 
-		return Task.CompletedTask;
+		return ValueTask.CompletedTask;
 	}
 
-	public Task DisposeAsync() =>
-		Task.CompletedTask;
+	public ValueTask DisposeAsync() =>
+		ValueTask.CompletedTask;
 }
