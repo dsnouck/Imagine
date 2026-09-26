@@ -364,6 +364,9 @@ dotnet_naming_style.s_camelcase.capitalization = camel_case
 
 #### Suppressions ####
 
+# S2234: Arguments should be passed in the same order as the method parameters
+dotnet_diagnostic.S2234.severity = none
+
 # S6608: Prefer indexing instead of "Enumerable" methods on types implementing "IList"
 dotnet_diagnostic.S6608.severity = none
 
