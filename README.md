@@ -82,6 +82,8 @@ Renders images and movies
 
 <a href="Imagine.Tests/input/sphere-painted-hsv-spherical.png"><img src="Imagine.Tests/input/sphere-painted-hsv-spherical.png" width="128" height="128" alt="sphere-painted-hsv-spherical" align="middle">&nbsp;&nbsp;sphere-painted-hsv-spherical</a>
 
+<a href="Imagine.Tests/input/menger-sponge.png"><img src="Imagine.Tests/input/menger-sponge.png" width="128" height="128" alt="menger-sponge" align="middle">&nbsp;&nbsp;menger-sponge</a>
+
 ### Movies
 
 <a href="Imagine.Tests/input/rgb.mp4"><img src="Imagine.Tests/input/rgb.png" width="128" height="128" alt="rgb" align="middle">&nbsp;&nbsp;rgb</a>
