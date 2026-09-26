@@ -48,7 +48,7 @@ public static class Saver
 		{
 			StartInfo = new()
 			{
-				FileName = "ffmpeg",
+				FileName = "/usr/bin/ffmpeg",
 				Arguments = $"-y -framerate 30 -i {FramesDirectory}/{name}-%04d.png -c:v libx264 -pix_fmt yuv420p {file}",
 				RedirectStandardOutput = true,
 				RedirectStandardError = true,
