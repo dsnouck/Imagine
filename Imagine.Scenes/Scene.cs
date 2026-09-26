@@ -249,11 +249,6 @@ public static class Scene
 
 		static List<List<BeamParameters>> AllBeamParameters(float inradius, int iterations)
 		{
-			if (iterations == 0)
-			{
-				return [];
-			}
-
 			static List<BeamParameters> NextBeamParameters(BeamParameters beamParameters)
 			{
 				var centerOffset = 2F * beamParameters.Inradius;
