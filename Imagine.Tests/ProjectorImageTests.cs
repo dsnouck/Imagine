@@ -90,6 +90,8 @@ public class ProjectorImageTests
 					Scene.DodecahedronVertexDownWithMidradius(Constants.DodecahedronIcosahedronMidradius)),
 			["icosahedron-vertex-down"] =
 				Scene.IcosahedronVertexDownWithCircumradius(Constants.Circumradius),
+			["menger-sponge"] =
+				Scene.MengerSpongeWithCircumradius(Constants.Circumradius, holes: 2, colors: 2),
 			["octahedron-face-down"] =
 				Scene.OctahedronFaceDownWithCircumradius(Constants.Circumradius),
 			["octahedron-face-down-cube-vertex-down-union"] =

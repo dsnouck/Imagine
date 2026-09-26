@@ -240,6 +240,115 @@ public static class Scene
 	public static IScene Intersection(params List<IScene> scenes) =>
 		scenes.Aggregate(Full(), IntersectedWith);
 
+	public static IScene MengerSpongeWithCircumradius(float circumradius, int holes, int colors) =>
+		MengerSpongeWithInradius(circumradius * Scene.CubeInradius / Scene.CubeCircumradius, holes, colors);
+
+	public static IScene MengerSpongeWithInradius(float inradius, int holes, int colors)
+	{
+		var iterations = holes + colors;
+
+		static List<List<BeamParameters>> AllBeamParameters(float inradius, int iterations)
+		{
+			if (iterations == 0)
+			{
+				return [];
+			}
+
+			static List<BeamParameters> NextBeamParameters(BeamParameters beamParameters)
+			{
+				var centerOffset = 2F * beamParameters.Inradius;
+				var nextInradius = beamParameters.Inradius / 3F;
+
+				return
+					[
+						new BeamParameters(beamParameters.Center + new Vector2(-centerOffset, -centerOffset), nextInradius),
+						new BeamParameters(beamParameters.Center + new Vector2(-centerOffset, 0F), nextInradius),
+						new BeamParameters(beamParameters.Center + new Vector2(-centerOffset, centerOffset), nextInradius),
+						new BeamParameters(beamParameters.Center + new Vector2(0F, -centerOffset), nextInradius),
+						new BeamParameters(beamParameters.Center + new Vector2(0F, centerOffset), nextInradius),
+						new BeamParameters(beamParameters.Center + new Vector2(centerOffset, -centerOffset), nextInradius),
+						new BeamParameters(beamParameters.Center + new Vector2(centerOffset, 0F), nextInradius),
+						new BeamParameters(beamParameters.Center + new Vector2(centerOffset, centerOffset), nextInradius),
+					];
+			}
+
+			List<BeamParameters> currentIteration = [new(Vector2.Zero, inradius / 3F)];
+			List<List<BeamParameters>> result = [currentIteration];
+			for (var i = 1; i < iterations; i++)
+			{
+				currentIteration = [.. currentIteration.SelectMany(NextBeamParameters)];
+				result.Add(currentIteration);
+			}
+
+			return result;
+		}
+
+		static List<IScene> BeamScenes(BeamParameters beamParameters) =>
+			[
+				Scene.Polyhedron(
+					new Vector3(0F, beamParameters.Inradius, 0F),
+					new Vector3(0F, 0F, beamParameters.Inradius),
+					new Vector3(0F, -beamParameters.Inradius, 0F),
+					new Vector3(0F, 0F, -beamParameters.Inradius))
+					.Translated(new Vector3(0F, beamParameters.Center.X, beamParameters.Center.Y)),
+				Scene.Polyhedron(
+					new Vector3(beamParameters.Inradius, 0F, 0F),
+					new Vector3(0F, 0F, beamParameters.Inradius),
+					new Vector3(-beamParameters.Inradius, 0F, 0F),
+					new Vector3(0F, 0F, -beamParameters.Inradius))
+					.Translated(new Vector3(beamParameters.Center.X, 0F, beamParameters.Center.Y)),
+				Scene.Polyhedron(
+					new Vector3(beamParameters.Inradius, 0F, 0F),
+					new Vector3(0F, beamParameters.Inradius, 0F),
+					new Vector3(-beamParameters.Inradius, 0F, 0F),
+					new Vector3(0F, -beamParameters.Inradius, 0F))
+					.Translated(new Vector3(beamParameters.Center.X, beamParameters.Center.Y, 0F)),
+			];
+
+		static List<Func<Vector3, Color?>> MaybePainted(BeamParameters beamParameters, Color color)
+		{
+			var min0 = beamParameters.Center.X - beamParameters.Inradius;
+			var max0 = beamParameters.Center.X + beamParameters.Inradius;
+			var min1 = beamParameters.Center.Y - beamParameters.Inradius;
+			var max1 = beamParameters.Center.Y + beamParameters.Inradius;
+
+			return
+				[
+					point => min0 <= point.Y && point.Y <= max0 && min1 <= point.Z && point.Z <= max1 ? color : null,
+					point => min0 <= point.Z && point.Z <= max0 && min1 <= point.X && point.X <= max1 ? color : null,
+					point => min0 <= point.X && point.X <= max0 && min1 <= point.Y && point.Y <= max1 ? color : null,
+				];
+		}
+
+		var allBeamParameters = AllBeamParameters(inradius, iterations);
+
+		var beamScenes = allBeamParameters
+			.Take(holes)
+			.SelectMany(iteration => iteration)
+			.SelectMany(BeamScenes)
+			.ToList();
+
+		var paintedBeams = allBeamParameters
+			.Skip(holes)
+			.Select((iteration, index) =>
+				(Iteration: iteration, Color: (Color)new ColorHsv((index + 1F) / colors, 1F, 1F)))
+			.SelectMany(iterationAndColor =>
+				iterationAndColor.Iteration
+					.SelectMany(beamParameters => MaybePainted(beamParameters, iterationAndColor.Color)))
+			.ToList();
+
+		Color Colors(Vector3 point) =>
+			paintedBeams
+				.Select(color => color(point))
+				.FirstOrDefault(color => color is not null)
+			?? Color.Black;
+
+		return Scene.Intersection(
+			Scene.CubeFaceDownWithInradius(inradius),
+			Scene.Union(beamScenes).Inverted())
+			.Painted(Colors);
+	}
+
 	public static IScene OctahedronFaceDownWithCircumradius(float circumradius) =>
 		OctahedronFaceDownWithInradius(circumradius * OctahedronInradius / OctahedronCircumradius);
 
@@ -351,6 +460,8 @@ public static class Scene
 
 	public static IScene Union(params List<IScene> scenes) =>
 		scenes.Aggregate(Empty(), UnitedWith);
+
+	private readonly record struct BeamParameters(Vector2 Center, float Inradius);
 
 	extension(IScene source)
 	{
