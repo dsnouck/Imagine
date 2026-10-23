@@ -1,6 +1,6 @@
 namespace Imagine.Tests;
 
-[Collection(Constants.EmptyOutput)]
+[TestClass]
 public class SamplerImageTests
 {
 	private static readonly ImageSettings ImageSettings =
@@ -13,7 +13,7 @@ public class SamplerImageTests
 			YMin: 0F,
 			YMax: 1F);
 
-	[Fact]
+	[TestMethod]
 	public void SamplerImageHsv()
 	{
 		const string name = "hsv";
@@ -36,7 +36,7 @@ public class SamplerImageTests
 		outputFile.ShouldHaveSameContentAs(inputFile);
 	}
 
-	[Fact]
+	[TestMethod]
 	public void SamplerImageRgb()
 	{
 		const string name = "rgb";

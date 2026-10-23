@@ -1,6 +1,6 @@
 namespace Imagine.Tests;
 
-[Collection(Constants.EmptyOutput)]
+[TestClass]
 public class ProjectorImageTests
 {
 	private static readonly ProjectorSettings ProjectorSettings =
@@ -90,8 +90,6 @@ public class ProjectorImageTests
 					Scene.DodecahedronVertexDownWithMidradius(Constants.DodecahedronIcosahedronMidradius)),
 			["icosahedron-vertex-down"] =
 				Scene.IcosahedronVertexDownWithCircumradius(Constants.Circumradius),
-			["menger-sponge"] =
-				Scene.MengerSpongeWithCircumradius(Constants.Circumradius, holes: 2, colors: 2),
 			["octahedron-face-down"] =
 				Scene.OctahedronFaceDownWithCircumradius(Constants.Circumradius),
 			["octahedron-face-down-cube-vertex-down-union"] =
@@ -158,15 +156,33 @@ public class ProjectorImageTests
 				Scene.TetrahedronVertexDownWithCircumradius(Constants.Circumradius),
 		};
 
-	[ExcludeFromCodeCoverage]
-	public static TheoryData<string> Names =>
-		[.. Scenes.Keys];
+	private static readonly Dictionary<string, IScene> ScenesLongDuration =
+		new()
+		{
+			["menger-sponge"] =
+				Scene.MengerSpongeWithCircumradius(Constants.Circumradius, holes: 2, colors: 2),
+		};
 
-	[Theory]
-	[MemberData(nameof(Names))]
-	public void ProjectorImage(string name)
+	public static IEnumerable<object[]> Names =>
+		Scenes.Keys.Select(name => new[] { name });
+
+	public static IEnumerable<object[]> NamesLongDuration =>
+		ScenesLongDuration.Keys.Select(name => new[] { name });
+
+	[TestMethod]
+	[DynamicData(nameof(Names))]
+	public void ProjectorImage(string name) =>
+		ProjectorImage(name, Scenes[name]);
+
+	[TestMethod]
+	[DynamicData(nameof(NamesLongDuration))]
+	[Ignore(Justification.TakesALongTimeToRun)]
+	[ExcludeFromCodeCoverage(Justification = Justification.IsIgnored)]
+	public void ProjectorImageLongDuration(string name) =>
+		ProjectorImage(name, ScenesLongDuration[name]);
+
+	private static void ProjectorImage(string name, IScene scene)
 	{
-		var scene = Scenes[name];
 		var inputFile = $"{Constants.InputDirectory}/{name}.png";
 
 		var projection = Projector.Project(scene, ProjectorSettings);

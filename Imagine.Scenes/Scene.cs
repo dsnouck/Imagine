@@ -238,11 +238,13 @@ public static class Scene
 		IcosahedronVertexDownWithInradius(midradius * IcosahedronInradius / IcosahedronMidradius);
 
 	public static IScene Intersection(params List<IScene> scenes) =>
-		scenes.Aggregate(Full(), IntersectedWith);
+		scenes.Aggregate(Full(), (scene, otherScene) => scene.IntersectedWith(otherScene));
 
+	[ExcludeFromCodeCoverage(Justification = Justification.IsOnlyUsedByIgnoredTests)]
 	public static IScene MengerSpongeWithCircumradius(float circumradius, int holes, int colors) =>
-		MengerSpongeWithInradius(circumradius * Scene.CubeInradius / Scene.CubeCircumradius, holes, colors);
+		MengerSpongeWithInradius(circumradius * CubeInradius / CubeCircumradius, holes, colors);
 
+	[ExcludeFromCodeCoverage(Justification = Justification.IsOnlyUsedByIgnoredTests)]
 	public static IScene MengerSpongeWithInradius(float inradius, int holes, int colors)
 	{
 		var iterations = holes + colors;
@@ -280,19 +282,19 @@ public static class Scene
 
 		static List<IScene> BeamScenes(BeamParameters beamParameters) =>
 			[
-				Scene.Polyhedron(
+				Polyhedron(
 					new Vector3(0F, beamParameters.Inradius, 0F),
 					new Vector3(0F, 0F, beamParameters.Inradius),
 					new Vector3(0F, -beamParameters.Inradius, 0F),
 					new Vector3(0F, 0F, -beamParameters.Inradius))
 					.Translated(new Vector3(0F, beamParameters.Center.X, beamParameters.Center.Y)),
-				Scene.Polyhedron(
+				Polyhedron(
 					new Vector3(beamParameters.Inradius, 0F, 0F),
 					new Vector3(0F, 0F, beamParameters.Inradius),
 					new Vector3(-beamParameters.Inradius, 0F, 0F),
 					new Vector3(0F, 0F, -beamParameters.Inradius))
 					.Translated(new Vector3(beamParameters.Center.X, 0F, beamParameters.Center.Y)),
-				Scene.Polyhedron(
+				Polyhedron(
 					new Vector3(beamParameters.Inradius, 0F, 0F),
 					new Vector3(0F, beamParameters.Inradius, 0F),
 					new Vector3(-beamParameters.Inradius, 0F, 0F),
@@ -338,9 +340,9 @@ public static class Scene
 				.FirstOrDefault(color => color is not null)
 			?? Color.Black;
 
-		return Scene.Intersection(
-			Scene.CubeFaceDownWithInradius(inradius),
-			Scene.Union(beamScenes).Inverted())
+		return Intersection(
+			CubeFaceDownWithInradius(inradius),
+			Union(beamScenes).Inverted())
 			.Painted(Colors);
 	}
 
@@ -454,55 +456,7 @@ public static class Scene
 		TetrahedronVertexDownWithInradius(midradius * TetrahedronInradius / TetrahedronMidradius);
 
 	public static IScene Union(params List<IScene> scenes) =>
-		scenes.Aggregate(Empty(), UnitedWith);
+		scenes.Aggregate(Empty(), (scene, otherScene) => scene.UnitedWith(otherScene));
 
 	private readonly record struct BeamParameters(Vector2 Center, float Inradius);
-
-	extension(IScene source)
-	{
-		public IScene IntersectedWith(IScene scene) =>
-			new Intersection(source, scene);
-
-		public IScene Inverted() =>
-			new Inverted(source);
-
-		public IScene Painted(Func<Vector3, Color> colors) =>
-			new Painted(source, colors);
-
-		public IScene Painted(Func<Vector3Spherical, Color> colors) =>
-			new Painted(source, colors);
-
-		public IScene Painted(Color color) =>
-			new Painted(source, color);
-
-		public IScene Painted(Func<Vector3, ColorHsv> colors) =>
-			new Painted(source, colors);
-
-		public IScene Painted(Func<Vector3Spherical, ColorHsv> colors) =>
-			new Painted(source, colors);
-
-		public IScene Painted(ColorHsv color) =>
-			new Painted(source, color);
-
-		public IScene Rotated(float angle) =>
-			source.Rotated(Vector3.UnitZ, angle);
-
-		public IScene Rotated(Vector3 axis, float angle) =>
-			source.Transformed(Matrix4.Rotation(axis, angle), Matrix4.Rotation(axis, -angle));
-
-		public IScene Scaled(float factor) =>
-			source.Transformed(Matrix4.Scaling(factor), Matrix4.Scaling(1F / factor));
-
-		public IScene Transformed(Matrix4 forward, Matrix4 backward) =>
-			new Transformed(source, forward, backward);
-
-		public IScene Translated(Vector3 translation) =>
-			source.Transformed(Matrix4.Translation(translation), Matrix4.Translation(-translation));
-
-		public IScene Transparent() =>
-			new Transparent(source);
-
-		public IScene UnitedWith(IScene scene) =>
-			new Union(source, scene);
-	}
 }

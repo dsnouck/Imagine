@@ -1,6 +1,6 @@
 namespace Imagine.Tests;
 
-[Collection(Constants.EmptyOutput)]
+[TestClass]
 public class SamplerMovieTests
 {
 	private static readonly MovieSettings MovieSettings =
@@ -16,7 +16,7 @@ public class SamplerMovieTests
 			ZMin: 0F,
 			ZMax: 2F);
 
-	[Fact]
+	[TestMethod]
 	public void SamplerMovieHsv()
 	{
 		const string name = "hsv";
@@ -40,7 +40,7 @@ public class SamplerMovieTests
 		File.Exists(outputFile).Should().BeTrue();
 	}
 
-	[Fact]
+	[TestMethod]
 	public void SamplerMovieRgb()
 	{
 		const string name = "rgb";

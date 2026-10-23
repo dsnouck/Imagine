@@ -364,6 +364,9 @@ dotnet_naming_style.s_camelcase.capitalization = camel_case
 
 #### Suppressions ####
 
+# Enable style analyzer diagnostics solution-wide
+dotnet_analyzer_diagnostic.category-Style.severity = warning
+
 # S2234: Arguments should be passed in the same order as the method parameters
 dotnet_diagnostic.S2234.severity = none
 

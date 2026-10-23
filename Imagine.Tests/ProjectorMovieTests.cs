@@ -1,11 +1,12 @@
 namespace Imagine.Tests;
 
-[Collection(Constants.EmptyOutput)]
-[ExcludeFromCodeCoverage]
+[TestClass]
+[Ignore(Justification.TakesALongTimeToRun)]
+[ExcludeFromCodeCoverage(Justification = Justification.IsIgnored)]
 public class ProjectorMovieTests()
 {
-	[Fact(Skip = Constants.LongDuration)]
-	public void ProjectorMovieCubeFaceDownRotating()
+	[TestMethod]
+	public void ProjectorMovieCubeFaceDownRotatingLongDuration()
 	{
 		const string name = "cube-face-down-rotating";
 
@@ -35,8 +36,8 @@ public class ProjectorMovieTests()
 		File.Exists(outputFile).Should().BeTrue();
 	}
 
-	[Fact(Skip = Constants.LongDuration)]
-	public void ProjectorMovieIcosahedronFaceDownFadeToOctahedronVertexDown()
+	[TestMethod]
+	public void ProjectorMovieIcosahedronFaceDownFadeToOctahedronVertexDownLongDuration()
 	{
 		const string name = "icosahedron-face-down-fade-to-octahedron-vertex-down";
 
@@ -82,8 +83,8 @@ public class ProjectorMovieTests()
 		File.Exists(outputFile).Should().BeTrue();
 	}
 
-	[Fact(Skip = Constants.LongDuration)]
-	public void ProjectorMovieIcosahedronFaceDownWithOctahedronVertexDownAppearing()
+	[TestMethod]
+	public void ProjectorMovieIcosahedronFaceDownWithOctahedronVertexDownAppearingLongDuration()
 	{
 		const string name = "icosahedron-face-down-with-octahedron-vertex-down-appearing";
 
