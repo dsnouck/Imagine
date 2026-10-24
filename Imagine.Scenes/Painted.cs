@@ -1,6 +1,6 @@
 namespace Imagine.Scenes;
 
-internal class Painted(IScene scene, Func<Vector3, Color> colors) : IScene
+internal sealed class Painted(IScene scene, Func<Vector3, Color> colors) : IScene
 {
 	internal Painted(IScene scene, Func<Vector3Spherical, Color> colors)
 		: this(scene, (Vector3 point) => colors((Vector3Spherical)point))

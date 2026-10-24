@@ -364,8 +364,11 @@ dotnet_naming_style.s_camelcase.capitalization = camel_case
 
 #### Suppressions ####
 
-# Enable style analyzer diagnostics solution-wide
-dotnet_analyzer_diagnostic.category-Style.severity = warning
+# Enable all analyzer diagnostics solution-wide
+dotnet_analyzer_diagnostic.severity = warning
+
+# CA1860: Prefer comparing Count to 0 rather than using Any()
+dotnet_diagnostic.CA1860.severity = none
 
 # S2234: Arguments should be passed in the same order as the method parameters
 dotnet_diagnostic.S2234.severity = none

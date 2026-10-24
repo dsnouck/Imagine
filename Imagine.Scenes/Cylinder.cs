@@ -1,6 +1,6 @@
 namespace Imagine.Scenes;
 
-internal class Cylinder(Vector3 axis, float radius) : IScene
+internal sealed class Cylinder(Vector3 axis, float radius) : IScene
 {
 	private readonly Vector3 axisNormalized = axis.Normalized();
 

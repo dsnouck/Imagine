@@ -1,6 +1,6 @@
 namespace Imagine.Scenes;
 
-internal class Sphere(float radius) : IScene
+internal sealed class Sphere(float radius) : IScene
 {
 	public bool Contains(Vector3 point) =>
 		point.Dot(point) <= radius * radius;

@@ -1,6 +1,6 @@
 namespace Imagine.Scenes;
 
-internal class Transformed(IScene scene, Matrix4 forward, Matrix4 backward) : IScene
+internal sealed class Transformed(IScene scene, Matrix4 forward, Matrix4 backward) : IScene
 {
 	public bool Contains(Vector3 point) =>
 		scene.Contains(BackwardPoint(point));
