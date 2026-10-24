@@ -176,8 +176,8 @@ public class ProjectorImageTests
 
 	[TestMethod]
 	[DynamicData(nameof(NamesLongDuration))]
-	[Ignore(Justification.TakesALongTimeToRun)]
-	[ExcludeFromCodeCoverage(Justification = Justification.IsIgnored)]
+	[Ignore(Justifications.TakesALongTimeToRun)]
+	[ExcludeFromCodeCoverage(Justification = Justifications.IsIgnored)]
 	public void ProjectorImageLongDuration(string name) =>
 		ProjectorImage(name, ScenesLongDuration[name]);
 

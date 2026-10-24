@@ -240,11 +240,11 @@ public static class Scene
 	public static IScene Intersection(params List<IScene> scenes) =>
 		scenes.Aggregate(Full(), (scene, otherScene) => scene.IntersectedWith(otherScene));
 
-	[ExcludeFromCodeCoverage(Justification = Justification.IsOnlyUsedByIgnoredTests)]
+	[ExcludeFromCodeCoverage(Justification = Justifications.IsOnlyUsedByIgnoredTests)]
 	public static IScene MengerSpongeWithCircumradius(float circumradius, int holes, int colors) =>
 		MengerSpongeWithInradius(circumradius * CubeInradius / CubeCircumradius, holes, colors);
 
-	[ExcludeFromCodeCoverage(Justification = Justification.IsOnlyUsedByIgnoredTests)]
+	[ExcludeFromCodeCoverage(Justification = Justifications.IsOnlyUsedByIgnoredTests)]
 	public static IScene MengerSpongeWithInradius(float inradius, int holes, int colors)
 	{
 		var iterations = holes + colors;

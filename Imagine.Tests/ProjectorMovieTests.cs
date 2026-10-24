@@ -1,8 +1,8 @@
 namespace Imagine.Tests;
 
 [TestClass]
-[Ignore(Justification.TakesALongTimeToRun)]
-[ExcludeFromCodeCoverage(Justification = Justification.IsIgnored)]
+[Ignore(Justifications.TakesALongTimeToRun)]
+[ExcludeFromCodeCoverage(Justification = Justifications.IsIgnored)]
 public class ProjectorMovieTests()
 {
 	[TestMethod]
