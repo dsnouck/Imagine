@@ -6,6 +6,8 @@ public static class EmptyOutputDirectory
 	[AssemblyInitialize]
 	public static void AssemblyInitialize(TestContext context)
 	{
+		_ = context;
+
 		if (Directory.Exists(Constants.OutputDirectory))
 		{
 			foreach (var path in Directory.EnumerateFileSystemEntries(Constants.OutputDirectory))
