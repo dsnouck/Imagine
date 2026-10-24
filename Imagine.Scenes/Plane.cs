@@ -1,6 +1,6 @@
 namespace Imagine.Scenes;
 
-internal class Plane(Vector3 normal) : IScene
+internal sealed class Plane(Vector3 normal) : IScene
 {
 	private const float Epsilon = 0.001F;
 

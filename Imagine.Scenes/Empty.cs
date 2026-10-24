@@ -1,6 +1,6 @@
 namespace Imagine.Scenes;
 
-internal class Empty : IScene
+internal sealed class Empty : IScene
 {
 	public bool Contains(Vector3 point) =>
 		false;

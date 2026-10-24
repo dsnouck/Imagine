@@ -362,7 +362,13 @@ dotnet_naming_style.s_camelcase.required_suffix =
 dotnet_naming_style.s_camelcase.word_separator =
 dotnet_naming_style.s_camelcase.capitalization = camel_case
 
+# Enable all analyzer diagnostics solution-wide
+dotnet_analyzer_diagnostic.severity = warning
+
 #### Suppressions ####
+
+# CA1860: Prefer comparing Count to 0 rather than using Any()
+dotnet_diagnostic.CA1860.severity = none
 
 # S2234: Arguments should be passed in the same order as the method parameters
 dotnet_diagnostic.S2234.severity = none
@@ -387,9 +393,6 @@ dotnet_diagnostic.SA1027.severity = none
 
 # SA1101: Prefix local calls with this
 dotnet_diagnostic.SA1101.severity = none
-
-# SA1201: Elements should appear in the correct order
-dotnet_diagnostic.SA1201.severity = none
 
 # SA1313: Parameter names should begin with lower-case letter
 dotnet_diagnostic.SA1313.severity = none

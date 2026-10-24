@@ -1,6 +1,6 @@
 namespace Imagine.Scenes;
 
-internal class Cone(Vector3 axis, float angle) : IScene
+internal sealed class Cone(Vector3 axis, float angle) : IScene
 {
 	private readonly Vector3 axisNormalized = axis.Normalized();
 	private readonly float k = (1F + float.Cos(angle)) / 2F;
