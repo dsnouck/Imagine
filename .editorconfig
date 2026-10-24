@@ -362,10 +362,10 @@ dotnet_naming_style.s_camelcase.required_suffix =
 dotnet_naming_style.s_camelcase.word_separator =
 dotnet_naming_style.s_camelcase.capitalization = camel_case
 
-#### Suppressions ####
-
 # Enable all analyzer diagnostics solution-wide
 dotnet_analyzer_diagnostic.severity = warning
+
+#### Suppressions ####
 
 # CA1860: Prefer comparing Count to 0 rather than using Any()
 dotnet_diagnostic.CA1860.severity = none
