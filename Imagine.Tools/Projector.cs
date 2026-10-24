@@ -41,8 +41,17 @@ public static class Projector
 	{
 		var viewingDirection = (settings.Focus - settings.Eye).Normalized();
 		var centerScreen = settings.Eye + viewingDirection;
-		var xVector = viewingDirection.Cross(Vector3.UnitZ).Normalized();
-		var yVector = xVector.Cross(viewingDirection).Normalized();
+		var horizontalViewingDirection = new Vector3(viewingDirection.X, viewingDirection.Y, 0F);
+		var horizontalLength = horizontalViewingDirection.Length();
+		horizontalViewingDirection /= horizontalLength;
+		var xVector = new Vector3(
+			horizontalViewingDirection.Y,
+			-horizontalViewingDirection.X,
+			0F);
+		var yVector = new Vector3(
+			-horizontalViewingDirection.X * viewingDirection.Z,
+			-horizontalViewingDirection.Y * viewingDirection.Z,
+			horizontalLength);
 		var halfScreenExtent = float.Tan(settings.HalfOpeningAngle);
 		xVector *= halfScreenExtent;
 		yVector *= halfScreenExtent;

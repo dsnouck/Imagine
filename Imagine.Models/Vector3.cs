@@ -16,9 +16,6 @@ public readonly record struct Vector3(float X, float Y, float Z)
 	public static explicit operator Vector2(Vector3 value) =>
 		new(value.X, value.Y);
 
-	public readonly Vector3 Cross(Vector3 other) =>
-		new((Y * other.Z) - (Z * other.Y), (Z * other.X) - (X * other.Z), (X * other.Y) - (Y * other.X));
-
 	public readonly float Dot(Vector3 other) =>
 		(X * other.X) + (Y * other.Y) + (Z * other.Z);
 
