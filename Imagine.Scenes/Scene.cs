@@ -457,6 +457,4 @@ public static class Scene
 
 	public static IScene Union(params List<IScene> scenes) =>
 		scenes.Aggregate(Empty(), (scene, otherScene) => scene.UnitedWith(otherScene));
-
-	private readonly record struct BeamParameters(Vector2 Center, float Inradius);
 }

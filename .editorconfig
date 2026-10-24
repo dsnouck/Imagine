@@ -394,9 +394,6 @@ dotnet_diagnostic.SA1027.severity = none
 # SA1101: Prefix local calls with this
 dotnet_diagnostic.SA1101.severity = none
 
-# SA1201: Elements should appear in the correct order
-dotnet_diagnostic.SA1201.severity = none
-
 # SA1313: Parameter names should begin with lower-case letter
 dotnet_diagnostic.SA1313.severity = none
 
